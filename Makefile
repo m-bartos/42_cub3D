@@ -2,7 +2,7 @@
 CC = gcc
 
 # Compiler flags
-CFLAGS = -Wall -Wextra -Werror -I/opt/X11/include
+CFLAGS = -Wall -Wextra -Werror -I/opt/X11/include -I/opt/homebrew/include
 
 # Directories
 SRC_DIR = src
@@ -36,7 +36,7 @@ all: $(EXEC)
 
 # Link the executable
 $(EXEC): $(OBJ_FILES) $(LIBFT_LIB) $(MLX42_LIB)
-	$(CC) $(CFLAGS) -o $@ $^ -L$(MLX42_DIR)/build -lmlx42 -L/opt/X11/lib -lX11 -lXext -lpthread -lm -ldl
+	$(CC) $(CFLAGS) -o $@ $^ -L$(MLX42_DIR)/build -lmlx42 -L/opt/X11/lib -lX11 -lXext -L/opt/homebrew/lib -lglfw -lpthread -lm -ldl
 
 # Compile source files
 $(OBJ_DIR_SRC)/%.o: $(SRC_DIR)/%.c
