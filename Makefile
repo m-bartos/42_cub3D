@@ -9,7 +9,7 @@ SRC_DIR = src
 UTILS_DIR = utils
 OBJ_DIR_SRC = $(SRC_DIR)/obj_files
 OBJ_DIR_UTILS = $(UTILS_DIR)/obj_files
-LIBFT_DIR = 42_libft
+LIBFT_DIR = 42_Libft
 MLX42_DIR = MLX42
 
 # Source files
@@ -29,7 +29,7 @@ LIBFT_LIB = $(LIBFT_DIR)/libft.a
 MLX42_LIB = $(MLX42_DIR)/build/libmlx42.a
 
 # Executable
-EXEC = cube
+EXEC = cub3D
 
 # Default target
 all: $(EXEC)
