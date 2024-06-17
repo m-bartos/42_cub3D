@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:46:56 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/17 19:52:36 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/17 23:05:48 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 
 # define WIDTH 512
 # define HEIGHT 512
-
+# define SQUARE_SIZE 64
 // MLX42 Drawing functions
 
 //Bresenham’s line algorithm

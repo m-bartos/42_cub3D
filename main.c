@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:44:52 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/17 19:55:34 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/18 01:05:04 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ unsigned int get_rgba(unsigned int r, unsigned int g, unsigned int b, unsigned i
 
 void	clear_square(mlx_image_t *image, int x, int y)
 {
-	int SQUARE_SIZE = 64;
 	unsigned int b_color = get_rgba(0, 10, 139, 255);
 
 	for (int i = 0; i < SQUARE_SIZE; i++)
@@ -39,23 +38,85 @@ void	clear_square(mlx_image_t *image, int x, int y)
 	}
 }
 
+int FixAng(int a)
+{
+	if(a > 359)
+	{
+		a -= 360;
+	}
+	if(a < 0)
+	{
+		a += 360;
+	}
+	return a;
+}
+// Convert degrees to radians
+float degToRad(int a)
+{
+	return a * M_PI / 180.0;
+}
+// What does it do?
+// float distance(ax,ay,bx,by,ang)
+// {
+// 	return cos(degToRad(ang))*(bx-ax)-sin(degToRad(ang))*(by-ay);
+// }
+
 void	move_player(mlx_key_data_t key, void *param)
 {
 	// starting player coordinates
 	static int x = 600;
 	static int y = 600;
+	static double pdx;
+	static double pdy;
+	static int pa = 90;
+	pdx = cos(degToRad(pa));
+	pdy = sin(degToRad(pa));
 	unsigned int color = get_rgba(0, 255, 0, 255);
 	mlx_image_t *background = (mlx_image_t *) param;
-	clear_square(background, x, y);
+	//clear_square(background, x, y);
+	draw_line(background, x, y, x+pdx*100, y+pdy*100, get_rgba(0, 10, 139, 255));
+	//draw_line(background, x, y, x+pdx*100, y+pdy*100, color);
 	if ((key.action == MLX_PRESS  || key.action == MLX_REPEAT) && key.key == MLX_KEY_D)
-		x += 5;
+		x += 25;
 	else if ((key.action == MLX_PRESS  || key.action == MLX_REPEAT) && key.key == MLX_KEY_A)
-		x -= 5;
+		x -= 25;
 	else if ((key.action == MLX_PRESS  || key.action == MLX_REPEAT) && key.key == MLX_KEY_W)
-		y -= 5;
+		y -= 25;
 	else if ((key.action == MLX_PRESS  || key.action == MLX_REPEAT) && key.key == MLX_KEY_S)
-		y += 5;
-	draw_square(background, x, y, color);
+	{
+		y-=pdy*15;
+		x-= pdx*15;
+	}
+	else if ((key.action == MLX_PRESS  || key.action == MLX_REPEAT) && key.key == MLX_KEY_LEFT)
+	{
+		pa += 15;
+		pa = FixAng(pa);
+		pdx = cos(degToRad(pa));
+		pdy = sin(degToRad(pa));
+		printf("LX: %d\n", x);
+		printf("LY: %d\n", x);
+		printf("LPA: %d\n", pa);
+		printf("LPDX: %f\n", pdx);
+		printf("LPDY: %f\n", pdy);
+	}
+	else if ((key.action == MLX_PRESS  || key.action == MLX_REPEAT) && key.key == MLX_KEY_RIGHT)
+	{
+		pa -= 15;
+		pa = FixAng(pa);
+		pdx = cos(degToRad(pa));
+		pdy = sin(degToRad(pa));
+		printf("RX: %d\n", x);
+		printf("RY: %d\n", x);
+		printf("RPA: %d\n", pa);
+		printf("RPDX: %f\n", pdx);
+		printf("RPDY: %f\n", pdy);
+	}
+	//draw_square(background, x, y, color);
+	draw_line(background, x, y, x+pdx*100, y+pdy*100, color);
+	printf("StartX: %f\n", x+pdx);
+	printf("StartY: %f\n", y+pdy);
+	printf("EndX: %f\n", x+pdx*100);
+	printf("EndY: %f\n", y+pdy*100);
 }
 
 // void rotate_player(mlx_key_data_t key, void *param)
@@ -113,11 +174,11 @@ int	main(void)
 	int h = 1200;
 	//unsigned int p_color = get_rgba(255, 255, 0, 255);
 	unsigned int b_color = get_rgba(0, 10, 139, 255);
-	unsigned int p_color = get_rgba(0, 255, 0, 255);
+	//unsigned int p_color = get_rgba(0, 255, 0, 255);
 	#define BPP sizeof(int32_t)
 	mlx_t *mlx;
 	mlx = mlx_init(w, h, "Ray Caster", true);
-	mlx_keyfunc ecs_key = move_player;
+	mlx_keyfunc move_p_func = move_player;
 
 	// Create image (bacground) over the whole window
 	mlx_image_t* background = mlx_new_image(mlx, w, h);
@@ -158,17 +219,13 @@ int	main(void)
 		{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
 	};
 
-	draw_square(background, 600, 600, p_color);
+
+	//draw_square(background, 600, 600, p_color);
+	draw_line(background, 600, 600, 10, 25, get_rgba(255, 192, 203, 255));
 	draw_map(background, map);
 
-	for (int i = 0; i < 400; i++)
-	{
-		draw_line(background, 200, 200, 10+i, 25, get_rgba(255, 192, 203, 255));
-		draw_line(background, 400, 400, 210+i, 225, get_rgba(255, 192, 203, 255));
-
-	}
 	// Key HOOK
-	mlx_key_hook(mlx, ecs_key, background);
+	mlx_key_hook(mlx, move_p_func, background);
 	// Game LOOP
 	mlx_loop(mlx);
 	// Cleaning func
