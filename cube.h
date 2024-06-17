@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:46:56 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/14 21:39:58 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/17 19:52:36 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,16 @@
 # include <stdio.h>
 # include <stdbool.h>
 # include <math.h>
+# include <string.h> // for memset
 
 # define WIDTH 512
 # define HEIGHT 512
+
+// MLX42 Drawing functions
+
+//Bresenham’s line algorithm
+void	draw_line(void *image, int beginX, int beginY, int endX, int endY, unsigned int color);
+
+void	draw_square(mlx_image_t *image, int startX, int startY, unsigned int color);
 
 #endif
