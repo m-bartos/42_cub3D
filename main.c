@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:44:52 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/18 23:04:22 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/18 23:33:34 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,8 @@ void	move_player(mlx_key_data_t key, void *param)
 	endX = round(x+pdx*100);
 	endY = round(y+pdy*100);
 	printf("XPDX: %f YXPX: %f\n", x+pdx*100, y+pdy*100);
-	draw_line(background, startX, startY, endX, endY, get_rgba(0, 10, 139, 255));
-	//draw_line(background, x, y, x+pdx*100, y+pdy*100, color);
+	// clean line
+	draw_line(background, startX, startY, endX, endY, get_rgba(255, 255, 255, 255));
 	if ((key.action == MLX_PRESS  || key.action == MLX_REPEAT) && key.key == MLX_KEY_D)
 		x += 25;
 	else if ((key.action == MLX_PRESS  || key.action == MLX_REPEAT) && key.key == MLX_KEY_A)
@@ -140,7 +140,10 @@ void	move_player(mlx_key_data_t key, void *param)
 
 void	draw_map(mlx_image_t *image, int arr[18][15])
 {
-	unsigned int color = get_rgba(255, 0, 0, 255);
+	// red color
+	unsigned int w_color = get_rgba(255, 0, 0, 255);
+	//
+	unsigned int f_color = get_rgba(255, 255, 255, 255);
 	int s_size = 64;
 	int y_map_size = 18;
 	int x_map_size = 15;
@@ -155,8 +158,10 @@ void	draw_map(mlx_image_t *image, int arr[18][15])
 			printf("%d", arr[y][x]);
 			if (arr[y][x] == 1)
 			{
-				draw_square(image, x * s_size, y * s_size, color);
+				draw_square(image, x * s_size, y * s_size, w_color);
 			}
+			else
+				draw_square(image, x * s_size, y * s_size, f_color);
 			x++;
 		}
 		printf("\n");
@@ -226,7 +231,7 @@ int	main(void)
 		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
 		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
 		{1,0,0,0,0,0,0,0,0,0,1,1,1,1,1},
-		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+		{1,0,0,1,1,1,1,0,0,0,0,0,0,0,1},
 		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
 		{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
 	};
