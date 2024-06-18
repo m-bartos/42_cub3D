@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:44:52 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/18 01:05:04 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/18 19:36:13 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,82 +64,79 @@ float degToRad(int a)
 void	move_player(mlx_key_data_t key, void *param)
 {
 	// starting player coordinates
-	static int x = 600;
-	static int y = 600;
+	static double x = 600;
+	static double y = 600;
 	static double pdx;
 	static double pdy;
 	static int pa = 90;
+
+	int startX = 0;
+	int startY = 0;
+
+	int endX = 0;
+	int endY = 0;
+
 	pdx = cos(degToRad(pa));
 	pdy = sin(degToRad(pa));
 	unsigned int color = get_rgba(0, 255, 0, 255);
 	mlx_image_t *background = (mlx_image_t *) param;
 	//clear_square(background, x, y);
-	draw_line(background, x, y, x+pdx*100, y+pdy*100, get_rgba(0, 10, 139, 255));
+	startX = round(x);
+	startY = round(y);
+	endX = round(x+pdx*100);
+	endY = round(y+pdy*100);
+	printf("XPDX: %f YXPX: %f\n", x+pdx*100, y+pdy*100);
+	draw_line(background, startX, startY, endX, endY, get_rgba(0, 10, 139, 255));
 	//draw_line(background, x, y, x+pdx*100, y+pdy*100, color);
 	if ((key.action == MLX_PRESS  || key.action == MLX_REPEAT) && key.key == MLX_KEY_D)
 		x += 25;
 	else if ((key.action == MLX_PRESS  || key.action == MLX_REPEAT) && key.key == MLX_KEY_A)
 		x -= 25;
 	else if ((key.action == MLX_PRESS  || key.action == MLX_REPEAT) && key.key == MLX_KEY_W)
-		y -= 25;
+	{
+		x += pdx * 5;
+		y += pdy * 5;
+	}
 	else if ((key.action == MLX_PRESS  || key.action == MLX_REPEAT) && key.key == MLX_KEY_S)
 	{
-		y-=pdy*15;
-		x-= pdx*15;
+		x-= pdx * 5;
+		y-= pdy * 5;
 	}
 	else if ((key.action == MLX_PRESS  || key.action == MLX_REPEAT) && key.key == MLX_KEY_LEFT)
 	{
-		pa += 15;
+		pa -= 5;
 		pa = FixAng(pa);
 		pdx = cos(degToRad(pa));
 		pdy = sin(degToRad(pa));
-		printf("LX: %d\n", x);
-		printf("LY: %d\n", x);
+		printf("LX: %f\n", x);
+		printf("LY: %f\n", x);
 		printf("LPA: %d\n", pa);
 		printf("LPDX: %f\n", pdx);
 		printf("LPDY: %f\n", pdy);
 	}
 	else if ((key.action == MLX_PRESS  || key.action == MLX_REPEAT) && key.key == MLX_KEY_RIGHT)
 	{
-		pa -= 15;
+		pa += 5;
 		pa = FixAng(pa);
 		pdx = cos(degToRad(pa));
 		pdy = sin(degToRad(pa));
-		printf("RX: %d\n", x);
-		printf("RY: %d\n", x);
+		printf("RX: %f\n", x);
+		printf("RY: %f\n", x);
 		printf("RPA: %d\n", pa);
 		printf("RPDX: %f\n", pdx);
 		printf("RPDY: %f\n", pdy);
 	}
 	//draw_square(background, x, y, color);
-	draw_line(background, x, y, x+pdx*100, y+pdy*100, color);
+	startX = round(x);
+	startY = round(y);
+	endX = round(x+pdx*100);
+	endY = round(y+pdy*100);
+	draw_line(background, startX, startY, endX, endY, color);
 	printf("StartX: %f\n", x+pdx);
 	printf("StartY: %f\n", y+pdy);
 	printf("EndX: %f\n", x+pdx*100);
 	printf("EndY: %f\n", y+pdy*100);
 }
-
-// void rotate_player(mlx_key_data_t key, void *param)
-// {
-// 	// starting player coordinates
-// 	static int x = 600;
-// 	static int y = 600;
-// 	unsigned int color = get_rgba(0, 255, 0, 255);
-// 	mlx_image_t *background = (mlx_image_t *) param;
-
-// 	if (key.action == MLX_PRESS || key.action == MLX_REPEAT && key.key == MLX_KEY_LEFT)
-// 	{
-// 		// rotate to left
-// 		;
-// 	}
-
-// 		if (key.action == MLX_PRESS || key.action == MLX_REPEAT && key.key == MLX_KEY_RIGHT)
-// 	{
-// 		// rotate to right
-// 		;
-// 	}
-// }
-
 
 void	draw_map(mlx_image_t *image, int arr[18][30])
 {
