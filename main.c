@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:44:52 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/18 19:36:13 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/18 23:04:22 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,13 +138,12 @@ void	move_player(mlx_key_data_t key, void *param)
 	printf("EndY: %f\n", y+pdy*100);
 }
 
-void	draw_map(mlx_image_t *image, int arr[18][30])
+void	draw_map(mlx_image_t *image, int arr[18][15])
 {
-	(void) image;
 	unsigned int color = get_rgba(255, 0, 0, 255);
 	int s_size = 64;
 	int y_map_size = 18;
-	int x_map_size = 30;
+	int x_map_size = 15;
 	int y = 0;
 	// draws y axes
 	while (y < y_map_size)
@@ -165,64 +164,80 @@ void	draw_map(mlx_image_t *image, int arr[18][30])
 	}
 }
 
-int	main(void)
+void	set_background(mlx_image_t *left_pane, mlx_image_t *right_pane, int l_color, int r_color)
 {
-	int w = 1920;
-	int h = 1200;
-	//unsigned int p_color = get_rgba(255, 255, 0, 255);
-	unsigned int b_color = get_rgba(0, 10, 139, 255);
-	//unsigned int p_color = get_rgba(0, 255, 0, 255);
-	#define BPP sizeof(int32_t)
-	mlx_t *mlx;
-	mlx = mlx_init(w, h, "Ray Caster", true);
-	mlx_keyfunc move_p_func = move_player;
-
-	// Create image (bacground) over the whole window
-	mlx_image_t* background = mlx_new_image(mlx, w, h);
-	mlx_image_to_window(mlx, background, 0, 0);
-
-	// Set pixels over the entire picture (background)
-	// width
-	for (int x = 0; x < w; x++)
+	for (int x = 0; x < 960; x++)
 	{
 		// height
-		for (int y = 0; y < h; y++)
+		for (int y = 0; y < 1200; y++)
 		{
 			//printf("%d\n", x);
-			mlx_put_pixel(background, x, y, b_color);
+			mlx_put_pixel(left_pane, x, y, l_color);
+			mlx_put_pixel(right_pane, x, y, r_color);
 		}
 	}
+}
 
+int	main(void)
+{
+	// ??
+	#define BPP sizeof(int32_t)
+	// Window Size
+	int w = 1920;
+	int h = 1200;
+	// Pane colors
+	unsigned int l_color = get_rgba(0, 10, 139, 255);
+	unsigned int r_color = get_rgba(173, 216, 230, 255);
 
-	int map[18][30] =
+	// Mlx main struct declaration
+	mlx_t *mlx;
+	// Mlx window setup
+	mlx = mlx_init(w, h, "Ray Caster", true);
+
+	// Mlx key func initialization
+	mlx_keyfunc move_p_func = move_player;
+
+	// Image declaration for left side of the screen
+	mlx_image_t* left_pane = mlx_new_image(mlx, w/2, h);
+	mlx_image_to_window(mlx, left_pane, 0, 0);
+
+	// Image declaration for right side of the screen
+	mlx_image_t *right_pane = mlx_new_image(mlx, w/2, h);
+	mlx_image_to_window(mlx, right_pane, w/2, 0);
+
+	// Set color over two images
+	// Each image has its own coordinates starting 0, 0.
+	set_background(left_pane, right_pane, l_color, r_color);
+
+	int map[18][15] =
 	{
-		{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1},
-		{1,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1},
-		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+		{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+		{1,0,0,1,0,0,0,0,0,0,0,0,0,0,1},
+		{1,0,0,1,0,0,0,0,0,0,0,0,0,0,1},
+		{1,0,0,1,0,0,0,0,0,0,0,0,0,0,1},
+		{1,0,0,1,0,0,0,0,0,0,0,0,0,0,1},
+		{1,1,0,0,0,0,0,0,0,0,0,0,0,0,1},
+		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+		{1,0,0,0,0,0,0,0,1,0,0,0,0,0,1},
+		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+		{1,0,0,0,0,0,0,0,0,0,1,1,1,1,1},
+		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+		{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
 	};
 
 
 	//draw_square(background, 600, 600, p_color);
-	draw_line(background, 600, 600, 10, 25, get_rgba(255, 192, 203, 255));
-	draw_map(background, map);
+	draw_line(right_pane, 600, 600, 10, 25, get_rgba(0, 0, 0, 255));
+	draw_map(left_pane, map);
 
 	// Key HOOK
-	mlx_key_hook(mlx, move_p_func, background);
+	mlx_key_hook(mlx, move_p_func, left_pane);
 	// Game LOOP
 	mlx_loop(mlx);
 	// Cleaning func
