@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:44:52 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/18 23:33:34 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/19 11:11:22 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,8 +191,10 @@ int	main(void)
 	int w = 1920;
 	int h = 1200;
 	// Pane colors
+	// blue
 	unsigned int l_color = get_rgba(0, 10, 139, 255);
-	unsigned int r_color = get_rgba(173, 216, 230, 255);
+	// black
+	unsigned int r_color = get_rgba(0, 0, 0, 255);
 
 	// Mlx main struct declaration
 	mlx_t *mlx;
@@ -238,8 +240,17 @@ int	main(void)
 
 
 	//draw_square(background, 600, 600, p_color);
-	draw_line(right_pane, 600, 600, 10, 25, get_rgba(0, 0, 0, 255));
+	//draw_line(right_pane, 600, 600, 10, 25, get_rgba(0, 0, 0, 255));
 	draw_map(left_pane, map);
+	draw_map(right_pane, map);
+
+	// Casting ray
+
+
+
+
+
+
 
 	// Key HOOK
 	mlx_key_hook(mlx, move_p_func, left_pane);
