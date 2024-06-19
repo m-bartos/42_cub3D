@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:44:52 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/19 11:22:52 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/19 22:23:09 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -244,13 +244,131 @@ int	main(void)
 	draw_map(left_pane, map);
 	draw_map(right_pane, map);
 
+//////////////////////////////////////////////////////
 	// Casting ray
-	//int pa;
+	// Temp map size
+	int map_x = 50;
+	int map_y = 50;
+
+	int pa = 45; // Initial player angle and position
+	double px = 480; //150
+	double py = 800; // 400
+	// double pdx = cos(degToRad(pa));
+	// double pdy = sin(degToRad(pa));
+
+	int r, mx, my, mp, dof;
+	double rx, ry, ra, xo, yo;
+	// init the variables
+	mx = 0; my = 0; mp = 0; dof = 0;
+	rx = 0; ry = 0; ra = 0; xo = 0; yo = 0;
+	// ray angle = player angle
+	ra = degToRad(pa);
+
+	// Player == line
+	//int pp_color = get_rgba(0, 0, 0, 255);
+	//printf("Seg fault flag\n");
+	//draw_line(left_pane, px, py, px+pdx*250, py+pdy*250, pp_color);
 
 
+	// Horizontal lines
+	// no of lines
+	for (r = 0; r < 80; r++)
+	{
+		ra = degToRad(pa);
+		dof = 0;
+		float aTan = 1.0 / tan(ra); //diff
+		// look up 0 - 180 right -> left right is 0
+		if (sin(ra) > 0.001)
+		{
+			ry = (((int) py >> 6) << 6) - 0.0001;
+			rx = (py - ry) * aTan + px;
+			yo = -64;
+			xo = -yo * aTan;
+		}
+		// look down 180 - 360
+		else if (sin(ra) < -0.001)
+		{
+			ry = (((int) py >> 6) << 6) + 64;
+			rx = (py - ry) * aTan+px;
+			yo = 64;
+			xo = -yo * aTan;
+		}
+		// looking left or right - 180 degrees
+		else
+		{
+			rx = px;
+			ry = py;
+			dof = map_x;
+		}
+		while (dof < map_x)
+		{
+			mx = (int) (rx)>>6;
+			my = (int) (ry)>>6;
+			mp = my * map_x + mx;
+			if (mp < map_x * map_y && map[my][mx] == 1)
+			{
+				dof = map_x;
+			}
+			else
+			{
+				rx += xo;
+				ry += yo;
+				dof += 1;
+			}
+		}
+		pa += 1;
+		printf("Horizontal - Rx: %f Ry: %f\n", rx, ry);
+		int ppp_color = get_rgba(0, 0, r, 255);
+		draw_line(left_pane, px, py, rx, ry, ppp_color);
+	}
+	//printf("Horzintal - Rx: %f Ry: %f\n", rx, ry);
+	// int ppp_color = get_rgba(0, 0, 0, 255);
+	// draw_line(left_pane, px, py, rx, ry, ppp_color);
+// Vertical Lines
+///////////////////////////////////////////////////////////
+    for (r = 0; r < 1; r++) {
+        dof = 0;
+        double nTan = tan(ra);
+
+        // Look left (90 - 270 degrees)
+        if (cos(ra) < -0.001) {
+            rx = (((int) px >> 6) << 6) - 0.0001;
+            ry = (px - rx) * nTan + py;
+            xo = -64;
+            yo = -xo * nTan;
+        }
+        // Look right (270 - 90 degrees)
+        else if (cos(ra) > 0.001) {
+            rx = (((int) px >> 6) << 6) + 64;
+            ry = (px - rx) * nTan + py;
+            xo = 64;
+            yo = -xo * nTan;
+        }
+        // Looking up or down (exactly vertical)
+        else if (ra == M_PI / 2 || ra == 3 * M_PI / 2) {
+            rx = px;
+            ry = py;
+            dof = 18;
+        }
+        while (dof < 18) {
+            mx = (int) (rx) >> 6;
+            my = (int) (ry) >> 6;
+            mp = my * map_x + mx;
+            if (mp < map_x * map_y && map[my][mx] == 1) { // Corrected index access
+                dof = 18;
+            } else {
+                rx += xo;
+                ry += yo;
+                dof += 1;
+            }
+        }
+    }
+	printf("Vertical - Rx: %f Ry: %f\n", rx, ry);
+	// int pppp_color = get_rgba(0, 128, 0, 255);
+	// draw_line(left_pane, px, py, rx, ry, pppp_color);
 
 
-
+////////////////////////////////////////////////////////////
 	// Key HOOK
 	mlx_key_hook(mlx, move_p_func, left_pane);
 	// Game LOOP
