@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:44:52 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/19 22:23:09 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/19 23:23:29 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -258,6 +258,8 @@ int	main(void)
 
 	int r, mx, my, mp, dof;
 	double rx, ry, ra, xo, yo;
+	double h_distance = 0;
+	//double v_distance = 0;
 	// init the variables
 	mx = 0; my = 0; mp = 0; dof = 0;
 	rx = 0; ry = 0; ra = 0; xo = 0; yo = 0;
@@ -316,54 +318,60 @@ int	main(void)
 				dof += 1;
 			}
 		}
+		h_distance = sqrt((rx - px) * (rx - px) + (ry - py) * (ry - py));
 		pa += 1;
-		printf("Horizontal - Rx: %f Ry: %f\n", rx, ry);
+		printf("Horizontal: R: %d, D: %f, Rx: %f, Ry: %f\n", r, h_distance, rx, ry);
 		int ppp_color = get_rgba(0, 0, r, 255);
 		draw_line(left_pane, px, py, rx, ry, ppp_color);
 	}
 	//printf("Horzintal - Rx: %f Ry: %f\n", rx, ry);
 	// int ppp_color = get_rgba(0, 0, 0, 255);
 	// draw_line(left_pane, px, py, rx, ry, ppp_color);
+
+
+
+
 // Vertical Lines
 ///////////////////////////////////////////////////////////
-    for (r = 0; r < 1; r++) {
-        dof = 0;
-        double nTan = tan(ra);
+    // for (r = 0; r < 1; r++) {
+    //     dof = 0;
+    //     double nTan = tan(ra);
 
-        // Look left (90 - 270 degrees)
-        if (cos(ra) < -0.001) {
-            rx = (((int) px >> 6) << 6) - 0.0001;
-            ry = (px - rx) * nTan + py;
-            xo = -64;
-            yo = -xo * nTan;
-        }
-        // Look right (270 - 90 degrees)
-        else if (cos(ra) > 0.001) {
-            rx = (((int) px >> 6) << 6) + 64;
-            ry = (px - rx) * nTan + py;
-            xo = 64;
-            yo = -xo * nTan;
-        }
-        // Looking up or down (exactly vertical)
-        else if (ra == M_PI / 2 || ra == 3 * M_PI / 2) {
-            rx = px;
-            ry = py;
-            dof = 18;
-        }
-        while (dof < 18) {
-            mx = (int) (rx) >> 6;
-            my = (int) (ry) >> 6;
-            mp = my * map_x + mx;
-            if (mp < map_x * map_y && map[my][mx] == 1) { // Corrected index access
-                dof = 18;
-            } else {
-                rx += xo;
-                ry += yo;
-                dof += 1;
-            }
-        }
-    }
-	printf("Vertical - Rx: %f Ry: %f\n", rx, ry);
+    //     // Look left (90 - 270 degrees)
+    //     if (cos(ra) < -0.001) {
+    //         rx = (((int) px >> 6) << 6) - 0.0001;
+    //         ry = (px - rx) * nTan + py;
+    //         xo = -64;
+    //         yo = -xo * nTan;
+    //     }
+    //     // Look right (270 - 90 degrees)
+    //     else if (cos(ra) > 0.001) {
+    //         rx = (((int) px >> 6) << 6) + 64;
+    //         ry = (px - rx) * nTan + py;
+    //         xo = 64;
+    //         yo = -xo * nTan;
+    //     }
+    //     // Looking up or down (exactly vertical)
+    //     else if (ra == M_PI / 2 || ra == 3 * M_PI / 2) {
+    //         rx = px;
+    //         ry = py;
+    //         dof = 18;
+    //     }
+    //     while (dof < 18) {
+    //         mx = (int) (rx) >> 6;
+    //         my = (int) (ry) >> 6;
+    //         mp = my * map_x + mx;
+    //         if (mp < map_x * map_y && map[my][mx] == 1) { // Corrected index access
+    //             dof = 18;
+    //         } else {
+    //             rx += xo;
+    //             ry += yo;
+    //             dof += 1;
+    //         }
+    //     }
+    // }
+	// v_distance = sqrt((rx - px) * (rx - px) + (ry - py) * (ry - py));
+	// printf("Vertical: R: %d, D: %f, Rx: %f, Ry: %f\n", r, v_distance, rx, ry);
 	// int pppp_color = get_rgba(0, 128, 0, 255);
 	// draw_line(left_pane, px, py, rx, ry, pppp_color);
 
