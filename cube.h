@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:46:56 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/17 23:05:48 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/19 11:22:42 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 // MLX42 Drawing functions
 
 //Bresenham’s line algorithm
-void	draw_line(void *image, int beginX, int beginY, int endX, int endY, unsigned int color);
+void draw_line(void *image, double startX, double startY, double endX, double endY, unsigned int color);
 
 void	draw_square(mlx_image_t *image, int startX, int startY, unsigned int color);
 
