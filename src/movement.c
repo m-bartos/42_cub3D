@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:59:53 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/20 16:11:16 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/20 16:22:08 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ void	move_player(mlx_key_data_t key, void *param)
 		printf("You pressed X\n");
 	}
 
-	for (int r = 0; r < 60; r++)
+	for (int r = 0; r < 360; r++)
 	{
 		////////////////////////////////////////////////////////
 		// Ray casting rendering
@@ -122,7 +122,7 @@ void	move_player(mlx_key_data_t key, void *param)
 		point_t *hrc;
 		point_t *vrc;
 		player_location_t pl;
-		pl.player_angle = pa+r;
+		pl.player_angle = FixAng((pa - 360 / 2) + r);
 		pl.player_angle+=1;
 		pl.player_coordinates.x = startX;
 		pl.player_coordinates.y = startY;
