@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:46:56 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/20 15:14:49 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/20 17:19:16 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,12 @@ typedef struct player_location_s
 	int		player_angle;
 	point_t	player_coordinates;
 }	player_location_t;
+
+typedef struct planes_s
+{
+	mlx_image_t *left_pane;
+	mlx_image_t *right_pane;
+} planes_t;
 
 // MLX42 Drawing functions
 

@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:44:52 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/20 16:14:13 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/20 17:22:10 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -229,9 +229,12 @@ int	main(void)
 	mlx_image_t *right_pane = mlx_new_image(mlx, w/2, h);
 	mlx_image_to_window(mlx, right_pane, w/2, 0);
 
+	planes_t game_planes;
+	game_planes.left_pane = left_pane;
+	game_planes.right_pane = right_pane;
 	// Set color over two images
 	// Each image has its own coordinates starting 0, 0.
-	set_background(left_pane, right_pane, l_color, r_color);
+	set_background(game_planes.left_pane, game_planes.left_pane, l_color, r_color);
 
 	int map[18][15] =
 	{
@@ -293,7 +296,7 @@ int	main(void)
 // End of Ray Casting
 ////////////////////////////////////////////////////////////
 	// Key HOOK
-	mlx_key_hook(mlx, move_p_func, left_pane);
+	mlx_key_hook(mlx, move_p_func, &game_planes);
 	// Game LOOP
 	mlx_loop(mlx);
 	// Cleaning func

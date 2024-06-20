@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:59:53 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/20 16:22:08 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/20 17:25:54 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ void	move_player(mlx_key_data_t key, void *param)
 	pdx = cos(degToRad(pa));
 	pdy = sin(degToRad(pa));
 	unsigned int color = get_rgba(0, 255, 0, 255);
-	mlx_image_t *left_pane = (mlx_image_t *) param;
+	//mlx_image_t *left_pane = (mlx_image_t *) param;
+	planes_t *game_planes = (planes_t *) param;
 	//clear_square(background, x, y);
 	startX = round(x);
 	startY = round(y);
@@ -51,7 +52,8 @@ void	move_player(mlx_key_data_t key, void *param)
 		for (int y = 0; y < 1200; y++)
 		{
 			//printf("%d\n", x);
-			mlx_put_pixel(left_pane, x, y, l_color);
+			mlx_put_pixel(game_planes->left_pane, x, y, l_color);
+			mlx_put_pixel(game_planes->right_pane, x, y, l_color);
 		}
 	}
 
@@ -76,7 +78,8 @@ void	move_player(mlx_key_data_t key, void *param)
 	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
 	{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
 	};
-	draw_map(left_pane, map);
+	draw_map(game_planes->left_pane, map);
+	draw_map(game_planes->right_pane, map);
 ////////////////////////////////////////////////////////////////////////////////
 	if ((key.action == MLX_PRESS  || key.action == MLX_REPEAT) && key.key == MLX_KEY_D)
 		x += 5;
@@ -140,13 +143,13 @@ void	move_player(mlx_key_data_t key, void *param)
 		int ppp_color = get_rgba(0, 0, 0, 255);
 		if (v_distance < h_distance)
 		{
-			draw_line(left_pane, pl.player_coordinates.x, pl.player_coordinates.y, vrc->x, vrc->y, ppp_color);
-			//draw_line(right_pane, pl.player_coordinates.x, pl.player_coordinates.y, vrc->x, vrc->y, ppp_color);
+			draw_line(game_planes->left_pane, pl.player_coordinates.x, pl.player_coordinates.y, vrc->x, vrc->y, ppp_color);
+			draw_line(game_planes->right_pane, pl.player_coordinates.x, pl.player_coordinates.y, vrc->x, vrc->y, ppp_color);
 		}
 		else
 		{
-			draw_line(left_pane, pl.player_coordinates.x, pl.player_coordinates.y, hrc->x, hrc->y, ppp_color);
-			//draw_line(right_pane, pl.player_coordinates.x, pl.player_coordinates.y, hrc->x, hrc->y, ppp_color);
+			draw_line(game_planes->left_pane, pl.player_coordinates.x, pl.player_coordinates.y, hrc->x, hrc->y, ppp_color);
+			draw_line(game_planes->right_pane, pl.player_coordinates.x, pl.player_coordinates.y, hrc->x, hrc->y, ppp_color);
 		}
 	// End of Ray Casting
 		printf("R: %d\n", r);
@@ -158,5 +161,6 @@ void	move_player(mlx_key_data_t key, void *param)
 	endX = round(x+pdx*100);
 	endY = round(y+pdy*100);
 	//printf("End Points: PDX: %f PDY: %f\n", x+pdx, y+pdy);
-	draw_line(left_pane, startX, startY, endX, endY, color);
+	draw_line(game_planes->left_pane, startX, startY, endX, endY, color);
+	draw_line(game_planes->right_pane, startX, startY, endX, endY, color);
 }
