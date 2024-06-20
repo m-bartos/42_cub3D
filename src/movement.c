@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:59:53 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/20 22:48:24 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/20 23:21:04 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	move_player(mlx_key_data_t key, void *param)
 	static double y = 600;
 	static double pdx;
 	static double pdy;
-	static int pa = 90;
+	static int pa = 45;
 
 	int startX = 0;
 	int startY = 0;
@@ -32,7 +32,7 @@ void	move_player(mlx_key_data_t key, void *param)
 	unsigned int color = get_rgba(0, 255, 0, 255);
 	//mlx_image_t *left_pane = (mlx_image_t *) param;
 	planes_t *game_planes = (planes_t *) param;
-	
+
 	startX = round(x);
 	startY = round(y);
 	endX = round(x+pdx*100);
@@ -109,18 +109,21 @@ void	move_player(mlx_key_data_t key, void *param)
 		printf("You pressed X\n");
 	}
 
-	for (int r = 0; r < 360; r++)
+	// implement FOV
+	for (int r = 0; r < 90; r++)
 	{
 		////////////////////////////////////////////////////////
 		// Ray casting rendering
 		// Ray Casting
 		double h_distance = 0;
 		double v_distance = 0;
-
+		double fov = FixAng((pa - 90 / 2) + r);
+		printf("TEST:::%f\n", fov);
 		point_t *hrc;
 		point_t *vrc;
 		player_location_t pl;
 		pl.player_angle = pa;
+		pl.player_angle = fov;
 		printf("Angle: %d\n", pl.player_angle);
 		pl.player_coordinates.x = startX;
 		pl.player_coordinates.y = startY;
