@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:44:52 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/20 13:35:54 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/20 14:43:04 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -267,156 +267,52 @@ int	main(void)
 		{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
 	};
 
-
-	//draw_square(background, 600, 600, p_color);
-	//draw_line(right_pane, 600, 600, 10, 25, get_rgba(0, 0, 0, 255));
 	draw_map(left_pane, map);
 	draw_map(right_pane, map);
 //////////////////////////////////////////////////////
-// Test
-point_t *horizontal_ray_coordinates;
-point_t *vertical_ray_coordinates;
-player_location_t pl;
-pl.player_angle = 55;
-pl.player_coordinates.x = 480;
-pl.player_coordinates.y = 800;
-horizontal_ray_coordinates = get_horizontal_ray_coordinates(&pl, map);
-vertical_ray_coordinates = get_vertical_ray_coordinates(&pl, map);
-//////////////////////////////////////////////////////
-	// Casting ray
-	// Temp map size
-	int map_x = 50;
-	int map_y = 50;
+	// Ray Casting
+	double h_distance = 0;
+	double v_distance = 0;
 
-	int pa = 55; // Initial player angle and position
-	double px = 480; //150
-	double py = 800; // 400
-	// double pdx = cos(degToRad(pa));
-	// double pdy = sin(degToRad(pa));
-
-	int r, mx, my, mp, dof;
-	double rx, ry, ra, xo, yo;
-	//double h_distance = 0;
-	//double v_distance = 0;
-	// init the variables
-	mx = 0; my = 0; mp = 0; dof = 0;
-	rx = 0; ry = 0; ra = 0; xo = 0; yo = 0;
-	// ray angle = player angle
-	ra = degToRad(pa);
-
-	// Player == line
-	//int pp_color = get_rgba(0, 0, 0, 255);
-	//printf("Seg fault flag\n");
-	//draw_line(left_pane, px, py, px+pdx*250, py+pdy*250, pp_color);
-
-
-	// Horizontal lines
-	// no of lines
-	for (r = 0; r < 1; r++)
+	point_t *hrc;
+	point_t *vrc;
+	player_location_t pl;
+	pl.player_angle = 65;
+	pl.player_coordinates.x = 480;
+	pl.player_coordinates.y = 800;
+	for (int p = 0; p < 60; p++)
 	{
-		ra = degToRad(pa);
-		dof = 0;
-		float aTan = 1.0 / tan(ra); //diff
-		// look up 0 - 180 right -> left right is 0
-		if (sin(ra) > 0.001)
+		pl.player_angle += p;
+		for (int r = p - (360/2); r < 360/2; r++)
 		{
-			ry = (((int) py >> 6) << 6) - 0.0001;
-			rx = (py - ry) * aTan + px;
-			yo = -64;
-			xo = -yo * aTan;
-		}
-		// look down 180 - 360
-		else if (sin(ra) < -0.001)
-		{
-			ry = (((int) py >> 6) << 6) + 64;
-			rx = (py - ry) * aTan+px;
-			yo = 64;
-			xo = -yo * aTan;
-		}
-		// looking left or right - 180 degrees
-		else
-		{
-			rx = px;
-			ry = py;
-			dof = map_x;
-		}
-		while (dof < map_x)
-		{
-			mx = (int) (rx)>>6;
-			my = (int) (ry)>>6;
-			mp = my * map_x + mx;
-			if (mp < map_x * map_y && map[my][mx] == 1)
+			pl.player_angle = r;
+			hrc = get_horizontal_ray_coordinates(&pl, map);
+			vrc = get_vertical_ray_coordinates(&pl, map);
+
+			printf("Func - Horizontal: Rx: %f, Ry: %f\n", hrc->x,hrc->y);
+			printf("Func - Vertical: Rx: %f, Ry: %f\n", vrc->x, vrc->y);
+
+			h_distance = sqrt((hrc->x - pl.player_coordinates.x) * (hrc->x - pl.player_coordinates.x) + (hrc->y - pl.player_coordinates.y) * (hrc->y - pl.player_coordinates.y));
+
+			v_distance = sqrt((vrc->x - pl.player_coordinates.x) * (vrc->x - pl.player_coordinates.x) + (vrc->y - pl.player_coordinates.y) * (vrc->y - pl.player_coordinates.y));
+			printf("Horizontal Distance: %f\n", h_distance);
+			printf("Vertical Distance: %f\n", v_distance);
+			int ppp_color = get_rgba(0, 0, 0, 255);
+			if (v_distance < h_distance)
 			{
-				dof = map_x;
+				draw_line(left_pane, pl.player_coordinates.x, pl.player_coordinates.y, vrc->x, vrc->y, ppp_color);
+				draw_line(right_pane, pl.player_coordinates.x, pl.player_coordinates.y, vrc->x, vrc->y, ppp_color);
 			}
 			else
 			{
-				rx += xo;
-				ry += yo;
-				dof += 1;
+				draw_line(left_pane, pl.player_coordinates.x, pl.player_coordinates.y, hrc->x, hrc->y, ppp_color);
+				draw_line(right_pane, pl.player_coordinates.x, pl.player_coordinates.y, hrc->x, hrc->y, ppp_color);
 			}
 		}
-		// h_distance = sqrt((rx - px) * (rx - px) + (ry - py) * (ry - py));
-		// pa += 1;
-		//printf("Horizontal: R: %d, D: %f, Rx: %f, Ry: %f\n", r, h_distance, rx, ry);
-		// int ppp_color = get_rgba(0, 0, r, 255);
-		// draw_line(left_pane, px, py, rx, ry, ppp_color);
-		printf("Horizontal: Rx: %f, Ry: %f\n", rx, ry);
+		//sleep(100);
+		printf("Player turn: %d\n", p);
 	}
-	printf("Func - Horizontal: Rx: %f, Ry: %f\n", horizontal_ray_coordinates->x, horizontal_ray_coordinates->y);
-	//printf("Horzintal - Rx: %f Ry: %f\n", rx, ry);
-	// int ppp_color = get_rgba(0, 0, 0, 255);
-	// draw_line(left_pane, px, py, rx, ry, ppp_color);
-
-
-
-
-// Vertical Lines
-///////////////////////////////////////////////////////////
-    for (r = 0; r < 1; r++) {
-        dof = 0;
-        double nTan = tan(ra);
-
-        // Look left (90 - 270 degrees)
-        if (cos(ra) < -0.001) {
-            rx = (((int) px >> 6) << 6) - 0.0001;
-            ry = (px - rx) * nTan + py;
-            xo = -64;
-            yo = -xo * nTan;
-        }
-        // Look right (270 - 90 degrees)
-        else if (cos(ra) > 0.001) {
-            rx = (((int) px >> 6) << 6) + 64;
-            ry = (px - rx) * nTan + py;
-            xo = 64;
-            yo = -xo * nTan;
-        }
-        // Looking up or down (exactly vertical)
-        else if (ra == M_PI / 2 || ra == 3 * M_PI / 2) {
-            rx = px;
-            ry = py;
-            dof = 18;
-        }
-        while (dof < 18) {
-            mx = (int) (rx) >> 6;
-            my = (int) (ry) >> 6;
-            mp = my * map_x + mx;
-            if (mp < map_x * map_y && map[my][mx] == 1) { // Corrected index access
-                dof = 18;
-            } else {
-                rx += xo;
-                ry += yo;
-                dof += 1;
-            }
-        }
-    }
-	//v_distance = sqrt((rx - px) * (rx - px) + (ry - py) * (ry - py));
-	//printf("Vertical: R: %d, D: %f, Rx: %f, Ry: %f\n", r, v_distance, rx, ry);
-	// int pppp_color = get_rgba(0, 128, 0, 255);
-	// draw_line(left_pane, px, py, rx, ry, pppp_color);
-	printf("Vertical: Rx: %f, Ry: %f\n", rx, ry);
-	printf("Func - Vertical: Rx: %f, Ry: %f\n", vertical_ray_coordinates->x, vertical_ray_coordinates->y);
-
+// End of Ray Casting
 ////////////////////////////////////////////////////////////
 	// Key HOOK
 	mlx_key_hook(mlx, move_p_func, left_pane);
