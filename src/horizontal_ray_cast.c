@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 12:14:09 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/20 13:15:42 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/20 22:40:40 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ point_t *get_horizontal_ray_coordinates(player_location_t *pl, int map[18][15])
 	{
 		ra = degToRad(pa);
 		dof = 0;
-		float aTan = 1.0 / tan(ra); //diff
+		float aTan = 1.0 / tan(ra);
 		// look up 0 - 180 right -> left right is 0
 		if (sin(ra) > 0.001)
 		{
@@ -65,22 +65,21 @@ point_t *get_horizontal_ray_coordinates(player_location_t *pl, int map[18][15])
 			yo = 64;
 			xo = -yo * aTan;
 		}
-		// looking left or right - 180 degrees
-		else
+		// looking left or right - exactly horizontal
+		else //if (fabs(sin(ra)) < 0.001)
 		{
-			rx = px;
-			ry = py;
-			dof = map_x;
+			rx = 100000;
+			ry = 100000;
+			dof = 18;
+			printf("Hor: PX: %f, PY: %f\n", px, py);
 		}
-		while (dof < map_x)
+		while (dof < 18)
 		{
 			mx = (int) (rx)>>6;
 			my = (int) (ry)>>6;
 			mp = my * map_x + mx;
 			if (mp < map_x * map_y && map[my][mx] == 1)
-			{
-				dof = map_x;
-			}
+				dof = 18;
 			else
 			{
 				rx += xo;

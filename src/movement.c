@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:59:53 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/20 17:25:54 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/20 22:45:06 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,8 +125,8 @@ void	move_player(mlx_key_data_t key, void *param)
 		point_t *hrc;
 		point_t *vrc;
 		player_location_t pl;
-		pl.player_angle = FixAng((pa - 360 / 2) + r);
-		pl.player_angle+=1;
+		pl.player_angle = pa;
+		printf("Angle: %d\n", pl.player_angle);
 		pl.player_coordinates.x = startX;
 		pl.player_coordinates.y = startY;
 		hrc = get_horizontal_ray_coordinates(&pl, map);

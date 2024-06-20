@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 13:18:17 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/20 13:33:46 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/20 22:38:42 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,13 @@ point_t *get_vertical_ray_coordinates(player_location_t *pl, int map[18][15])
 			yo = -xo * nTan;
 		}
 		// Looking up or down (exactly vertical)
-		else if (ra == M_PI / 2 || ra == 3 * M_PI / 2) {
-			rx = px;
-			ry = py;
+		// (ra == M_PI / 2 || ra == 3 * M_PI / 2)
+		else //if (ra == M_PI / 2 || ra == 3 * M_PI / 2)
+		{
+			rx = 100000;
+			ry = 100000;
 			dof = 18;
+			printf("Ver: PX: %f, PY: %f\n", px, py);
 		}
 		while (dof < 18)
 		{
