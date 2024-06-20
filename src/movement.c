@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:59:53 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/20 15:08:59 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/20 16:11:16 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,22 +30,20 @@ void	move_player(mlx_key_data_t key, void *param)
 	pdx = cos(degToRad(pa));
 	pdy = sin(degToRad(pa));
 	unsigned int color = get_rgba(0, 255, 0, 255);
-	mlx_image_t *background = (mlx_image_t *) param;
+	mlx_image_t *left_pane = (mlx_image_t *) param;
 	//clear_square(background, x, y);
 	startX = round(x);
 	startY = round(y);
 	endX = round(x+pdx*100);
 	endY = round(y+pdy*100);
-	printf("XPDX: %f YXPX: %f\n", x+pdx*100, y+pdy*100);
-
 
 
 	// clean line
-	draw_line(background, startX, startY, endX, endY, get_rgba(255, 255, 255, 255));
+	//draw_line(background, startX, startY, endX, endY, get_rgba(255, 255, 255, 255));
 
 
 ////////////////////////////////////////////////////////////////////////////////
-// Testing cleaning initial or previous screen
+// Testing cleaning initial or previous screen - it works
 	int l_color = get_rgba(0, 10, 139, 255);
 	for (int x = 0; x < 960; x++)
 	{
@@ -53,7 +51,7 @@ void	move_player(mlx_key_data_t key, void *param)
 		for (int y = 0; y < 1200; y++)
 		{
 			//printf("%d\n", x);
-			mlx_put_pixel(background, x, y, l_color);
+			mlx_put_pixel(left_pane, x, y, l_color);
 		}
 	}
 
@@ -78,13 +76,12 @@ void	move_player(mlx_key_data_t key, void *param)
 	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
 	{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
 	};
-	draw_map(background, map);
-	printf("X pressed or hold!\n");
+	draw_map(left_pane, map);
 ////////////////////////////////////////////////////////////////////////////////
 	if ((key.action == MLX_PRESS  || key.action == MLX_REPEAT) && key.key == MLX_KEY_D)
-		x += 25;
+		x += 5;
 	else if ((key.action == MLX_PRESS  || key.action == MLX_REPEAT) && key.key == MLX_KEY_A)
-		x -= 25;
+		x -= 5;
 	else if ((key.action == MLX_PRESS  || key.action == MLX_REPEAT) && key.key == MLX_KEY_W)
 	{
 		x += pdx * 5;
@@ -101,11 +98,6 @@ void	move_player(mlx_key_data_t key, void *param)
 		pa = FixAng(pa);
 		pdx = cos(degToRad(pa));
 		pdy = sin(degToRad(pa));
-		printf("LX: %f\n", x);
-		printf("LY: %f\n", x);
-		printf("LPA: %d\n", pa);
-		printf("LPDX: %f\n", pdx);
-		printf("LPDY: %f\n", pdy);
 	}
 	else if ((key.action == MLX_PRESS  || key.action == MLX_REPEAT) && key.key == MLX_KEY_RIGHT)
 	{
@@ -113,57 +105,58 @@ void	move_player(mlx_key_data_t key, void *param)
 		pa = FixAng(pa);
 		pdx = cos(degToRad(pa));
 		pdy = sin(degToRad(pa));
-		printf("RX: %f\n", x);
-		printf("RY: %f\n", x);
-		printf("RPA: %d\n", pa);
-		printf("RPDX: %f\n", pdx);
-		printf("RPDY: %f\n", pdy);
 	}
 	else if ((key.action == MLX_PRESS  || key.action == MLX_REPEAT) && key.key == MLX_KEY_X)
 	{
-		int l_color = get_rgba(0, 10, 139, 255);
-		for (int x = 0; x < 960; x++)
-		{
-			// height
-			for (int y = 0; y < 1200; y++)
-			{
-				//printf("%d\n", x);
-				mlx_put_pixel(background, x, y, l_color);
-			}
-		}
-
-		int map[18][15] =
-		{
-		{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,0,0,1,0,0,0,0,0,0,0,0,0,0,1},
-		{1,0,0,1,0,0,0,0,0,0,0,0,0,0,1},
-		{1,0,0,1,0,0,0,0,0,0,0,0,0,0,1},
-		{1,0,0,1,0,0,0,0,0,0,0,0,0,0,1},
-		{1,1,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,0,0,0,0,0,0,0,1,0,0,0,0,0,1},
-		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,0,0,0,0,0,0,0,0,0,1,1,1,1,1},
-		{1,0,0,1,1,1,1,0,0,0,0,0,0,0,1},
-		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-		};
-		draw_map(background, map);
-		printf("X pressed or hold!\n");
+		printf("You pressed X\n");
 	}
-	//draw_square(background, x, y, color);
+
+	for (int r = 0; r < 60; r++)
+	{
+		////////////////////////////////////////////////////////
+		// Ray casting rendering
+		// Ray Casting
+		double h_distance = 0;
+		double v_distance = 0;
+
+		point_t *hrc;
+		point_t *vrc;
+		player_location_t pl;
+		pl.player_angle = pa+r;
+		pl.player_angle+=1;
+		pl.player_coordinates.x = startX;
+		pl.player_coordinates.y = startY;
+		hrc = get_horizontal_ray_coordinates(&pl, map);
+		vrc = get_vertical_ray_coordinates(&pl, map);
+
+		printf("Func - Horizontal: Rx: %f, Ry: %f\n", hrc->x,hrc->y);
+		printf("Func - Vertical: Rx: %f, Ry: %f\n", vrc->x, vrc->y);
+
+		h_distance = sqrt((hrc->x - pl.player_coordinates.x) * (hrc->x - pl.player_coordinates.x) + (hrc->y - pl.player_coordinates.y) * (hrc->y - pl.player_coordinates.y));
+		v_distance = sqrt((vrc->x - pl.player_coordinates.x) * (vrc->x - pl.player_coordinates.x) + (vrc->y - pl.player_coordinates.y) * (vrc->y - pl.player_coordinates.y));
+
+		printf("Horizontal Distance: %f\n", h_distance);
+		printf("Vertical Distance: %f\n", v_distance);
+		int ppp_color = get_rgba(0, 0, 0, 255);
+		if (v_distance < h_distance)
+		{
+			draw_line(left_pane, pl.player_coordinates.x, pl.player_coordinates.y, vrc->x, vrc->y, ppp_color);
+			//draw_line(right_pane, pl.player_coordinates.x, pl.player_coordinates.y, vrc->x, vrc->y, ppp_color);
+		}
+		else
+		{
+			draw_line(left_pane, pl.player_coordinates.x, pl.player_coordinates.y, hrc->x, hrc->y, ppp_color);
+			//draw_line(right_pane, pl.player_coordinates.x, pl.player_coordinates.y, hrc->x, hrc->y, ppp_color);
+		}
+	// End of Ray Casting
+		printf("R: %d\n", r);
+	}
+
+	/////////////////////////////////////////////////////////////////////
 	startX = round(x);
 	startY = round(y);
 	endX = round(x+pdx*100);
 	endY = round(y+pdy*100);
-	draw_line(background, startX, startY, endX, endY, color);
-	// printf("StartX: %f\n", x+pdx);
-	// printf("StartY: %f\n", y+pdy);
-	// printf("EndX: %f\n", x+pdx*100);
-	// printf("EndY: %f\n", y+pdy*100);
+	//printf("End Points: PDX: %f PDY: %f\n", x+pdx, y+pdy);
+	draw_line(left_pane, startX, startY, endX, endY, color);
 }

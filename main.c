@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:44:52 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/20 15:13:36 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/20 16:14:13 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	draw_map(mlx_image_t *image, int arr[18][15])
 		// draws x axes
 		while (x < x_map_size)
 		{
-			printf("%d", arr[y][x]);
+			//printf("%d", arr[y][x]);
 			if (arr[y][x] == 1)
 			{
 				draw_square(image, x * s_size, y * s_size, w_color);
@@ -65,7 +65,7 @@ void	draw_map(mlx_image_t *image, int arr[18][15])
 				draw_square(image, x * s_size, y * s_size, f_color);
 			x++;
 		}
-		printf("\n");
+		//printf("\n");
 		y++;
 	}
 }
@@ -265,9 +265,9 @@ int	main(void)
 	point_t *hrc;
 	point_t *vrc;
 	player_location_t pl;
-	pl.player_angle = 65;
-	pl.player_coordinates.x = 480;
-	pl.player_coordinates.y = 800;
+	pl.player_angle = 90;
+	pl.player_coordinates.x = 600;
+	pl.player_coordinates.y = 600;
 	hrc = get_horizontal_ray_coordinates(&pl, map);
 	vrc = get_vertical_ray_coordinates(&pl, map);
 
