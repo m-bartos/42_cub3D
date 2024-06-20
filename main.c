@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:44:52 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/19 23:23:29 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/20 13:35:54 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,16 +50,37 @@ int FixAng(int a)
 	}
 	return a;
 }
-// Convert degrees to radians
-float degToRad(int a)
+
+void	draw_map(mlx_image_t *image, int arr[18][15])
 {
-	return a * M_PI / 180.0;
+	// red color
+	unsigned int w_color = get_rgba(255, 0, 0, 255);
+	//
+	unsigned int f_color = get_rgba(255, 255, 255, 255);
+	int s_size = 64;
+	int y_map_size = 18;
+	int x_map_size = 15;
+	int y = 0;
+	// draws y axes
+	while (y < y_map_size)
+	{
+		int x = 0;
+		// draws x axes
+		while (x < x_map_size)
+		{
+			printf("%d", arr[y][x]);
+			if (arr[y][x] == 1)
+			{
+				draw_square(image, x * s_size, y * s_size, w_color);
+			}
+			else
+				draw_square(image, x * s_size, y * s_size, f_color);
+			x++;
+		}
+		printf("\n");
+		y++;
+	}
 }
-// What does it do?
-// float distance(ax,ay,bx,by,ang)
-// {
-// 	return cos(degToRad(ang))*(bx-ax)-sin(degToRad(ang))*(by-ay);
-// }
 
 void	move_player(mlx_key_data_t key, void *param)
 {
@@ -126,48 +147,56 @@ void	move_player(mlx_key_data_t key, void *param)
 		printf("RPDX: %f\n", pdx);
 		printf("RPDY: %f\n", pdy);
 	}
+	else if ((key.action == MLX_PRESS  || key.action == MLX_REPEAT) && key.key == MLX_KEY_X)
+	{
+		int l_color = get_rgba(0, 10, 139, 255);
+		for (int x = 0; x < 960; x++)
+		{
+			// height
+			for (int y = 0; y < 1200; y++)
+			{
+				//printf("%d\n", x);
+				mlx_put_pixel(background, x, y, l_color);
+			}
+		}
+
+		int map[18][15] =
+		{
+		{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+		{1,0,0,1,0,0,0,0,0,0,0,0,0,0,1},
+		{1,0,0,1,0,0,0,0,0,0,0,0,0,0,1},
+		{1,0,0,1,0,0,0,0,0,0,0,0,0,0,1},
+		{1,0,0,1,0,0,0,0,0,0,0,0,0,0,1},
+		{1,1,0,0,0,0,0,0,0,0,0,0,0,0,1},
+		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+		{1,0,0,0,0,0,0,0,1,0,0,0,0,0,1},
+		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+		{1,0,0,0,0,0,0,0,0,0,1,1,1,1,1},
+		{1,0,0,1,1,1,1,0,0,0,0,0,0,0,1},
+		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+		{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+		};
+		draw_map(background, map);
+		printf("X pressed or hold!\n");
+	}
 	//draw_square(background, x, y, color);
 	startX = round(x);
 	startY = round(y);
 	endX = round(x+pdx*100);
 	endY = round(y+pdy*100);
 	draw_line(background, startX, startY, endX, endY, color);
-	printf("StartX: %f\n", x+pdx);
-	printf("StartY: %f\n", y+pdy);
-	printf("EndX: %f\n", x+pdx*100);
-	printf("EndY: %f\n", y+pdy*100);
+	// printf("StartX: %f\n", x+pdx);
+	// printf("StartY: %f\n", y+pdy);
+	// printf("EndX: %f\n", x+pdx*100);
+	// printf("EndY: %f\n", y+pdy*100);
 }
 
-void	draw_map(mlx_image_t *image, int arr[18][15])
-{
-	// red color
-	unsigned int w_color = get_rgba(255, 0, 0, 255);
-	//
-	unsigned int f_color = get_rgba(255, 255, 255, 255);
-	int s_size = 64;
-	int y_map_size = 18;
-	int x_map_size = 15;
-	int y = 0;
-	// draws y axes
-	while (y < y_map_size)
-	{
-		int x = 0;
-		// draws x axes
-		while (x < x_map_size)
-		{
-			printf("%d", arr[y][x]);
-			if (arr[y][x] == 1)
-			{
-				draw_square(image, x * s_size, y * s_size, w_color);
-			}
-			else
-				draw_square(image, x * s_size, y * s_size, f_color);
-			x++;
-		}
-		printf("\n");
-		y++;
-	}
-}
+
 
 void	set_background(mlx_image_t *left_pane, mlx_image_t *right_pane, int l_color, int r_color)
 {
@@ -243,14 +272,23 @@ int	main(void)
 	//draw_line(right_pane, 600, 600, 10, 25, get_rgba(0, 0, 0, 255));
 	draw_map(left_pane, map);
 	draw_map(right_pane, map);
-
+//////////////////////////////////////////////////////
+// Test
+point_t *horizontal_ray_coordinates;
+point_t *vertical_ray_coordinates;
+player_location_t pl;
+pl.player_angle = 55;
+pl.player_coordinates.x = 480;
+pl.player_coordinates.y = 800;
+horizontal_ray_coordinates = get_horizontal_ray_coordinates(&pl, map);
+vertical_ray_coordinates = get_vertical_ray_coordinates(&pl, map);
 //////////////////////////////////////////////////////
 	// Casting ray
 	// Temp map size
 	int map_x = 50;
 	int map_y = 50;
 
-	int pa = 45; // Initial player angle and position
+	int pa = 55; // Initial player angle and position
 	double px = 480; //150
 	double py = 800; // 400
 	// double pdx = cos(degToRad(pa));
@@ -258,7 +296,7 @@ int	main(void)
 
 	int r, mx, my, mp, dof;
 	double rx, ry, ra, xo, yo;
-	double h_distance = 0;
+	//double h_distance = 0;
 	//double v_distance = 0;
 	// init the variables
 	mx = 0; my = 0; mp = 0; dof = 0;
@@ -274,7 +312,7 @@ int	main(void)
 
 	// Horizontal lines
 	// no of lines
-	for (r = 0; r < 80; r++)
+	for (r = 0; r < 1; r++)
 	{
 		ra = degToRad(pa);
 		dof = 0;
@@ -318,12 +356,14 @@ int	main(void)
 				dof += 1;
 			}
 		}
-		h_distance = sqrt((rx - px) * (rx - px) + (ry - py) * (ry - py));
-		pa += 1;
-		printf("Horizontal: R: %d, D: %f, Rx: %f, Ry: %f\n", r, h_distance, rx, ry);
-		int ppp_color = get_rgba(0, 0, r, 255);
-		draw_line(left_pane, px, py, rx, ry, ppp_color);
+		// h_distance = sqrt((rx - px) * (rx - px) + (ry - py) * (ry - py));
+		// pa += 1;
+		//printf("Horizontal: R: %d, D: %f, Rx: %f, Ry: %f\n", r, h_distance, rx, ry);
+		// int ppp_color = get_rgba(0, 0, r, 255);
+		// draw_line(left_pane, px, py, rx, ry, ppp_color);
+		printf("Horizontal: Rx: %f, Ry: %f\n", rx, ry);
 	}
+	printf("Func - Horizontal: Rx: %f, Ry: %f\n", horizontal_ray_coordinates->x, horizontal_ray_coordinates->y);
 	//printf("Horzintal - Rx: %f Ry: %f\n", rx, ry);
 	// int ppp_color = get_rgba(0, 0, 0, 255);
 	// draw_line(left_pane, px, py, rx, ry, ppp_color);
@@ -333,48 +373,49 @@ int	main(void)
 
 // Vertical Lines
 ///////////////////////////////////////////////////////////
-    // for (r = 0; r < 1; r++) {
-    //     dof = 0;
-    //     double nTan = tan(ra);
+    for (r = 0; r < 1; r++) {
+        dof = 0;
+        double nTan = tan(ra);
 
-    //     // Look left (90 - 270 degrees)
-    //     if (cos(ra) < -0.001) {
-    //         rx = (((int) px >> 6) << 6) - 0.0001;
-    //         ry = (px - rx) * nTan + py;
-    //         xo = -64;
-    //         yo = -xo * nTan;
-    //     }
-    //     // Look right (270 - 90 degrees)
-    //     else if (cos(ra) > 0.001) {
-    //         rx = (((int) px >> 6) << 6) + 64;
-    //         ry = (px - rx) * nTan + py;
-    //         xo = 64;
-    //         yo = -xo * nTan;
-    //     }
-    //     // Looking up or down (exactly vertical)
-    //     else if (ra == M_PI / 2 || ra == 3 * M_PI / 2) {
-    //         rx = px;
-    //         ry = py;
-    //         dof = 18;
-    //     }
-    //     while (dof < 18) {
-    //         mx = (int) (rx) >> 6;
-    //         my = (int) (ry) >> 6;
-    //         mp = my * map_x + mx;
-    //         if (mp < map_x * map_y && map[my][mx] == 1) { // Corrected index access
-    //             dof = 18;
-    //         } else {
-    //             rx += xo;
-    //             ry += yo;
-    //             dof += 1;
-    //         }
-    //     }
-    // }
-	// v_distance = sqrt((rx - px) * (rx - px) + (ry - py) * (ry - py));
-	// printf("Vertical: R: %d, D: %f, Rx: %f, Ry: %f\n", r, v_distance, rx, ry);
+        // Look left (90 - 270 degrees)
+        if (cos(ra) < -0.001) {
+            rx = (((int) px >> 6) << 6) - 0.0001;
+            ry = (px - rx) * nTan + py;
+            xo = -64;
+            yo = -xo * nTan;
+        }
+        // Look right (270 - 90 degrees)
+        else if (cos(ra) > 0.001) {
+            rx = (((int) px >> 6) << 6) + 64;
+            ry = (px - rx) * nTan + py;
+            xo = 64;
+            yo = -xo * nTan;
+        }
+        // Looking up or down (exactly vertical)
+        else if (ra == M_PI / 2 || ra == 3 * M_PI / 2) {
+            rx = px;
+            ry = py;
+            dof = 18;
+        }
+        while (dof < 18) {
+            mx = (int) (rx) >> 6;
+            my = (int) (ry) >> 6;
+            mp = my * map_x + mx;
+            if (mp < map_x * map_y && map[my][mx] == 1) { // Corrected index access
+                dof = 18;
+            } else {
+                rx += xo;
+                ry += yo;
+                dof += 1;
+            }
+        }
+    }
+	//v_distance = sqrt((rx - px) * (rx - px) + (ry - py) * (ry - py));
+	//printf("Vertical: R: %d, D: %f, Rx: %f, Ry: %f\n", r, v_distance, rx, ry);
 	// int pppp_color = get_rgba(0, 128, 0, 255);
 	// draw_line(left_pane, px, py, rx, ry, pppp_color);
-
+	printf("Vertical: Rx: %f, Ry: %f\n", rx, ry);
+	printf("Func - Vertical: Rx: %f, Ry: %f\n", vertical_ray_coordinates->x, vertical_ray_coordinates->y);
 
 ////////////////////////////////////////////////////////////
 	// Key HOOK

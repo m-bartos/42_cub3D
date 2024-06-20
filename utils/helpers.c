@@ -10,8 +10,8 @@
 // /*                                                                            */
 // /* ************************************************************************** */
 
-// # include <math.h>
-// # include "../cube.h"
+# include <math.h>
+# include "../cube.h"
 
 // // Fix fish eye efect on the walls - Probably
 // int FixAng(int a)
@@ -83,3 +83,9 @@
 
 //  	glutPostRedisplay();
 // }
+
+// Convert degrees to radians
+float	degToRad(int a)
+{
+	return a * M_PI / 180.0;
+}

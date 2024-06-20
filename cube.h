@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:46:56 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/19 11:22:42 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/20 13:26:48 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,32 @@
 # define WIDTH 512
 # define HEIGHT 512
 # define SQUARE_SIZE 64
+
+typedef struct point_s
+{
+	double	x;
+	double	y;
+}	point_t;
+
+typedef struct player_location_s
+{
+	int		player_angle;
+	point_t	player_coordinates;
+}	player_location_t;
+
 // MLX42 Drawing functions
 
 //Bresenham’s line algorithm
-void draw_line(void *image, double startX, double startY, double endX, double endY, unsigned int color);
+void	draw_line(void *image, double startX, double startY, double endX, double endY, unsigned int color);
 
 void	draw_square(mlx_image_t *image, int startX, int startY, unsigned int color);
+
+// Ray Casting
+point_t *get_horizontal_ray_coordinates(player_location_t *pl, int map[18][15]);
+point_t *get_vertical_ray_coordinates(player_location_t *pl, int map[18][15]);
+
+
+// Utils
+float degToRad(int a);
 
 #endif
