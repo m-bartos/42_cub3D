@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:46:56 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/20 13:26:48 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/20 15:14:49 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,14 @@ void	draw_square(mlx_image_t *image, int startX, int startY, unsigned int color)
 point_t *get_horizontal_ray_coordinates(player_location_t *pl, int map[18][15]);
 point_t *get_vertical_ray_coordinates(player_location_t *pl, int map[18][15]);
 
+// Game
+void	draw_map(mlx_image_t *image, int arr[18][15]);
+void	move_player(mlx_key_data_t key, void *param);
+
 
 // Utils
-float degToRad(int a);
+float	degToRad(int a);
+int		FixAng(int a);
+unsigned int	get_rgba(unsigned int r, unsigned int g, unsigned int b, unsigned int a);
 
 #endif

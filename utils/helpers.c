@@ -89,3 +89,22 @@ float	degToRad(int a)
 {
 	return a * M_PI / 180.0;
 }
+
+
+int FixAng(int a)
+{
+	if(a > 359)
+	{
+		a -= 360;
+	}
+	if(a < 0)
+	{
+		a += 360;
+	}
+	return a;
+}
+
+unsigned int get_rgba(unsigned int r, unsigned int g, unsigned int b, unsigned int a)
+{
+	return ((unsigned int) r << 24 | (unsigned int) g << 16 | (unsigned int) b << 8 | (unsigned int)a);
+}
