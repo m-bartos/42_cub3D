@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 12:14:09 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/20 22:40:40 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/20 22:50:12 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,13 +65,12 @@ point_t *get_horizontal_ray_coordinates(player_location_t *pl, int map[18][15])
 			yo = 64;
 			xo = -yo * aTan;
 		}
-		// looking left or right - exactly horizontal
-		else //if (fabs(sin(ra)) < 0.001)
+		// look left or right - exactly horizontal
+		else
 		{
 			rx = 100000;
 			ry = 100000;
 			dof = 18;
-			printf("Hor: PX: %f, PY: %f\n", px, py);
 		}
 		while (dof < 18)
 		{

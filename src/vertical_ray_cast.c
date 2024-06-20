@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 13:18:17 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/20 22:38:42 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/20 22:51:55 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,36 +43,36 @@ point_t *get_vertical_ray_coordinates(player_location_t *pl, int map[18][15])
 		double nTan = tan(ra);
 
 		// Look left (90 - 270 degrees)
-		if (cos(ra) < -0.001) {
+		if (cos(ra) < -0.001)
+		{
 			rx = (((int) px >> 6) << 6) - 0.0001;
 			ry = (px - rx) * nTan + py;
 			xo = -64;
 			yo = -xo * nTan;
 		}
 		// Look right (270 - 90 degrees)
-		else if (cos(ra) > 0.001) {
+		else if (cos(ra) > 0.001)
+		{
 			rx = (((int) px >> 6) << 6) + 64;
 			ry = (px - rx) * nTan + py;
 			xo = 64;
 			yo = -xo * nTan;
 		}
 		// Looking up or down (exactly vertical)
-		// (ra == M_PI / 2 || ra == 3 * M_PI / 2)
-		else //if (ra == M_PI / 2 || ra == 3 * M_PI / 2)
+		else
 		{
 			rx = 100000;
 			ry = 100000;
 			dof = 18;
-			printf("Ver: PX: %f, PY: %f\n", px, py);
 		}
 		while (dof < 18)
 		{
 			mx = (int) (rx) >> 6;
 			my = (int) (ry) >> 6;
 			mp = my * map_x + mx;
-			if (mp < map_x * map_y && map[my][mx] == 1) { // Corrected index access
+			if (mp < map_x * map_y && map[my][mx] == 1)
 				dof = 18;
-			} else
+			else
 			{
 				rx += xo;
 				ry += yo;

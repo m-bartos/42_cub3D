@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:59:53 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/20 22:45:06 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/20 22:48:24 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,16 +32,11 @@ void	move_player(mlx_key_data_t key, void *param)
 	unsigned int color = get_rgba(0, 255, 0, 255);
 	//mlx_image_t *left_pane = (mlx_image_t *) param;
 	planes_t *game_planes = (planes_t *) param;
-	//clear_square(background, x, y);
+	
 	startX = round(x);
 	startY = round(y);
 	endX = round(x+pdx*100);
 	endY = round(y+pdy*100);
-
-
-	// clean line
-	//draw_line(background, startX, startY, endX, endY, get_rgba(255, 255, 255, 255));
-
 
 ////////////////////////////////////////////////////////////////////////////////
 // Testing cleaning initial or previous screen - it works
