@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:59:53 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/21 21:29:05 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/21 21:59:08 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,12 +145,12 @@ void	move_player(mlx_key_data_t key, void *param)
 		if (v_distance < h_distance)
 		{
 			draw_line(game_planes->left_pane, pl.player_coordinates.x, pl.player_coordinates.y, vrc->x, vrc->y, ppp_color);
-			//draw_line(game_planes->right_pane, pl.player_coordinates.x, pl.player_coordinates.y, vrc->x, vrc->y, ppp_color);
+			//draw_line(game_planes->right_pane, pl.player_coordinates.x, pl.player_coordinates.y, vrc->x, vrc->y, color);
 		}
 		else
 		{
 			draw_line(game_planes->left_pane, pl.player_coordinates.x, pl.player_coordinates.y, hrc->x, hrc->y, ppp_color);
-			//draw_line(game_planes->right_pane, pl.player_coordinates.x, pl.player_coordinates.y, hrc->x, hrc->y, ppp_color);
+			//draw_line(game_planes->right_pane, pl.player_coordinates.x, pl.player_coordinates.y, hrc->x, hrc->y, color);
 		}
 	// End of Ray Casting
 	/////////////////////////////////////////////////////////////////////
@@ -166,27 +166,25 @@ void	move_player(mlx_key_data_t key, void *param)
 		int max_wall_height = screen_height; // Wall extends the whole vertical line when directly facing
 
 		// Calculate the wall height based on the distance
-		int line_height = (65 * max_wall_height) / corrected_distance;
+		// Adjust the wall size multiplyer to something appropriate like 64 or 128
+		int line_height = (64 * max_wall_height) / corrected_distance;
 		if (line_height > screen_height) line_height = screen_height; // Ensure it doesn't exceed the screen height
 
 		int line_offset = (screen_height / 2) - (line_height / 2); // Centering the wall slice vertically
 
 		// Correct horizontal position for each ray
-		int ray_x_position = r * (screen_width / 90) + (screen_width / 2) - 45 * (screen_width / 90);
+		// Draws from right to left
+		//int ray_x_position = r * (screen_width / 90) + (screen_width / 2) - 45 * (screen_width / 90);
+
+		// Correct horizontal position for each ray
+		int ray_x_position = (screen_width - 1) - r * (screen_width / 90); // Inverted to draw from left to right
 
 		// Draw the wall slice by filling pixels vertically
-		for (int y = line_offset; y < line_offset + line_height; y++) {
-			mlx_put_pixel(game_planes->right_pane, ray_x_position, y, color);  // Draw at the correct x-coordinate
-		}
-
-
-
-
-		// // Draw the wall slice by filling pixels vertically
 		// for (int y = line_offset; y < line_offset + line_height; y++)
-		// {
-		// 	mlx_put_pixel(game_planes->right_pane, r * 5 + 530, y, color);  // Scale the x-coordinate appropriately
+		//{
+		// 	mlx_put_pixel(game_planes->right_pane, ray_x_position, y, color);  // Draw at the correct x-coordinate
 		// }
+		draw_line(game_planes->right_pane, ray_x_position, line_offset, ray_x_position, line_offset + line_height, color);
 	}
 
 	/////////////////////////////////////////////////////////////////////
