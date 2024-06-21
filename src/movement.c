@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:59:53 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/21 11:29:19 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/21 11:36:36 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,10 +113,10 @@ void	move_player(mlx_key_data_t key, void *param)
 	}
 
 	// implement FOV
-	for (int r = 0; r < 60; r++)
-	{
 ////////////////////////////////////////////////////////
 // Ray casting rendering
+	for (int r = 0; r < 60; r++)
+	{
 		double h_distance = 0;
 		double v_distance = 0;
 		double fov = FixAng((pa - 60 / 2) + r);
@@ -178,11 +178,12 @@ void	move_player(mlx_key_data_t key, void *param)
 	/////////////////////////////////////////////////////////////////////
 	// Draw player line
 	printf("Player Angle: %d\n", pa);
+	printf("PDX: %f\n", pdx);
+	printf("PDY: %f\n", pdy);
 	startX = x;
 	startY = y;
 	endX = x+pdx*100;
 	endY = y-pdy*100;
-	//printf("End Points: PDX: %f PDY: %f\n", x+pdx, y+pdy);
 	draw_line(game_planes->left_pane, startX, startY, endX, endY, color);
-	//draw_line(game_planes->right_pane, startX, startY, endX, endY, color);
+	draw_line(game_planes->right_pane, startX, startY, endX, endY, color);
 }
