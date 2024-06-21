@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:59:53 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/21 11:36:36 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/21 21:29:05 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	move_player(mlx_key_data_t key, void *param)
 	double pdx;
 	double pdy;
 	// initial player angle
-	static int pa = 45;
+	static int pa = 90;
 
 
 	double startX = 0.0;
@@ -44,6 +44,7 @@ void	move_player(mlx_key_data_t key, void *param)
 ////////////////////////////////////////////////////////////////////////////////
 // Testing cleaning initial or previous screen - it works
 	int l_color = get_rgba(0, 10, 139, 255);
+	int r_color = get_rgba(0, 0, 0, 255);
 	for (int x = 0; x < 960; x++)
 	{
 		// height
@@ -51,7 +52,7 @@ void	move_player(mlx_key_data_t key, void *param)
 		{
 			//printf("%d\n", x);
 			mlx_put_pixel(game_planes->left_pane, x, y, l_color);
-			mlx_put_pixel(game_planes->right_pane, x, y, l_color);
+			mlx_put_pixel(game_planes->right_pane, x, y, r_color);
 		}
 	}
 
@@ -115,11 +116,11 @@ void	move_player(mlx_key_data_t key, void *param)
 	// implement FOV
 ////////////////////////////////////////////////////////
 // Ray casting rendering
-	for (int r = 0; r < 60; r++)
+	for (int r = 0; r < 90; r++)
 	{
 		double h_distance = 0;
 		double v_distance = 0;
-		double fov = FixAng((pa - 60 / 2) + r);
+		double fov = FixAng((pa - 90 / 2) + r);
 		//printf("TEST:::%f\n", fov);
 		point_t *hrc;
 		point_t *vrc;
@@ -161,6 +162,7 @@ void	move_player(mlx_key_data_t key, void *param)
 			corrected_distance = h_distance * cos(degToRad(fov - pa));
 
 		int screen_height = 1200;
+		int screen_width = 960;
 		int max_wall_height = screen_height; // Wall extends the whole vertical line when directly facing
 
 		// Calculate the wall height based on the distance
@@ -169,10 +171,22 @@ void	move_player(mlx_key_data_t key, void *param)
 
 		int line_offset = (screen_height / 2) - (line_height / 2); // Centering the wall slice vertically
 
+		// Correct horizontal position for each ray
+		int ray_x_position = r * (screen_width / 90) + (screen_width / 2) - 45 * (screen_width / 90);
+
 		// Draw the wall slice by filling pixels vertically
 		for (int y = line_offset; y < line_offset + line_height; y++) {
-			mlx_put_pixel(game_planes->right_pane, r * 10 + 530, y, color);  // Scale the x-coordinate appropriately
+			mlx_put_pixel(game_planes->right_pane, ray_x_position, y, color);  // Draw at the correct x-coordinate
 		}
+
+
+
+
+		// // Draw the wall slice by filling pixels vertically
+		// for (int y = line_offset; y < line_offset + line_height; y++)
+		// {
+		// 	mlx_put_pixel(game_planes->right_pane, r * 5 + 530, y, color);  // Scale the x-coordinate appropriately
+		// }
 	}
 
 	/////////////////////////////////////////////////////////////////////
@@ -185,5 +199,5 @@ void	move_player(mlx_key_data_t key, void *param)
 	endX = x+pdx*100;
 	endY = y-pdy*100;
 	draw_line(game_planes->left_pane, startX, startY, endX, endY, color);
-	draw_line(game_planes->right_pane, startX, startY, endX, endY, color);
+	//draw_line(game_planes->right_pane, startX, startY, endX, endY, color);
 }

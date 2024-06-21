@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:44:52 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/21 10:53:06 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/21 21:10:38 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -259,7 +259,7 @@ int	main(void)
 	};
 
 	draw_map(left_pane, map);
-	draw_map(right_pane, map);
+	//draw_map(right_pane, map);
 //////////////////////////////////////////////////////
 	// Ray Casting
 	double h_distance = 0;
@@ -286,12 +286,12 @@ int	main(void)
 	if (v_distance < h_distance)
 	{
 		draw_line(left_pane, pl.player_coordinates.x, pl.player_coordinates.y, vrc->x, vrc->y, ppp_color);
-		draw_line(right_pane, pl.player_coordinates.x, pl.player_coordinates.y, vrc->x, vrc->y, ppp_color);
+		//draw_line(right_pane, pl.player_coordinates.x, pl.player_coordinates.y, vrc->x, vrc->y, ppp_color);
 	}
 	else
 	{
 		draw_line(left_pane, pl.player_coordinates.x, pl.player_coordinates.y, hrc->x, hrc->y, ppp_color);
-		draw_line(right_pane, pl.player_coordinates.x, pl.player_coordinates.y, hrc->x, hrc->y, ppp_color);
+		//draw_line(right_pane, pl.player_coordinates.x, pl.player_coordinates.y, hrc->x, hrc->y, ppp_color);
 	}
 // End of Ray Casting
 ////////////////////////////////////////////////////////////
