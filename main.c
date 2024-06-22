@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:44:52 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/22 22:18:38 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/22 23:04:17 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,7 @@ int	main(void)
 	game.init_player_location.player_angle = 90;
 	game.init_player_location.player_coordinates.x = 600;
 	game.init_player_location.player_coordinates.y = 600;
+	//game.int_map[18][15];
 
 	int map[18][15] =
 	{
@@ -180,7 +181,7 @@ int	main(void)
 	// End of Ray Casting
 	/////////////////////////////////////////////////////////////////////
 	// Key HOOK
-	mlx_key_hook(mlx, move_p_func, &game_planes);
+	mlx_key_hook(mlx, move_p_func, &game);
 	// Game LOOP
 	mlx_loop(mlx);
 	// Cleaning func

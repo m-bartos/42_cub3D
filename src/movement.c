@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:59:53 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/22 21:26:23 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/22 22:29:54 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	move_player(mlx_key_data_t key, void *param)
 {
+	game_t	*game;
+	game = (game_t *)param;
 	// starting player coordinates
 	static double x = 600;
 	static double y = 600;
@@ -40,7 +42,8 @@ void	move_player(mlx_key_data_t key, void *param)
 	endY = y-pdy*100;
 // color and planes
 	unsigned int color = get_rgba(0, 255, 0, 255);
-	planes_t *game_planes = (planes_t *) param;
+	planes_t *game_planes = game->game_planes;
+
 ////////////////////////////////////////////////////////////////////////////////
 // Testing cleaning initial or previous screen - it works
 	int l_color = get_rgba(0, 10, 139, 255);

@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:46:56 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/22 21:58:52 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/22 23:04:04 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct game_s
 	player_location_t	init_player_location;
 	planes_t			*game_planes;
 	char				**map;
+	int					int_map[18][15];
 }	game_t;
 
 // MLX42 Drawing functions
