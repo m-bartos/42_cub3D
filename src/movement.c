@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:59:53 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/22 21:20:27 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/22 21:26:23 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,17 +45,9 @@ void	move_player(mlx_key_data_t key, void *param)
 // Testing cleaning initial or previous screen - it works
 	int l_color = get_rgba(0, 10, 139, 255);
 	int r_color = get_rgba(0, 0, 0, 255);
-	for (int x = 0; x < 960; x++)
-	{
-		// height
-		for (int y = 0; y < 1200; y++)
-		{
-			//printf("%d\n", x);
-			mlx_put_pixel(game_planes->left_plane, x, y, l_color);
-			mlx_put_pixel(game_planes->right_plane, x, y, r_color);
-		}
-	}
 
+	set_img_background(game_planes->left_plane, l_color);
+	set_img_background(game_planes->right_plane, r_color);
 	int map[18][15] =
 	{
 	{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},

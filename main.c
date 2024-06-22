@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:44:52 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/22 21:18:37 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/22 21:23:05 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,9 +107,9 @@ int	main(void)
 	game_planes.right_plane = right_plane;
 	// Set color over two images
 	// Each image has its own coordinates starting 0, 0.
-	//set_background(game_planes.left_plane, game_planes.left_plane, l_color, r_color);
-	set_background(left_plane, l_color);
-	set_background(right_plane, r_color);
+	//set_img_background(game_planes.left_plane, game_planes.left_plane, l_color, r_color);
+	set_img_background(left_plane, l_color);
+	set_img_background(right_plane, r_color);
 
 	int map[18][15] =
 	{

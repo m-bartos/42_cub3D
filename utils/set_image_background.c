@@ -6,14 +6,13 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 21:06:37 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/22 21:16:20 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/22 21:35:01 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cube.h"
 
-
-void	set_background(mlx_image_t *image, int32_t color)
+void	set_img_background(mlx_image_t *image, int32_t color)
 {
 	int	x;
 	int	y;
