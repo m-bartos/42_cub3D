@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:46:56 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/22 19:14:41 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/22 20:47:15 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ typedef struct planes_s
 void	draw_line(void *image, double startX, double startY, double endX, double endY, unsigned int color);
 
 void	draw_square(mlx_image_t *image, int startX, int startY, unsigned int color);
+void	draw_square_proto(mlx_image_t *image, u_int32_t color , point_t location, int size);
 
 // Ray Casting
 point_t *get_horizontal_ray_coordinates(player_location_t *pl, int map[18][15]);
