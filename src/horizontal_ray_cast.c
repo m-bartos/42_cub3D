@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 12:14:09 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/20 22:50:12 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/22 19:14:41 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ point_t *get_horizontal_ray_coordinates(player_location_t *pl, int map[18][15])
 	int pa = pl->player_angle; // Initial player angle and position
 	double px = pl->player_coordinates.x; //150
 	double py = pl->player_coordinates.y; // 400
-	// double pdx = cos(degToRad(pa));
-	// double pdy = sin(degToRad(pa));
+	// double pdx = cos(deg_to_rad(pa));
+	// double pdy = sin(deg_to_rad(pa));
 
 	int r, mx, my, mp, dof;
 	double rx, ry, ra, xo, yo;
@@ -39,14 +39,14 @@ point_t *get_horizontal_ray_coordinates(player_location_t *pl, int map[18][15])
 	mx = 0; my = 0; mp = 0; dof = 0;
 	rx = 0; ry = 0; ra = 0; xo = 0; yo = 0;
 	// ray angle = player angle
-	ra = degToRad(pa);
+	ra = deg_to_rad(pa);
 
 
 	// Horizontal lines
 	// no of lines
 	for (r = 0; r < 1; r++)
 	{
-		ra = degToRad(pa);
+		ra = deg_to_rad(pa);
 		dof = 0;
 		float aTan = 1.0 / tan(ra);
 		// look up 0 - 180 right -> left right is 0

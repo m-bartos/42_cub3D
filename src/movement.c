@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:59:53 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/22 18:41:32 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/22 19:14:41 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ void	move_player(mlx_key_data_t key, void *param)
 	double endY = 0;
 
 	// initial angle ??
-	pdx = cos(degToRad(pa));
-	pdy = sin(degToRad(pa));
+	pdx = cos(deg_to_rad(pa));
+	pdy = sin(deg_to_rad(pa));
 
 	startX = x;
 	startY = y;
@@ -103,16 +103,16 @@ void	move_player(mlx_key_data_t key, void *param)
 	else if ((key.action == MLX_PRESS  || key.action == MLX_REPEAT) && key.key == MLX_KEY_LEFT)
 	{
 		pa += 5;
-		pa = FixAng(pa);
-		pdx = cos(degToRad(pa));
-		pdy = sin(degToRad(pa));
+		pa = fix_ang(pa);
+		pdx = cos(deg_to_rad(pa));
+		pdy = sin(deg_to_rad(pa));
 	}
 	else if ((key.action == MLX_PRESS  || key.action == MLX_REPEAT) && key.key == MLX_KEY_RIGHT)
 	{
 		pa -= 5;
-		pa = FixAng(pa);
-		pdx = cos(degToRad(pa));
-		pdy = sin(degToRad(pa));
+		pa = fix_ang(pa);
+		pdx = cos(deg_to_rad(pa));
+		pdy = sin(deg_to_rad(pa));
 	}
 	else if ((key.action == MLX_PRESS  || key.action == MLX_REPEAT) && key.key == MLX_KEY_X)
 	{
@@ -126,7 +126,7 @@ void	move_player(mlx_key_data_t key, void *param)
 	{
 		double h_distance = 0;
 		double v_distance = 0;
-		double fov = FixAng((pa - 60 / 2) + r);
+		double fov = fix_ang((pa - 60 / 2) + r);
 		//printf("TEST:::%f\n", fov);
 		point_t *hrc;
 		point_t *vrc;
@@ -163,9 +163,9 @@ void	move_player(mlx_key_data_t key, void *param)
 	// Draw Wall
 		double corrected_distance;
 		if (v_distance < h_distance)
-			corrected_distance = v_distance * cos(degToRad(fov - pa));
+			corrected_distance = v_distance * cos(deg_to_rad(fov - pa));
 		else
-			corrected_distance = h_distance * cos(degToRad(fov - pa));
+			corrected_distance = h_distance * cos(deg_to_rad(fov - pa));
 
 		int screen_height = 1200;
 		int screen_width = 960;

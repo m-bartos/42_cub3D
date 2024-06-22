@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:44:52 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/21 21:10:38 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/22 19:14:41 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,8 @@ void	draw_map(mlx_image_t *image, int arr[18][15])
 // 	int endX = 0;
 // 	int endY = 0;
 
-// 	pdx = cos(degToRad(pa));
-// 	pdy = sin(degToRad(pa));
+// 	pdx = cos(deg_to_rad(pa));
+// 	pdy = sin(deg_to_rad(pa));
 // 	unsigned int color = get_rgba(0, 255, 0, 255);
 // 	mlx_image_t *background = (mlx_image_t *) param;
 // 	//clear_square(background, x, y);
@@ -114,9 +114,9 @@ void	draw_map(mlx_image_t *image, int arr[18][15])
 // 	else if ((key.action == MLX_PRESS  || key.action == MLX_REPEAT) && key.key == MLX_KEY_LEFT)
 // 	{
 // 		pa -= 5;
-// 		pa = FixAng(pa);
-// 		pdx = cos(degToRad(pa));
-// 		pdy = sin(degToRad(pa));
+// 		pa = fix_ang(pa);
+// 		pdx = cos(deg_to_rad(pa));
+// 		pdy = sin(deg_to_rad(pa));
 // 		printf("LX: %f\n", x);
 // 		printf("LY: %f\n", x);
 // 		printf("LPA: %d\n", pa);
@@ -126,9 +126,9 @@ void	draw_map(mlx_image_t *image, int arr[18][15])
 // 	else if ((key.action == MLX_PRESS  || key.action == MLX_REPEAT) && key.key == MLX_KEY_RIGHT)
 // 	{
 // 		pa += 5;
-// 		pa = FixAng(pa);
-// 		pdx = cos(degToRad(pa));
-// 		pdy = sin(degToRad(pa));
+// 		pa = fix_ang(pa);
+// 		pdx = cos(deg_to_rad(pa));
+// 		pdy = sin(deg_to_rad(pa));
 // 		printf("RX: %f\n", x);
 // 		printf("RY: %f\n", x);
 // 		printf("RPA: %d\n", pa);

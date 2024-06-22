@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:46:56 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/20 17:19:16 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/22 19:14:41 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,8 @@ void	move_player(mlx_key_data_t key, void *param);
 
 
 // Utils
-float	degToRad(int a);
-int		FixAng(int a);
+float	deg_to_rad(int a);
+int		fix_ang(int a);
 unsigned int	get_rgba(unsigned int r, unsigned int g, unsigned int b, unsigned int a);
 
 #endif
