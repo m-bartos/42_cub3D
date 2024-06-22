@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 13:18:17 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/22 19:14:41 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/23 00:43:59 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ point_t *get_vertical_ray_coordinates(player_location_t *pl, int map[18][15])
 			mx = (int) (rx) >> 6;
 			my = (int) (ry) >> 6;
 			mp = my * map_x + mx;
-			if (mp < map_x * map_y && map[my][mx] == 1)
+			if (mp < map_x * map_y && (map[my][mx] == 1 || map[my][mx] == '1'))
 				dof = 18;
 			else
 			{

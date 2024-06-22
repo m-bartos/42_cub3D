@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:44:52 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/22 23:04:17 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/23 00:46:15 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +72,12 @@ void	draw_map(mlx_image_t *image, int arr[18][15])
 	}
 }
 
+char *static_map = "111111111111111\n100000000000001\n100000000000001\n100111000000001\n100000000000001\n100000000000001\n100001110000001\n100000000000001\n100000000000001\n100000000000001\n100000000000001\n100000000000001\n100000000000001\n100000000000001\n100000000000001\n100000000000001\n100000000000001\n111111111111111\n";
 
 int	main(void)
 {
-	// ??
-	#define BPP sizeof(int32_t)
+	// Load a map from a string
+	char **game_map = ft_split(static_map, '\n');
 	// Window Size
 	int w = 1920;
 	int h = 1200;
@@ -112,11 +113,16 @@ int	main(void)
 	set_img_background(right_plane, r_color);
 
 	game_t game;
+	game = (game_t){0};
 	game.game_planes = &game_planes;
 	game.init_player_location.player_angle = 90;
 	game.init_player_location.player_coordinates.x = 600;
 	game.init_player_location.player_coordinates.y = 600;
-	//game.int_map[18][15];
+	game.game_map.map = game_map;
+
+	load_map(static_map, &game);
+	printf("Map: W: %d, H: %d\n", game.game_map.width, game.game_map.height);
+
 
 	int map[18][15] =
 	{
@@ -142,6 +148,7 @@ int	main(void)
 
 	draw_map(left_plane, map);
 	//draw_map(right_plane, map);
+	draw_map_char(left_plane, &game);
 
 ////////////////////////////////////////////////////////
 // Ray casting rendering

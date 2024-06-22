@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:46:56 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/22 23:04:04 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/23 00:35:33 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,18 @@ typedef struct planes_s
 	mlx_image_t *right_plane;
 } planes_t;
 
+typedef struct map_s
+{
+	char	**map;
+	int		width;
+	int		height;
+}	map_t;
+
 typedef struct game_s
 {
 	player_location_t	init_player_location;
 	planes_t			*game_planes;
-	char				**map;
-	int					int_map[18][15];
+	map_t				game_map;
 }	game_t;
 
 // MLX42 Drawing functions
@@ -70,8 +76,10 @@ void	move_player(mlx_key_data_t key, void *param);
 
 
 // Utils
-float	deg_to_rad(int a);
-int		fix_ang(int a);
-unsigned int	get_rgba(unsigned int r, unsigned int g, unsigned int b, unsigned int a);
+float			deg_to_rad(int a);
+int				fix_ang(int a);
+u_int32_t		get_rgba(u_int32_t r, u_int32_t g, u_int32_t b, u_int32_t a);
+int				load_map(char *map_str, game_t *game);
+void			draw_map_char(mlx_image_t *image, game_t *game);
 
 #endif
