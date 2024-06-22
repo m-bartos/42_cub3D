@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:44:52 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/22 21:23:05 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/22 22:18:38 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,12 @@ int	main(void)
 	set_img_background(left_plane, l_color);
 	set_img_background(right_plane, r_color);
 
+	game_t game;
+	game.game_planes = &game_planes;
+	game.init_player_location.player_angle = 90;
+	game.init_player_location.player_coordinates.x = 600;
+	game.init_player_location.player_coordinates.y = 600;
+
 	int map[18][15] =
 	{
 		{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
@@ -135,41 +141,44 @@ int	main(void)
 
 	draw_map(left_plane, map);
 	//draw_map(right_plane, map);
-//////////////////////////////////////////////////////
-	// Ray Casting
-	double h_distance = 0;
-	double v_distance = 0;
 
-	point_t *hrc;
-	point_t *vrc;
-	player_location_t pl;
-	pl.player_angle = 90;
-	pl.player_coordinates.x = 600;
-	pl.player_coordinates.y = 600;
-	hrc = get_horizontal_ray_coordinates(&pl, map);
-	vrc = get_vertical_ray_coordinates(&pl, map);
-
-	printf("Func - Horizontal: Rx: %f, Ry: %f\n", hrc->x,hrc->y);
-	printf("Func - Vertical: Rx: %f, Ry: %f\n", vrc->x, vrc->y);
-
-	h_distance = sqrt((hrc->x - pl.player_coordinates.x) * (hrc->x - pl.player_coordinates.x) + (hrc->y - pl.player_coordinates.y) * (hrc->y - pl.player_coordinates.y));
-
-	v_distance = sqrt((vrc->x - pl.player_coordinates.x) * (vrc->x - pl.player_coordinates.x) + (vrc->y - pl.player_coordinates.y) * (vrc->y - pl.player_coordinates.y));
-	printf("Horizontal Distance: %f\n", h_distance);
-	printf("Vertical Distance: %f\n", v_distance);
-	int ppp_color = get_rgba(0, 0, 0, 255);
-	if (v_distance < h_distance)
+////////////////////////////////////////////////////////
+// Ray casting rendering
+	int pa = game.init_player_location.player_angle;
+	int startX = game.init_player_location.player_coordinates.x;
+	int startY = game.init_player_location.player_coordinates.y;
+	for (int r = 0; r < 60; r++)
 	{
-		draw_line(left_plane, pl.player_coordinates.x, pl.player_coordinates.y, vrc->x, vrc->y, ppp_color);
-		//draw_line(right_plane, pl.player_coordinates.x, pl.player_coordinates.y, vrc->x, vrc->y, ppp_color);
+		double h_distance = 0;
+		double v_distance = 0;
+		double fov = fix_ang((pa - 60 / 2) + r);
+		point_t *hrc;
+		point_t *vrc;
+		player_location_t pl;
+		pl.player_angle = pa;
+		pl.player_angle = fov;
+		pl.player_coordinates.x = startX;
+		pl.player_coordinates.y = startY;
+		hrc = get_horizontal_ray_coordinates(&pl, map);
+		vrc = get_vertical_ray_coordinates(&pl, map);
+
+		h_distance = sqrt((hrc->x - pl.player_coordinates.x) * (hrc->x - pl.player_coordinates.x) + (hrc->y - pl.player_coordinates.y) * (hrc->y - pl.player_coordinates.y));
+		v_distance = sqrt((vrc->x - pl.player_coordinates.x) * (vrc->x - pl.player_coordinates.x) + (vrc->y - pl.player_coordinates.y) * (vrc->y - pl.player_coordinates.y));
+
+		int ppp_color = get_rgba(0, 0, 0, 255);
+		if (v_distance < h_distance)
+		{
+			draw_line(game_planes.left_plane, pl.player_coordinates.x, pl.player_coordinates.y, vrc->x, vrc->y, ppp_color);
+			//draw_line(game_planes->right_plane, pl.player_coordinates.x, pl.player_coordinates.y, vrc->x, vrc->y, color);
+		}
+		else
+		{
+			draw_line(game_planes.left_plane, pl.player_coordinates.x, pl.player_coordinates.y, hrc->x, hrc->y, ppp_color);
+			//draw_line(game_planes->right_plane, pl.player_coordinates.x, pl.player_coordinates.y, hrc->x, hrc->y, color);
+		}
 	}
-	else
-	{
-		draw_line(left_plane, pl.player_coordinates.x, pl.player_coordinates.y, hrc->x, hrc->y, ppp_color);
-		//draw_line(right_plane, pl.player_coordinates.x, pl.player_coordinates.y, hrc->x, hrc->y, ppp_color);
-	}
-// End of Ray Casting
-////////////////////////////////////////////////////////////
+	// End of Ray Casting
+	/////////////////////////////////////////////////////////////////////
 	// Key HOOK
 	mlx_key_hook(mlx, move_p_func, &game_planes);
 	// Game LOOP
