@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 19:49:44 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/22 20:44:59 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/22 21:02:36 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	draw_square(mlx_image_t *image, int x, int y, unsigned int color)
 	}
 }
 
-void	draw_square_proto(mlx_image_t *image, u_int32_t color , point_t location, int size)
+void	put_square(mlx_image_t *image , point_t location, int32_t size, u_int32_t color)
 {
 	for (int i = 0; i < size - 1; i++)
 	{
