@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:59:53 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/21 21:59:08 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/22 13:41:20 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,9 +81,15 @@ void	move_player(mlx_key_data_t key, void *param)
 	//draw_map(game_planes->right_pane, map);
 ////////////////////////////////////////////////////////////////////////////////
 	if ((key.action == MLX_PRESS  || key.action == MLX_REPEAT) && key.key == MLX_KEY_D)
-		x += 5;
+	{
+		x += pdy * 5;
+		y += pdx * 5;
+	}
 	else if ((key.action == MLX_PRESS  || key.action == MLX_REPEAT) && key.key == MLX_KEY_A)
-		x -= 5;
+	{
+		x -= pdy * 5;
+		y -= pdx * 5;
+	}
 	else if ((key.action == MLX_PRESS  || key.action == MLX_REPEAT) && key.key == MLX_KEY_W)
 	{
 		x += pdx * 5;
@@ -116,11 +122,11 @@ void	move_player(mlx_key_data_t key, void *param)
 	// implement FOV
 ////////////////////////////////////////////////////////
 // Ray casting rendering
-	for (int r = 0; r < 90; r++)
+	for (int r = 0; r < 60; r++)
 	{
 		double h_distance = 0;
 		double v_distance = 0;
-		double fov = FixAng((pa - 90 / 2) + r);
+		double fov = FixAng((pa - 60 / 2) + r);
 		//printf("TEST:::%f\n", fov);
 		point_t *hrc;
 		point_t *vrc;
@@ -168,16 +174,13 @@ void	move_player(mlx_key_data_t key, void *param)
 		// Calculate the wall height based on the distance
 		// Adjust the wall size multiplyer to something appropriate like 64 or 128
 		int line_height = (64 * max_wall_height) / corrected_distance;
-		if (line_height > screen_height) line_height = screen_height; // Ensure it doesn't exceed the screen height
+		if (line_height > screen_height)
+			line_height = screen_height; // Ensure it doesn't exceed the screen height
 
 		int line_offset = (screen_height / 2) - (line_height / 2); // Centering the wall slice vertically
 
 		// Correct horizontal position for each ray
-		// Draws from right to left
-		//int ray_x_position = r * (screen_width / 90) + (screen_width / 2) - 45 * (screen_width / 90);
-
-		// Correct horizontal position for each ray
-		int ray_x_position = (screen_width - 1) - r * (screen_width / 90); // Inverted to draw from left to right
+		int ray_x_position = (screen_width - 1) - r * (screen_width / 60); // Inverted to draw from left to right
 
 		// Draw the wall slice by filling pixels vertically
 		// for (int y = line_offset; y < line_offset + line_height; y++)
