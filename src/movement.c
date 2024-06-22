@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:59:53 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/22 13:41:20 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/22 18:41:32 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,7 +173,7 @@ void	move_player(mlx_key_data_t key, void *param)
 
 		// Calculate the wall height based on the distance
 		// Adjust the wall size multiplyer to something appropriate like 64 or 128
-		int line_height = (64 * max_wall_height) / corrected_distance;
+		int line_height = (128 * max_wall_height) / corrected_distance;
 		if (line_height > screen_height)
 			line_height = screen_height; // Ensure it doesn't exceed the screen height
 
@@ -187,7 +187,14 @@ void	move_player(mlx_key_data_t key, void *param)
 		//{
 		// 	mlx_put_pixel(game_planes->right_pane, ray_x_position, y, color);  // Draw at the correct x-coordinate
 		// }
+		// floor
+		int f_color = get_rgba(255, 0, 0, 255);
+		draw_line(game_planes->right_pane, ray_x_position, 1200, ray_x_position, line_offset, f_color);
+		// wall
 		draw_line(game_planes->right_pane, ray_x_position, line_offset, ray_x_position, line_offset + line_height, color);
+		// ceiling
+		int c_color = get_rgba(0, 0, 255, 255);
+		draw_line(game_planes->right_pane, ray_x_position, 0, ray_x_position, line_offset, c_color);
 	}
 
 	/////////////////////////////////////////////////////////////////////
