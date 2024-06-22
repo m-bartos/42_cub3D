@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:59:53 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/22 19:14:41 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/22 21:20:27 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ void	move_player(mlx_key_data_t key, void *param)
 		for (int y = 0; y < 1200; y++)
 		{
 			//printf("%d\n", x);
-			mlx_put_pixel(game_planes->left_pane, x, y, l_color);
-			mlx_put_pixel(game_planes->right_pane, x, y, r_color);
+			mlx_put_pixel(game_planes->left_plane, x, y, l_color);
+			mlx_put_pixel(game_planes->right_plane, x, y, r_color);
 		}
 	}
 
@@ -77,8 +77,8 @@ void	move_player(mlx_key_data_t key, void *param)
 	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
 	{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
 	};
-	draw_map(game_planes->left_pane, map);
-	//draw_map(game_planes->right_pane, map);
+	draw_map(game_planes->left_plane, map);
+	//draw_map(game_planes->right_plane, map);
 ////////////////////////////////////////////////////////////////////////////////
 	if ((key.action == MLX_PRESS  || key.action == MLX_REPEAT) && key.key == MLX_KEY_D)
 	{
@@ -150,13 +150,13 @@ void	move_player(mlx_key_data_t key, void *param)
 		int ppp_color = get_rgba(0, 0, 0, 255);
 		if (v_distance < h_distance)
 		{
-			draw_line(game_planes->left_pane, pl.player_coordinates.x, pl.player_coordinates.y, vrc->x, vrc->y, ppp_color);
-			//draw_line(game_planes->right_pane, pl.player_coordinates.x, pl.player_coordinates.y, vrc->x, vrc->y, color);
+			draw_line(game_planes->left_plane, pl.player_coordinates.x, pl.player_coordinates.y, vrc->x, vrc->y, ppp_color);
+			//draw_line(game_planes->right_plane, pl.player_coordinates.x, pl.player_coordinates.y, vrc->x, vrc->y, color);
 		}
 		else
 		{
-			draw_line(game_planes->left_pane, pl.player_coordinates.x, pl.player_coordinates.y, hrc->x, hrc->y, ppp_color);
-			//draw_line(game_planes->right_pane, pl.player_coordinates.x, pl.player_coordinates.y, hrc->x, hrc->y, color);
+			draw_line(game_planes->left_plane, pl.player_coordinates.x, pl.player_coordinates.y, hrc->x, hrc->y, ppp_color);
+			//draw_line(game_planes->right_plane, pl.player_coordinates.x, pl.player_coordinates.y, hrc->x, hrc->y, color);
 		}
 	// End of Ray Casting
 	/////////////////////////////////////////////////////////////////////
@@ -185,16 +185,16 @@ void	move_player(mlx_key_data_t key, void *param)
 		// Draw the wall slice by filling pixels vertically
 		// for (int y = line_offset; y < line_offset + line_height; y++)
 		//{
-		// 	mlx_put_pixel(game_planes->right_pane, ray_x_position, y, color);  // Draw at the correct x-coordinate
+		// 	mlx_put_pixel(game_planes->right_plane, ray_x_position, y, color);  // Draw at the correct x-coordinate
 		// }
 		// floor
 		int f_color = get_rgba(255, 0, 0, 255);
-		draw_line(game_planes->right_pane, ray_x_position, 1200, ray_x_position, line_offset, f_color);
+		draw_line(game_planes->right_plane, ray_x_position, 1200, ray_x_position, line_offset, f_color);
 		// wall
-		draw_line(game_planes->right_pane, ray_x_position, line_offset, ray_x_position, line_offset + line_height, color);
+		draw_line(game_planes->right_plane, ray_x_position, line_offset, ray_x_position, line_offset + line_height, color);
 		// ceiling
 		int c_color = get_rgba(0, 0, 255, 255);
-		draw_line(game_planes->right_pane, ray_x_position, 0, ray_x_position, line_offset, c_color);
+		draw_line(game_planes->right_plane, ray_x_position, 0, ray_x_position, line_offset, c_color);
 	}
 
 	/////////////////////////////////////////////////////////////////////
@@ -206,6 +206,6 @@ void	move_player(mlx_key_data_t key, void *param)
 	startY = y;
 	endX = x+pdx*100;
 	endY = y-pdy*100;
-	draw_line(game_planes->left_pane, startX, startY, endX, endY, color);
-	//draw_line(game_planes->right_pane, startX, startY, endX, endY, color);
+	draw_line(game_planes->left_plane, startX, startY, endX, endY, color);
+	//draw_line(game_planes->right_plane, startX, startY, endX, endY, color);
 }

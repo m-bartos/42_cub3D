@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:46:56 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/22 21:02:54 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/22 21:18:37 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ typedef struct player_location_s
 
 typedef struct planes_s
 {
-	mlx_image_t *left_pane;
-	mlx_image_t *right_pane;
+	mlx_image_t *left_plane;
+	mlx_image_t *right_plane;
 } planes_t;
 
 // MLX42 Drawing functions
@@ -50,6 +50,7 @@ void	draw_line(void *image, double startX, double startY, double endX, double en
 
 void	draw_square(mlx_image_t *image, int startX, int startY, unsigned int color);
 void	put_square(mlx_image_t *image , point_t location, int32_t size, u_int32_t color);
+void	set_background(mlx_image_t *image, int32_t color);
 
 // Ray Casting
 point_t *get_horizontal_ray_coordinates(player_location_t *pl, int map[18][15]);
