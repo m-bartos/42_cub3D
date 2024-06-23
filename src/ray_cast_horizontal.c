@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 12:14:09 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/23 16:55:30 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/23 17:24:47 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 // args: map, px, py, pa
 // returns: rx, ry
 
-point_t *get_horizontal_ray_coordinates(player_location_t *pl, int map[18][15])
+point_t *get_horizontal_ray_coordinates(player_t *pl, int map[18][15])
 {
 	point_t *hor_ray;
 	hor_ray = malloc(sizeof(point_t));
@@ -105,9 +105,9 @@ point_t	*get_horizontal_ray_coordinates_v1(game_t *game)
 	int map_x = game->game_map.width;
 	int map_y = game->game_map.height;
 
-	int pa = game->player_location.player_angle;
-	double px = game->player_location.player_coordinates.x;
-	double py = game->player_location.player_coordinates.y;
+	int pa = game->player.player_angle;
+	double px = game->player.player_coordinates.x;
+	double py = game->player.player_coordinates.y;
 	char **map = game->game_map.map;
 	// double pdx = cos(deg_to_rad(pa));
 	// double pdy = sin(deg_to_rad(pa));

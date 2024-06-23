@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:59:53 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/23 16:53:15 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/23 17:24:14 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ void	move_player(mlx_key_data_t key, void *param)
 		//printf("TEST:::%f\n", fov);
 		point_t *hrc;
 		point_t *vrc;
-		player_location_t pl;
+		player_t pl;
 		pl.player_angle = pa;
 		pl.player_angle = fov;
 		//printf("Angle: %d\n", pl.player_angle);

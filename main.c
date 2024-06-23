@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:44:52 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/23 16:52:42 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/23 17:35:54 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,10 +133,11 @@ int	main(void)
 	game_t game;
 	game = (game_t){0};
 	game.game_planes = &game_planes;
-	game.player_location.player_angle = 90;
-	game.player_location.player_coordinates.x = 600;
-	game.player_location.player_coordinates.y = 400;
-	game.player_location.fow = 360;
+	game.player.player_angle = 90;
+	game.player.player_coordinates.x = 600;
+	game.player.player_coordinates.y = 600;
+	game.player.fow = 360;
+	game.player.player_color = get_rgba(0, 255, 0, 255);
 	game.game_map.map = game_map;
 
 	load_map(static_map, &game);
@@ -146,6 +147,7 @@ int	main(void)
 	// Ray casting rendering
 	// Only cast rays ,take player x, y and an angle cat rays in FOV in a way they end in the wall
 	draw_rays(&game);
+	draw_player(&game);
 	// End of Ray Casting
 	/////////////////////////////////////////////////////////////////////
 	// Key HOOK

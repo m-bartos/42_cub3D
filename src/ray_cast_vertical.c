@@ -6,13 +6,13 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 13:18:17 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/23 16:56:48 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/23 17:24:47 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../cube.h"
 
-point_t *get_vertical_ray_coordinates(player_location_t *pl, int map[18][15])
+point_t *get_vertical_ray_coordinates(player_t *pl, int map[18][15])
 {
 	point_t *ver_ray;
 	ver_ray = malloc(sizeof(point_t));
@@ -99,9 +99,9 @@ point_t *get_vertical_ray_coordinates_v1(game_t *game)
 	int map_x = game->game_map.width;
 	int map_y = game->game_map.height;
 	char **map = game->game_map.map;
-	int pa = game->player_location.player_angle; // 90
-	double px = game->player_location.player_coordinates.x; // 600
-	double py = game->player_location.player_coordinates.y; // 600
+	int pa = game->player.player_angle; // 90
+	double px = game->player.player_coordinates.x; // 600
+	double py = game->player.player_coordinates.y; // 600
 	// double pdx = cos(deg_to_rad(pa));
 	// double pdy = sin(deg_to_rad(pa));
 
