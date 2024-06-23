@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:46:56 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/23 15:04:30 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/23 15:35:27 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,9 @@ typedef struct point_s
 
 typedef struct player_location_s
 {
-	int		player_angle;
-	point_t	player_coordinates;
+	double		player_angle;
+	double		fow;
+	point_t		player_coordinates;
 }	player_location_t;
 
 typedef struct planes_s
@@ -52,7 +53,7 @@ typedef struct map_s
 
 typedef struct game_s
 {
-	player_location_t	init_player_location;
+	player_location_t	player_location;
 	planes_t			*game_planes;
 	map_t				game_map;
 }	game_t;
@@ -72,6 +73,7 @@ point_t *get_vertical_ray_coordinates(player_location_t *pl, int map[18][15]);
 point_t *get_vertical_ray_coordinates_v1(game_t *game);
 point_t *get_horizontal_ray_coordinates_v1(game_t *game);
 double	get_point_distance(game_t *game, point_t *coordinates);
+void	draw_rays(game_t *game);
 
 // Game
 void	draw_map(mlx_image_t *image, int arr[18][15]);

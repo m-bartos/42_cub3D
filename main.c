@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:44:52 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/23 15:06:14 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/23 16:00:22 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,54 +129,24 @@ int	main(void)
 	set_img_background(left_plane, l_color);
 	set_img_background(right_plane, r_color);
 
+	// Init the game
 	game_t game;
 	game = (game_t){0};
 	game.game_planes = &game_planes;
-	game.init_player_location.player_angle = 90;
-	game.init_player_location.player_coordinates.x = 600;
-	game.init_player_location.player_coordinates.y = 600;
+	game.player_location.player_angle = 90;
+	game.player_location.player_coordinates.x = 600;
+	game.player_location.player_coordinates.y = 600;
+	game.player_location.fow = 90;
 	game.game_map.map = game_map;
 
 	load_map(static_map, &game);
 	draw_map_char(left_plane, &game);
 
-////////////////////////////////////////////////////////
-// Ray casting rendering
-// Only cast rays ,take player x, y and an angle cat rays in FOV in a way they end in the wall
-	int pa = game.init_player_location.player_angle;
-	int startX = game.init_player_location.player_coordinates.x;
-	int startY = game.init_player_location.player_coordinates.y;
-	for (int r = 0; r < 60; r++)
-	{
-		double h_distance = 0;
-		double v_distance = 0;
-		double fov = fix_ang((pa - 60 / 2) + r);
-		game.init_player_location.player_angle = fix_ang((pa - 60 / 2) + r);
-		point_t *hrc;
-		point_t *vrc;
-		player_location_t pl;
-		pl.player_angle = pa;
-		pl.player_angle = fov;
-		//game.init_player_location.player_angle = fov;
-		pl.player_coordinates.x = startX;
-		pl.player_coordinates.y = startY;
-		hrc = get_horizontal_ray_coordinates_v1(&game);
-		vrc = get_vertical_ray_coordinates_v1(&game);
-		h_distance = get_point_distance(&game, hrc);
-		v_distance = get_point_distance(&game, vrc);
-		int ppp_color = get_rgba(0, 0, 0, 255);
-		//unsigned int color = get_rgba(0, 255, 0, 255);
-		if (v_distance < h_distance)
-		{
-			draw_line(game_planes.left_plane, pl.player_coordinates.x, pl.player_coordinates.y, vrc->x, vrc->y, ppp_color);
-			//draw_line(game_planes.right_plane, pl.player_coordinates.x, pl.player_coordinates.y, vrc1->x, vrc1->y, color);
-		}
-		else
-		{
-			draw_line(game_planes.left_plane, pl.player_coordinates.x, pl.player_coordinates.y, hrc->x, hrc->y, ppp_color);
-			//draw_line(game_planes.right_plane, pl.player_coordinates.x, pl.player_coordinates.y, hrc1->x, hrc1->y, color);
-		}
-	} // End of Ray Casting
+	////////////////////////////////////////////////////////
+	// Ray casting rendering
+	// Only cast rays ,take player x, y and an angle cat rays in FOV in a way they end in the wall
+	draw_rays(&game);
+	// End of Ray Casting
 	/////////////////////////////////////////////////////////////////////
 	// Key HOOK
 	mlx_key_hook(mlx, move_p_func, &game);

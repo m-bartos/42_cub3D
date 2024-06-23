@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   horizontal_ray_cast.c                              :+:      :+:    :+:   */
+/*   ray_cast_horizontal.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 12:14:09 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/23 12:29:29 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/23 15:17:43 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,9 +105,9 @@ point_t	*get_horizontal_ray_coordinates_v1(game_t *game)
 	int map_x = 15;
 	int map_y = 18;
 
-	int pa = game->init_player_location.player_angle;
-	double px = game->init_player_location.player_coordinates.x;
-	double py = game->init_player_location.player_coordinates.y;
+	int pa = game->player_location.player_angle;
+	double px = game->player_location.player_coordinates.x;
+	double py = game->player_location.player_coordinates.y;
 	char **map = game->game_map.map;
 	// double pdx = cos(deg_to_rad(pa));
 	// double pdy = sin(deg_to_rad(pa));
