@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:46:56 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/23 12:25:10 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/23 15:04:30 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ point_t *get_horizontal_ray_coordinates(player_location_t *pl, int map[18][15]);
 point_t *get_vertical_ray_coordinates(player_location_t *pl, int map[18][15]);
 point_t *get_vertical_ray_coordinates_v1(game_t *game);
 point_t *get_horizontal_ray_coordinates_v1(game_t *game);
+double	get_point_distance(game_t *game, point_t *coordinates);
 
 // Game
 void	draw_map(mlx_image_t *image, int arr[18][15]);

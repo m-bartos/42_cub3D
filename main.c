@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:44:52 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/23 14:41:43 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/23 15:06:14 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,19 +151,19 @@ int	main(void)
 		double h_distance = 0;
 		double v_distance = 0;
 		double fov = fix_ang((pa - 60 / 2) + r);
+		game.init_player_location.player_angle = fix_ang((pa - 60 / 2) + r);
 		point_t *hrc;
 		point_t *vrc;
 		player_location_t pl;
 		pl.player_angle = pa;
 		pl.player_angle = fov;
-		game.init_player_location.player_angle = fov;
+		//game.init_player_location.player_angle = fov;
 		pl.player_coordinates.x = startX;
 		pl.player_coordinates.y = startY;
 		hrc = get_horizontal_ray_coordinates_v1(&game);
 		vrc = get_vertical_ray_coordinates_v1(&game);
-		h_distance = sqrt((hrc->x - pl.player_coordinates.x) * (hrc->x - pl.player_coordinates.x) + (hrc->y - pl.player_coordinates.y) * (hrc->y - pl.player_coordinates.y));
-		v_distance = sqrt((vrc->x - pl.player_coordinates.x) * (vrc->x - pl.player_coordinates.x) + (vrc->y - pl.player_coordinates.y) * (vrc->y - pl.player_coordinates.y));
-
+		h_distance = get_point_distance(&game, hrc);
+		v_distance = get_point_distance(&game, vrc);
 		int ppp_color = get_rgba(0, 0, 0, 255);
 		//unsigned int color = get_rgba(0, 255, 0, 255);
 		if (v_distance < h_distance)
