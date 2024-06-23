@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:44:52 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/23 12:52:17 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/23 14:33:07 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,22 +73,22 @@ void	draw_map(mlx_image_t *image, int arr[18][15])
 }
 
 char *static_map = 	"111111111111111\n"
-					"100000000100001\n"
-					"100000000001001\n"
-					"100000010001001\n"
+					"100000000000001\n"
+					"100100000000001\n"
+					"100100000000001\n"
+					"100100000000001\n"
+					"100100000000001\n"
+					"110000000000001\n"
 					"100000000000001\n"
 					"100000000000001\n"
-					"100001110000001\n"
+					"100000001000001\n"
 					"100000000000001\n"
 					"100000000000001\n"
 					"100000000000001\n"
 					"100000000000001\n"
-					"100000000100001\n"
-					"100000000100001\n"
-					"100010000100001\n"
-					"100010000100001\n"
+					"100000000011111\n"
+					"100111100000001\n"
 					"100000000000001\n"
-					"100100010000001\n"
 					"111111111111111\n";
 
 int	main(void)
@@ -194,7 +194,7 @@ int	main(void)
 		v_distance = sqrt((vrc1->x - pl.player_coordinates.x) * (vrc1->x - pl.player_coordinates.x) + (vrc1->y - pl.player_coordinates.y) * (vrc1->y - pl.player_coordinates.y));
 
 		int ppp_color = get_rgba(0, 0, 0, 255);
-		unsigned int color = get_rgba(0, 255, 0, 255);
+		//unsigned int color = get_rgba(0, 255, 0, 255);
 		if (v_distance < h_distance)
 		{
 			draw_line(game_planes.left_plane, pl.player_coordinates.x, pl.player_coordinates.y, vrc1->x, vrc1->y, ppp_color);
