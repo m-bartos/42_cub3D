@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:44:52 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/23 14:33:07 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/23 14:41:43 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,34 +138,11 @@ int	main(void)
 	game.game_map.map = game_map;
 
 	load_map(static_map, &game);
-	int map[18][15] =
-	{
-		{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,0,0,1,0,0,0,0,0,0,0,0,0,0,1},
-		{1,0,0,1,0,0,0,0,0,0,0,0,0,0,1},
-		{1,0,0,1,0,0,0,0,0,0,0,0,0,0,1},
-		{1,0,0,1,0,0,0,0,0,0,0,0,0,0,1},
-		{1,1,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,0,0,0,0,0,0,0,1,0,0,0,0,0,1},
-		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,0,0,0,0,0,0,0,0,0,1,1,1,1,1},
-		{1,0,0,1,1,1,1,0,0,0,0,0,0,0,1},
-		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-	};
-
-	draw_map(left_plane, map);
-	//draw_map(right_plane, map);
 	draw_map_char(left_plane, &game);
 
 ////////////////////////////////////////////////////////
 // Ray casting rendering
+// Only cast rays ,take player x, y and an angle cat rays in FOV in a way they end in the wall
 	int pa = game.init_player_location.player_angle;
 	int startX = game.init_player_location.player_coordinates.x;
 	int startY = game.init_player_location.player_coordinates.y;
@@ -182,27 +159,21 @@ int	main(void)
 		game.init_player_location.player_angle = fov;
 		pl.player_coordinates.x = startX;
 		pl.player_coordinates.y = startY;
-		hrc = get_horizontal_ray_coordinates(&pl, map);
-		vrc = get_vertical_ray_coordinates(&pl, map);
-		(void)vrc;
-		(void)hrc;
-		point_t *vrc1;
-		point_t *hrc1;
-		vrc1 = get_vertical_ray_coordinates_v1(&game);
-		hrc1 = get_horizontal_ray_coordinates_v1(&game);
-		h_distance = sqrt((hrc1->x - pl.player_coordinates.x) * (hrc1->x - pl.player_coordinates.x) + (hrc1->y - pl.player_coordinates.y) * (hrc1->y - pl.player_coordinates.y));
-		v_distance = sqrt((vrc1->x - pl.player_coordinates.x) * (vrc1->x - pl.player_coordinates.x) + (vrc1->y - pl.player_coordinates.y) * (vrc1->y - pl.player_coordinates.y));
+		hrc = get_horizontal_ray_coordinates_v1(&game);
+		vrc = get_vertical_ray_coordinates_v1(&game);
+		h_distance = sqrt((hrc->x - pl.player_coordinates.x) * (hrc->x - pl.player_coordinates.x) + (hrc->y - pl.player_coordinates.y) * (hrc->y - pl.player_coordinates.y));
+		v_distance = sqrt((vrc->x - pl.player_coordinates.x) * (vrc->x - pl.player_coordinates.x) + (vrc->y - pl.player_coordinates.y) * (vrc->y - pl.player_coordinates.y));
 
 		int ppp_color = get_rgba(0, 0, 0, 255);
 		//unsigned int color = get_rgba(0, 255, 0, 255);
 		if (v_distance < h_distance)
 		{
-			draw_line(game_planes.left_plane, pl.player_coordinates.x, pl.player_coordinates.y, vrc1->x, vrc1->y, ppp_color);
+			draw_line(game_planes.left_plane, pl.player_coordinates.x, pl.player_coordinates.y, vrc->x, vrc->y, ppp_color);
 			//draw_line(game_planes.right_plane, pl.player_coordinates.x, pl.player_coordinates.y, vrc1->x, vrc1->y, color);
 		}
 		else
 		{
-			draw_line(game_planes.left_plane, pl.player_coordinates.x, pl.player_coordinates.y, hrc1->x, hrc1->y, ppp_color);
+			draw_line(game_planes.left_plane, pl.player_coordinates.x, pl.player_coordinates.y, hrc->x, hrc->y, ppp_color);
 			//draw_line(game_planes.right_plane, pl.player_coordinates.x, pl.player_coordinates.y, hrc1->x, hrc1->y, color);
 		}
 	} // End of Ray Casting
