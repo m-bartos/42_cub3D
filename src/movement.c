@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:59:53 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/23 15:56:32 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/23 16:53:15 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,7 @@ void	move_player(mlx_key_data_t key, void *param)
 		double h_distance = 0;
 		double v_distance = 0;
 		double fov = fix_ang((pa - 360 / 2) + r);
+		//printf("MOV: FOV: %f\n",fov);
 		//printf("TEST:::%f\n", fov);
 		point_t *hrc;
 		point_t *vrc;
@@ -139,9 +140,6 @@ void	move_player(mlx_key_data_t key, void *param)
 
 		h_distance = sqrt((hrc->x - pl.player_coordinates.x) * (hrc->x - pl.player_coordinates.x) + (hrc->y - pl.player_coordinates.y) * (hrc->y - pl.player_coordinates.y));
 		v_distance = sqrt((vrc->x - pl.player_coordinates.x) * (vrc->x - pl.player_coordinates.x) + (vrc->y - pl.player_coordinates.y) * (vrc->y - pl.player_coordinates.y));
-
-		//printf("Horizontal Distance: %f\n", h_distance);
-		//printf("Vertical Distance: %f\n", v_distance);
 		int ppp_color = get_rgba(0, 0, 0, 255);
 		if (v_distance < h_distance)
 		{

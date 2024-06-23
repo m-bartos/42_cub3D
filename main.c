@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:44:52 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/23 16:00:22 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/23 16:52:42 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,11 +113,11 @@ int	main(void)
 	mlx_keyfunc move_p_func = move_player;
 
 	// Image declaration for left side of the screen
-	mlx_image_t* left_plane = mlx_new_image(mlx, w/2, h);
+	mlx_image_t	*left_plane = mlx_new_image(mlx, w/2, h);
 	mlx_image_to_window(mlx, left_plane, 0, 0);
 
 	// Image declaration for right side of the screen
-	mlx_image_t *right_plane = mlx_new_image(mlx, w/2, h);
+	mlx_image_t	*right_plane = mlx_new_image(mlx, w/2, h);
 	mlx_image_to_window(mlx, right_plane, w/2, 0);
 
 	planes_t game_planes;
@@ -135,8 +135,8 @@ int	main(void)
 	game.game_planes = &game_planes;
 	game.player_location.player_angle = 90;
 	game.player_location.player_coordinates.x = 600;
-	game.player_location.player_coordinates.y = 600;
-	game.player_location.fow = 90;
+	game.player_location.player_coordinates.y = 400;
+	game.player_location.fow = 360;
 	game.game_map.map = game_map;
 
 	load_map(static_map, &game);

@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 15:26:00 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/23 15:44:16 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/23 16:52:08 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,12 @@ void	draw_rays(game_t *game)
 		}
 		else
 		{
-			printf("Test\n");
 			draw_line(game_planes->left_plane, game->player_location.player_coordinates.x, game->player_location.player_coordinates.y, hrc->x, hrc->y, ppp_color);
 			//draw_line(game_planes.right_plane, pl.player_coordinates.x, pl.player_coordinates.y, hrc1->x, hrc1->y, color);
 		}
 	}
 	game->player_location.player_angle = pa;
+	printf("PA END: %f\n",game->player_location.player_angle);
 	 // End of Ray Casting
 	/////////////////////////////////////////////////////////////////////
 }

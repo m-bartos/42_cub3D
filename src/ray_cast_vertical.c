@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 13:18:17 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/23 15:17:43 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/23 16:49:54 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,8 @@ point_t *get_vertical_ray_coordinates_v1(game_t *game)
 	if (!ver_ray)
 		return (NULL);
 	// Temp map size
-	int map_x = 50;
-	int map_y = 50;
+	int map_x = 15;
+	int map_y = 18;
 	char **map = game->game_map.map;
 	int pa = game->player_location.player_angle; // 90
 	double px = game->player_location.player_coordinates.x; // 600
