@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:59:53 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/23 18:16:08 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/23 21:45:18 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	move_player(mlx_key_data_t key, void *param)
 	double pdx;
 	double pdy;
 	// initial player angle
-	static int pa = 90;
+	static int pa = 45;
 
 
 	double startX = 0.0;
@@ -109,11 +109,6 @@ void	move_player(mlx_key_data_t key, void *param)
 		pdx = cos(deg_to_rad(pa));
 		pdy = sin(deg_to_rad(pa));
 	}
-	else if ((key.action == MLX_PRESS  || key.action == MLX_REPEAT) && key.key == MLX_KEY_X)
-	{
-		printf("You pressed X\n");
-	}
-
 	// implement FOV
 ////////////////////////////////////////////////////////
 // Ray casting rendering
@@ -122,8 +117,7 @@ void	move_player(mlx_key_data_t key, void *param)
 		double h_distance = 0;
 		double v_distance = 0;
 		double fov = fix_ang((pa - 60 / 2) + r);
-		//printf("MOV: FOV: %f\n",fov);
-		//printf("TEST:::%f\n", fov);
+
 		point_t *hrc;
 		point_t *vrc;
 		player_t pl;

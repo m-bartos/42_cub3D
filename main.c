@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:44:52 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/23 18:05:55 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/23 22:53:59 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ int	main(void)
 	game_t game;
 	game = (game_t){0};
 	game.game_planes = &game_planes;
-	game.player.player_angle = 90;
+	game.player.player_angle = 45;
 	game.player.player_coordinates.x = 600;
 	game.player.player_coordinates.y = 600;
 	game.player.fow = 60;
@@ -147,7 +147,7 @@ int	main(void)
 	// Ray casting rendering
 	// Only cast rays ,take player x, y and an angle cat rays in FOV in a way they end in the wall
 	draw_rays(&game);
-	draw_player(&game);
+	//draw_player(&game);
 	draw_wall(&game);
 	// End of Ray Casting
 	/////////////////////////////////////////////////////////////////////

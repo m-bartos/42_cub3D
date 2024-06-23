@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 15:26:00 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/23 17:24:47 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/23 22:45:55 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	draw_rays(game_t *game)
 		}
 	}
 	game->player.player_angle = pa;
-	printf("PA END: %f\n",game->player.player_angle);
+	//printf("PA END: %f\n",game->player.player_angle);
 	 // End of Ray Casting
 	/////////////////////////////////////////////////////////////////////
 }
