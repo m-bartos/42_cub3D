@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 12:14:09 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/23 15:17:43 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/23 16:55:30 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,8 +102,8 @@ point_t	*get_horizontal_ray_coordinates_v1(game_t *game)
 		return (NULL);
 	// Casting ray
 	// Temp map size
-	int map_x = 15;
-	int map_y = 18;
+	int map_x = game->game_map.width;
+	int map_y = game->game_map.height;
 
 	int pa = game->player_location.player_angle;
 	double px = game->player_location.player_coordinates.x;
