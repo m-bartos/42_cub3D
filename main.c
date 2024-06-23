@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:44:52 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/23 22:53:59 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/23 23:49:04 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,7 +147,7 @@ int	main(void)
 	// Ray casting rendering
 	// Only cast rays ,take player x, y and an angle cat rays in FOV in a way they end in the wall
 	draw_rays(&game);
-	//draw_player(&game);
+	draw_player(&game);
 	draw_wall(&game);
 	// End of Ray Casting
 	/////////////////////////////////////////////////////////////////////
