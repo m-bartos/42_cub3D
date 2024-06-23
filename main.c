@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:44:52 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/23 00:46:15 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/23 12:52:17 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,24 @@ void	draw_map(mlx_image_t *image, int arr[18][15])
 	}
 }
 
-char *static_map = "111111111111111\n100000000000001\n100000000000001\n100111000000001\n100000000000001\n100000000000001\n100001110000001\n100000000000001\n100000000000001\n100000000000001\n100000000000001\n100000000000001\n100000000000001\n100000000000001\n100000000000001\n100000000000001\n100000000000001\n111111111111111\n";
+char *static_map = 	"111111111111111\n"
+					"100000000100001\n"
+					"100000000001001\n"
+					"100000010001001\n"
+					"100000000000001\n"
+					"100000000000001\n"
+					"100001110000001\n"
+					"100000000000001\n"
+					"100000000000001\n"
+					"100000000000001\n"
+					"100000000000001\n"
+					"100000000100001\n"
+					"100000000100001\n"
+					"100010000100001\n"
+					"100010000100001\n"
+					"100000000000001\n"
+					"100100010000001\n"
+					"111111111111111\n";
 
 int	main(void)
 {
@@ -121,9 +138,6 @@ int	main(void)
 	game.game_map.map = game_map;
 
 	load_map(static_map, &game);
-	printf("Map: W: %d, H: %d\n", game.game_map.width, game.game_map.height);
-
-
 	int map[18][15] =
 	{
 		{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
@@ -165,27 +179,33 @@ int	main(void)
 		player_location_t pl;
 		pl.player_angle = pa;
 		pl.player_angle = fov;
+		game.init_player_location.player_angle = fov;
 		pl.player_coordinates.x = startX;
 		pl.player_coordinates.y = startY;
 		hrc = get_horizontal_ray_coordinates(&pl, map);
 		vrc = get_vertical_ray_coordinates(&pl, map);
-
-		h_distance = sqrt((hrc->x - pl.player_coordinates.x) * (hrc->x - pl.player_coordinates.x) + (hrc->y - pl.player_coordinates.y) * (hrc->y - pl.player_coordinates.y));
-		v_distance = sqrt((vrc->x - pl.player_coordinates.x) * (vrc->x - pl.player_coordinates.x) + (vrc->y - pl.player_coordinates.y) * (vrc->y - pl.player_coordinates.y));
+		(void)vrc;
+		(void)hrc;
+		point_t *vrc1;
+		point_t *hrc1;
+		vrc1 = get_vertical_ray_coordinates_v1(&game);
+		hrc1 = get_horizontal_ray_coordinates_v1(&game);
+		h_distance = sqrt((hrc1->x - pl.player_coordinates.x) * (hrc1->x - pl.player_coordinates.x) + (hrc1->y - pl.player_coordinates.y) * (hrc1->y - pl.player_coordinates.y));
+		v_distance = sqrt((vrc1->x - pl.player_coordinates.x) * (vrc1->x - pl.player_coordinates.x) + (vrc1->y - pl.player_coordinates.y) * (vrc1->y - pl.player_coordinates.y));
 
 		int ppp_color = get_rgba(0, 0, 0, 255);
+		unsigned int color = get_rgba(0, 255, 0, 255);
 		if (v_distance < h_distance)
 		{
-			draw_line(game_planes.left_plane, pl.player_coordinates.x, pl.player_coordinates.y, vrc->x, vrc->y, ppp_color);
-			//draw_line(game_planes->right_plane, pl.player_coordinates.x, pl.player_coordinates.y, vrc->x, vrc->y, color);
+			draw_line(game_planes.left_plane, pl.player_coordinates.x, pl.player_coordinates.y, vrc1->x, vrc1->y, ppp_color);
+			//draw_line(game_planes.right_plane, pl.player_coordinates.x, pl.player_coordinates.y, vrc1->x, vrc1->y, color);
 		}
 		else
 		{
-			draw_line(game_planes.left_plane, pl.player_coordinates.x, pl.player_coordinates.y, hrc->x, hrc->y, ppp_color);
-			//draw_line(game_planes->right_plane, pl.player_coordinates.x, pl.player_coordinates.y, hrc->x, hrc->y, color);
+			draw_line(game_planes.left_plane, pl.player_coordinates.x, pl.player_coordinates.y, hrc1->x, hrc1->y, ppp_color);
+			//draw_line(game_planes.right_plane, pl.player_coordinates.x, pl.player_coordinates.y, hrc1->x, hrc1->y, color);
 		}
-	}
-	// End of Ray Casting
+	} // End of Ray Casting
 	/////////////////////////////////////////////////////////////////////
 	// Key HOOK
 	mlx_key_hook(mlx, move_p_func, &game);

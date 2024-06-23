@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 23:36:47 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/23 00:38:15 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/23 11:38:47 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,27 @@
 
 int	load_map(char *map_str, game_t *game)
 {
-	int		xp = 0;
-	int		yp = 0;
+	int		x = 0;
+	int		y = 0;
 	char	**game_map;
 	game_map = ft_split(map_str, '\n');
 	if (!game_map)
 		return (0);
 
-	while (game_map[xp])
+	while (game_map[y])
 	{
-		yp = 0;
-		while (game_map[xp][yp])
+		x = 0;
+		while (game_map[y][x])
 		{
-			printf("%c", game_map[xp][yp]);
-			yp++;
+			printf("%c", game_map[y][x]);
+			x++;
 		}
 		printf("\n");
-		xp++;
+		y++;
 	}
 	game->game_map.map = game_map;
-	game->game_map.width = yp;
-	game->game_map.height = xp;
+	game->game_map.width = x;
+	game->game_map.height = y;
 	return (1);
 }
 
