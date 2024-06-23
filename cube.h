@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:46:56 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/23 17:34:17 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/23 18:04:08 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ double	get_point_distance(game_t *game, point_t *coordinates);
 void	draw_map(mlx_image_t *image, int arr[18][15]);
 void	draw_rays(game_t *game);
 void	draw_player(game_t *game);
+void	draw_wall(game_t *game);
 void	move_player(mlx_key_data_t key, void *param);
 
 

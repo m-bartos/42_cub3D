@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:59:53 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/23 17:24:14 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/23 18:16:08 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,11 +117,11 @@ void	move_player(mlx_key_data_t key, void *param)
 	// implement FOV
 ////////////////////////////////////////////////////////
 // Ray casting rendering
-	for (int r = 0; r < 360; r++)
+	for (int r = 0; r < 60; r++)
 	{
 		double h_distance = 0;
 		double v_distance = 0;
-		double fov = fix_ang((pa - 360 / 2) + r);
+		double fov = fix_ang((pa - 60 / 2) + r);
 		//printf("MOV: FOV: %f\n",fov);
 		//printf("TEST:::%f\n", fov);
 		point_t *hrc;
@@ -154,41 +154,41 @@ void	move_player(mlx_key_data_t key, void *param)
 	// End of Ray Casting
 	/////////////////////////////////////////////////////////////////////
 	// Draw Wall
-		// double corrected_distance;
-		// if (v_distance < h_distance)
-		// 	corrected_distance = v_distance * cos(deg_to_rad(fov - pa));
-		// else
-		// 	corrected_distance = h_distance * cos(deg_to_rad(fov - pa));
+		double corrected_distance;
+		if (v_distance < h_distance)
+			corrected_distance = v_distance * cos(deg_to_rad(fov - pa));
+		else
+			corrected_distance = h_distance * cos(deg_to_rad(fov - pa));
 
-		// int screen_height = 1200;
-		// int screen_width = 960;
-		// int max_wall_height = screen_height; // Wall extends the whole vertical line when directly facing
+		int screen_height = game->game_planes->right_plane->height;
+		int screen_width = game->game_planes->right_plane->width;
+		int max_wall_height = screen_height; // Wall extends the whole vertical line when directly facing
 
-		// // Calculate the wall height based on the distance
-		// // Adjust the wall size multiplyer to something appropriate like 64 or 128
-		// int line_height = (128 * max_wall_height) / corrected_distance;
-		// if (line_height > screen_height)
-		// 	line_height = screen_height; // Ensure it doesn't exceed the screen height
+		// Calculate the wall height based on the distance
+		// Adjust the wall size multiplyer to something appropriate like 64 or 128
+		int line_height = (128 * max_wall_height) / corrected_distance;
+		if (line_height > screen_height)
+			line_height = screen_height; // Ensure it doesn't exceed the screen height
 
-		// int line_offset = (screen_height / 2) - (line_height / 2); // Centering the wall slice vertically
+		int line_offset = (screen_height / 2) - (line_height / 2); // Centering the wall slice vertically
 
-		// // Correct horizontal position for each ray
-		// int ray_x_position = (screen_width - 1) - r * (screen_width / 60); // Inverted to draw from left to right
+		// Correct horizontal position for each ray
+		int ray_x_position = (screen_width - 1) - r * (screen_width / 60); // Inverted to draw from left to right
 
-		// // Draw the wall slice by filling pixels vertically
-		// // for (int y = line_offset; y < line_offset + line_height; y++)
-		// //{
-		// // 	mlx_put_pixel(game_planes->right_plane, ray_x_position, y, color);  // Draw at the correct x-coordinate
-		// // }
-		// // floor
-		// int f_color = get_rgba(255, 0, 0, 255);
-		// draw_line(game_planes->right_plane, ray_x_position, 1200, ray_x_position, line_offset, f_color);
-		// // wall
-		// draw_line(game_planes->right_plane, ray_x_position, line_offset, ray_x_position, line_offset + line_height, color);
-		// // ceiling
-		// int c_color = get_rgba(0, 0, 255, 255);
-		// draw_line(game_planes->right_plane, ray_x_position, 0, ray_x_position, line_offset, c_color);
-		// End of Drawing Walls
+		// Draw the wall slice by filling pixels vertically
+		// for (int y = line_offset; y < line_offset + line_height; y++)
+		//{
+		// 	mlx_put_pixel(game_planes->right_plane, ray_x_position, y, color);  // Draw at the correct x-coordinate
+		// }
+		// floor
+		int f_color = get_rgba(255, 0, 0, 255);
+		draw_line(game_planes->right_plane, ray_x_position, 1200, ray_x_position, line_offset, f_color);
+		// wall
+		draw_line(game_planes->right_plane, ray_x_position, line_offset, ray_x_position, line_offset + line_height, color);
+		// ceiling
+		int c_color = get_rgba(0, 0, 255, 255);
+		draw_line(game_planes->right_plane, ray_x_position, 0, ray_x_position, line_offset, c_color);
+		//End of Drawing Walls
 	}
 
 	/////////////////////////////////////////////////////////////////////
