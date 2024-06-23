@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 17:44:30 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/23 23:14:54 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/23 23:27:57 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,16 +59,16 @@ void	draw_wall(game_t *game)
 
 			// Calculate the wall height based on the distance
 			// Adjust the wall size multiplyer to something appropriate like 64 or 128
-			int line_height = (128 * max_wall_height) / corrected_distance;
+			int line_height = (64 * max_wall_height) / corrected_distance;
 			if (line_height > screen_height)
 				line_height = screen_height; // Ensure it doesn't exceed the screen height
 			 // Centering the wall slice vertically = offset that is same above the wall and below it
 			int line_offset = (screen_height / 2) - (line_height / 2);
 			// Correct horizontal position for each ray
-			int ray_x_position = (screen_width - 16) - r * (screen_width / fov); // Inverted to draw from left to right
+			int ray_x_position = (screen_width - 12) - r * (screen_width / fov); // Inverted to draw from left to right
 			printf("Xray: %d\n", ray_x_position);
 			// Test to fill in all pixels: Note: number of new lines after ray_x_position (16) currently has to be the same offset from the right (screen_width - 16)
-			for (int i = 0; i < 16; i++)
+			for (int i = 0; i < 12; i++)
 			{
 				// floor
 				draw_line(game_planes->right_plane, ray_x_position, 1200, ray_x_position, line_offset, f_color);
