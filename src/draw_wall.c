@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 17:44:30 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/23 22:52:07 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/23 23:14:54 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,15 +65,20 @@ void	draw_wall(game_t *game)
 			 // Centering the wall slice vertically = offset that is same above the wall and below it
 			int line_offset = (screen_height / 2) - (line_height / 2);
 			// Correct horizontal position for each ray
-			int ray_x_position = (screen_width - 1) - r * (screen_width / fov); // Inverted to draw from left to right
+			int ray_x_position = (screen_width - 16) - r * (screen_width / fov); // Inverted to draw from left to right
 			printf("Xray: %d\n", ray_x_position);
-			// floor
-			draw_line(game_planes->right_plane, ray_x_position, 1200, ray_x_position, line_offset, f_color);
-			// wall
-			draw_line(game_planes->right_plane, ray_x_position, line_offset, ray_x_position, line_offset + line_height, color);
-			// ceiling
-			draw_line(game_planes->right_plane, ray_x_position, 0, ray_x_position, line_offset, c_color);
-			//End of Drawing Walls
+			// Test to fill in all pixels: Note: number of new lines after ray_x_position (16) currently has to be the same offset from the right (screen_width - 16)
+			for (int i = 0; i < 16; i++)
+			{
+				// floor
+				draw_line(game_planes->right_plane, ray_x_position, 1200, ray_x_position, line_offset, f_color);
+				// wall
+				draw_line(game_planes->right_plane, ray_x_position, line_offset, ray_x_position, line_offset + line_height, color);
+				// ceiling
+				draw_line(game_planes->right_plane, ray_x_position, 0, ray_x_position, line_offset, c_color);
+				//End of Drawing Walls
+				ray_x_position += 1;
+			}
 		}
 		game->player.player_angle = pa;
 }
