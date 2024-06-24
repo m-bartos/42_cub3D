@@ -6,71 +6,11 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:44:52 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/24 13:32:56 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/24 14:17:58 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./cube.h"
-
-
-// Draw a Window with gray background
-
-// Draw a player - 10 x 10 pixels dot.
-
-// How to draw player in MLX? Use image with size
-
-// unsigned int get_rgba(unsigned int r, unsigned int g, unsigned int b, unsigned int a)
-// {
-// 	return ((unsigned int) r << 24 | (unsigned int) g << 16 | (unsigned int) b << 8 | (unsigned int)a);
-// }
-
-
-void	clear_square(mlx_image_t *image, int x, int y)
-{
-	unsigned int b_color = get_rgba(0, 10, 139, 255);
-
-	for (int i = 0; i < SQUARE_SIZE; i++)
-	{
-		for (int j = 0; j < SQUARE_SIZE; j++)
-		{
-			mlx_put_pixel(image, x + i, y + j, b_color); // White square
-		}
-	}
-}
-
-
-void	draw_map(mlx_image_t *image, int arr[18][15])
-{
-	// red color
-	unsigned int w_color = get_rgba(255, 0, 0, 255);
-	//
-	unsigned int f_color = get_rgba(255, 255, 255, 255);
-	int s_size = 64;
-	int y_map_size = 18;
-	int x_map_size = 15;
-	int y = 0;
-	// draws y axes
-	while (y < y_map_size)
-	{
-		int x = 0;
-		// draws x axes
-		while (x < x_map_size)
-		{
-			//printf("%d", arr[y][x]);
-			if (arr[y][x] == 1)
-			{
-				//draw_square(image, x * s_size, y * s_size, w_color);
-				put_square(image, (point_t){.x = x * s_size, .y = y * s_size}, s_size, w_color);
-			}
-			else
-				//draw_square(image, x * s_size, y * s_size, f_color);
-				put_square(image, (point_t){.x = x * s_size, .y = y * s_size}, s_size, f_color);
-			x++;
-		}
-		//printf("\n");
-		y++;
-	}
-}
 
 char *static_map = 	"111111111111111\n"
 					"100000000000001\n"

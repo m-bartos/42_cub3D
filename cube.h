@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:46:56 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/24 14:13:23 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/24 14:18:46 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@
 
 // Define the pixel change when key is pressed
 # define KEY_PRESS 5
+
+#define PLAYER_LENGTH 100
 
 // Color constants
 # define FLOOR get_rgba(101, 67, 33, 255)
