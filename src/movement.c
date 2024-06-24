@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:59:53 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/24 11:17:57 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/24 11:25:38 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,9 @@ void	move_player(mlx_key_data_t key, void *param)
 
 ////////////////////////////////////////////////////////////////////////////////
 // Testing cleaning initial or previous screen - it works
-	int l_color = get_rgba(0, 10, 139, 255);
-	int r_color = get_rgba(0, 0, 0, 255);
 
-	set_img_background(game_planes->left_plane, l_color);
-	set_img_background(game_planes->right_plane, r_color);
+	set_img_background(game_planes->left_plane, L_BACKGROUND);
+	set_img_background(game_planes->right_plane, R_BACKGROUND);
 	int map[18][15] =
 	{
 	{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
@@ -72,7 +70,7 @@ void	move_player(mlx_key_data_t key, void *param)
 	{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
 	};
 	draw_map(game_planes->left_plane, map);
-	//draw_map(game_planes->right_plane, map);
+
 ////////////////////////////////////////////////////////////////////////////////
 	if ((key.action == MLX_PRESS  || key.action == MLX_REPEAT) && key.key == MLX_KEY_D)
 	{

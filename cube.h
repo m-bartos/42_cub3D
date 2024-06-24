@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:46:56 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/24 11:19:26 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/24 11:27:44 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,10 @@ typedef struct game_s
 #define WALL get_rgba(0, 255, 0, 255)
 #define RAY get_rgba(0, 0, 0, 255)
 #define PLAYER get_rgba(0, 255, 0, 255)
+#define L_BACKGROUND get_rgba(0, 10, 139, 255)
+#define R_BACKGROUND get_rgba(0, 0, 0, 255)
+#define MINI_WALL get_rgba(255, 0, 0, 255)
+#define MINI_FLOOR get_rgba(255, 255, 255, 255)
 // MLX42 Drawing functions
 
 //Bresenham’s line algorithm
