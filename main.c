@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:44:52 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/24 23:20:33 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/24 23:55:53 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ int	main(void)
 
 	////////////////////////////////////////////////////////
 	// Ray casting rendering
-	// Only cast rays ,take player x, y and an angle cat rays in FOV in a way they end in the wall
 	draw_rays(&game);
 	draw_player(&game);
 	draw_wall(&game);
@@ -86,6 +85,14 @@ int	main(void)
 	mlx_loop(mlx);
 	// Cleaning func
 	mlx_terminate(mlx);
-
+	/*
+	Todo:
+	1) refactor draw rays
+	2) refactor draw walls - especially ray caster, wall drawing
+	1) clean memory
+	2) parser
+	3) dynamic minimap scaling
+	6) Wall collisions
+	*/
 }
 

@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 13:18:17 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/24 20:24:08 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/24 23:47:59 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,10 +102,10 @@ point_t *get_vertical_ray_coordinates(game_t *game)
 	double px = game->player.coordinates.x; // 600
 	double py = game->player.coordinates.y; // 600
 
-	int r, mx, my, mp, dof;
+	int r, mx, my, dof;
 	double rx, ry, ra, xo, yo;
 
-	mx = 0; my = 0; mp = 0; dof = 0;
+	mx = 0; my = 0; dof = 0;
 	rx = 0; ry = 0; ra = 0; xo = 0; yo = 0;
 	// ray angle = player angle
 	ra = deg_to_rad(pa);
@@ -141,8 +141,6 @@ point_t *get_vertical_ray_coordinates(game_t *game)
 		{
 			mx = (int) (rx) >> 6;
 			my = (int) (ry) >> 6;
-			mp = my * map_x + mx;
-			(void)mp;
 			if (mx >= 0 && mx < map_x && my >= 0 && my < map_y && map[my][mx] == '1')
 				dof = 18;
 			else

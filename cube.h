@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:46:56 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/24 23:39:36 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/24 23:45:41 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@
 # define M_WALL '1'
 # define M_FLOOR '0'
 # define M_OUT '9'
+# define M_DOOR '4'
 
 
 typedef struct point_s
@@ -79,9 +80,9 @@ typedef struct map_s
 {
 	//Map has always result to a square.
 	// The longest line makes the square
-	// All spaces (empty or any other char) outside of the walls (1) be filled with 9
+	// All spaces (empty or any other char) outside of the walls (1) be filled with (9)
 	// Empty spaces inside the map fill with space (0)
-	// For door 4
+	// For door (4)
 	char		**map;
 	// In elements (sqaures)
 	int			width;
