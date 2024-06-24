@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 17:44:30 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/24 13:03:38 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/24 20:24:19 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,15 @@ void	draw_wall(game_t *game)
 		game_planes =  game->game_planes;
 		// set field of view = the number of lines per width of the screen
 		// you need to get for every line a different angle
-		fov = game->player.fow;
+		fov = game->player.fov;
 		for (int r = 0; r < fov; r++)
 		{
 			// calculate agle for the 60 fov
 			game->player.player_angle = fix_ang((pa - fov / 2) + r);
 			// cast ray and get horizontal coordiantes
-			hrc = get_horizontal_ray_coordinates_v1(game);
+			hrc = get_horizontal_ray_coordinates(game);
 			// cast ray and get vertical coordinates
-			vrc = get_vertical_ray_coordinates_v1(game);
+			vrc = get_vertical_ray_coordinates(game);
 			// get horizontal distance between the two points
 			h_distance = get_point_distance(game, hrc);
 			// get vertical distance between the two points

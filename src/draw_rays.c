@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 15:26:00 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/24 13:32:56 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/24 20:24:19 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,15 @@ void	draw_rays(game_t *game)
 	double h_distance = 0;
 	double v_distance = 0;
 
-	fov = game->player.fow;
+	fov = game->player.fov;
 	pa = game->player.player_angle;
 	game_planes = game->game_planes;
 	for (int r = 0; r < fov; r++)
 	{
 
 		game->player.player_angle = fix_ang((pa - fov / 2) + r);
-		hrc = get_horizontal_ray_coordinates_v1(game);
-		vrc = get_vertical_ray_coordinates_v1(game);
+		hrc = get_horizontal_ray_coordinates(game);
+		vrc = get_vertical_ray_coordinates(game);
 		h_distance = get_point_distance(game, hrc);
 		v_distance = get_point_distance(game, vrc);
 		if (v_distance < h_distance)

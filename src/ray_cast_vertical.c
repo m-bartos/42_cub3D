@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 13:18:17 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/24 13:32:56 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/24 20:24:08 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@
 // }
 
 
-point_t *get_vertical_ray_coordinates_v1(game_t *game)
+point_t *get_vertical_ray_coordinates(game_t *game)
 {
 	point_t *ver_ray;
 	ver_ray = malloc(sizeof(point_t));

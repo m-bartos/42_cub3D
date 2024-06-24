@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:44:52 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/24 14:17:58 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/24 20:23:06 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 char *static_map = 	"111111111111111\n"
 					"100000000000001\n"
-					"100100000000001\n"
+					"100100000111001\n"
 					"100100000000001\n"
 					"100100000000001\n"
 					"100100000000001\n"
@@ -73,14 +73,14 @@ int	main(void)
 	game_t game;
 	game = (game_t){0};
 	game.game_planes = &game_planes;
-	game.player.player_angle = 45;
+	game.player.player_angle = 90;
 	game.player.coordinates.x = 600;
 	game.player.coordinates.y = 600;
-	game.player.fow = 60;
+	game.player.fov = 60;
 	game.game_map.map = game_map;
 
 	load_map(static_map, &game);
-	draw_map_char(left_plane, &game);
+	draw_map(left_plane, &game);
 
 	////////////////////////////////////////////////////////
 	// Ray casting rendering

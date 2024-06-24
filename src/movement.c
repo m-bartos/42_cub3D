@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:59:53 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/24 14:14:29 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/24 20:23:06 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	move_player(mlx_key_data_t key, void *param)
 
 	set_img_background(game->game_planes->left_plane, L_BACKGROUND);
 	set_img_background(game->game_planes->right_plane, R_BACKGROUND);
-	draw_map_char(game->game_planes->left_plane, game);
+	draw_map(game->game_planes->left_plane, game);
 
 ////////////////////////////////////////////////////////////////////////////////
 // Update player coordinates based on key presses - key press == 5px change in position

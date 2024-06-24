@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 23:36:47 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/24 11:29:06 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/24 20:23:06 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	load_map(char *map_str, game_t *game)
 	return (1);
 }
 
-void	draw_map_char(mlx_image_t *image, game_t *game)
+void	draw_map(mlx_image_t *image, game_t *game)
 {
 	char **arr = game->game_map.map;
 	int s_size = 64;
