@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:46:56 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/24 23:45:41 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/25 00:02:47 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ typedef struct planes_s
 
 typedef struct map_s
 {
-	//Map has always result to a square.
+	//Map has always result to a square or a rectangle.
 	// The longest line makes the square
 	// All spaces (empty or any other char) outside of the walls (1) be filled with (9)
 	// Empty spaces inside the map fill with space (0)
