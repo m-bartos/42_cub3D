@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:46:56 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/24 13:32:56 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/24 14:13:23 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,24 @@
 # include <math.h>
 # include <string.h> // for memset
 
+// Size of the map - not used now
 # define WIDTH 512
 # define HEIGHT 512
 # define SQUARE_SIZE 64
+
+// Define the pixel change when key is pressed
+# define KEY_PRESS 5
+
+// Color constants
+# define FLOOR get_rgba(101, 67, 33, 255)
+# define CEILING get_rgba(0, 0, 255, 255)
+# define WALL get_rgba(0, 255, 0, 255)
+# define RAY get_rgba(0, 0, 0, 255)
+# define PLAYER get_rgba(0, 255, 0, 255)
+# define L_BACKGROUND get_rgba(0, 10, 139, 255)
+# define R_BACKGROUND get_rgba(0, 0, 0, 255)
+# define MINI_WALL get_rgba(255, 0, 0, 255)
+# define MINI_FLOOR get_rgba(255, 255, 255, 255)
 
 typedef struct point_s
 {
@@ -58,15 +73,6 @@ typedef struct game_s
 	map_t		game_map;
 }	game_t;
 
-#define FLOOR get_rgba(101, 67, 33, 255)
-#define CEILING get_rgba(0, 0, 255, 255)
-#define WALL get_rgba(0, 255, 0, 255)
-#define RAY get_rgba(0, 0, 0, 255)
-#define PLAYER get_rgba(0, 255, 0, 255)
-#define L_BACKGROUND get_rgba(0, 10, 139, 255)
-#define R_BACKGROUND get_rgba(0, 0, 0, 255)
-#define MINI_WALL get_rgba(255, 0, 0, 255)
-#define MINI_FLOOR get_rgba(255, 255, 255, 255)
 // MLX42 Drawing functions
 
 //Bresenham’s line algorithm
