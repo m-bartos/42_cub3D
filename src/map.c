@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 23:36:47 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/24 20:42:46 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/24 23:38:05 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,9 @@ void	draw_map(mlx_image_t *image, game_t *game)
 		// draws x axes
 		while (x < x_map_size)
 		{
-			if (arr[y][x] == '1')
+			if (arr[y][x] == M_WALL)
 				put_square(image, (point_t){.x = x * s_size, .y = y * s_size}, s_size, MINI_WALL);
-			else
+			else if (arr[y][x] == M_FLOOR)
 				put_square(image, (point_t){.x = x * s_size, .y = y * s_size}, s_size, MINI_FLOOR);
 			x++;
 		}

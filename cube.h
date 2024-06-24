@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:46:56 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/24 20:38:01 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/24 23:39:36 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,14 @@
 # include <string.h>
 
 // Size of the map - not used now
-# define WIDTH 512
-# define HEIGHT 512
+# define WINDOW_WIDTH 1920
+# define WINDOW_HEIGHT 1080
+// Will be determined at load time (based on map size)
 # define SQUARE_SIZE 64
 
 // Define the pixel change when key is pressed
 # define KEY_PRESS 5
-
+// Length of the so called player on minimap
 # define PLAYER_LENGTH 100
 
 // Color constants
@@ -41,6 +42,13 @@
 # define R_BACKGROUND get_rgba(0, 0, 0, 255)
 # define MINI_WALL get_rgba(255, 0, 0, 255)
 # define MINI_FLOOR get_rgba(255, 255, 255, 255)
+
+
+// Map Constants
+# define M_WALL '1'
+# define M_FLOOR '0'
+# define M_OUT '9'
+
 
 typedef struct point_s
 {

@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:44:52 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/24 20:43:46 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/24 23:20:33 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,6 @@ char *static_map = 	"111111111111111\n"
 
 int	main(void)
 {
-	// Load a map from a string
-	char **game_map = ft_split(static_map, '\n');
 	// Window Size
 	int w = 1920;
 	int h = 1200;
@@ -58,28 +56,20 @@ int	main(void)
 	planes_t game_planes;
 	game_planes.left_plane = left_plane;
 	game_planes.right_plane = right_plane;
-	// Set color over two images
-	// Each image has its own coordinates starting 0, 0.
-	//set_img_background(game_planes.left_plane, game_planes.left_plane, l_color, r_color);
 	set_img_background(left_plane, L_BACKGROUND);
 	set_img_background(right_plane, R_BACKGROUND);
 
 	// Init the game
 	game_t game;
 	game = (game_t){0};
+	load_map(static_map, &game);
 	game.game_planes = &game_planes;
 	game.player.player_angle = 90;
 	game.player.coordinates.x = 600;
 	game.player.coordinates.y = 600;
 	game.player.fov = 60;
-	game.game_map.map = game_map;
-	game.game_map.square_size = 64;
-	// width and height is automatically updated
-	// in load_map()
-	game.game_map.width = 0;
-	game.game_map.height = 0;
+	game.game_map.square_size = SQUARE_SIZE;
 
-	load_map(static_map, &game);
 	draw_map(left_plane, &game);
 
 	////////////////////////////////////////////////////////
