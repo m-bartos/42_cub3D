@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 17:44:30 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/24 11:07:18 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/24 13:03:38 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	draw_wall(game_t *game)
 
 		// set initial player angle
 		pa = game->player.player_angle;
+		printf("INIT:PA: %f\n", pa);
 		// set images to draw lines
 		game_planes =  game->game_planes;
 		// set field of view = the number of lines per width of the screen
@@ -62,7 +63,7 @@ void	draw_wall(game_t *game)
 			int line_offset = (screen_height / 2) - (line_height / 2);
 			// Correct horizontal position for each ray
 			int ray_x_position = (screen_width - 16) - r * (screen_width / fov); // Inverted to draw from left to right
-			printf("Xray: %d\n", ray_x_position);
+			//printf("Xray: %d\n", ray_x_position);
 			// Test to fill in all pixels: Note: number of new lines after ray_x_position (16) currently has to be the same offset from the right (screen_width - 16)
 			for (int i = 0; i < 16; i++)
 			{
@@ -77,4 +78,5 @@ void	draw_wall(game_t *game)
 			}
 		}
 		game->player.player_angle = pa;
+		printf("END:PA: %f\n", pa);
 }

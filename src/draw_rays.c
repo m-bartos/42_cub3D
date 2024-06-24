@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 15:26:00 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/24 11:13:22 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/24 13:32:56 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ void	draw_rays(game_t *game)
 		h_distance = get_point_distance(game, hrc);
 		v_distance = get_point_distance(game, vrc);
 		if (v_distance < h_distance)
-			draw_line(game_planes->left_plane, game->player.player_coordinates.x, game->player.player_coordinates.y, vrc->x, vrc->y, RAY);
+			draw_line(game_planes->left_plane, game->player.coordinates.x, game->player.coordinates.y, vrc->x, vrc->y, RAY);
 		else
-			draw_line(game_planes->left_plane, game->player.player_coordinates.x, game->player.player_coordinates.y, hrc->x, hrc->y, RAY);
+			draw_line(game_planes->left_plane, game->player.coordinates.x, game->player.coordinates.y, hrc->x, hrc->y, RAY);
 	}
 	game->player.player_angle = pa;
 }

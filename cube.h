@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:46:56 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/24 11:27:44 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/24 13:32:56 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ typedef struct player_s
 {
 	double		player_angle;
 	double		fow;
-	point_t		player_coordinates;
+	point_t		coordinates;
 }	player_t;
 
 typedef struct planes_s

@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:44:52 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/24 12:17:29 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/24 13:32:56 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,8 +134,8 @@ int	main(void)
 	game = (game_t){0};
 	game.game_planes = &game_planes;
 	game.player.player_angle = 45;
-	game.player.player_coordinates.x = 600;
-	game.player.player_coordinates.y = 600;
+	game.player.coordinates.x = 600;
+	game.player.coordinates.y = 600;
 	game.player.fow = 60;
 	game.game_map.map = game_map;
 

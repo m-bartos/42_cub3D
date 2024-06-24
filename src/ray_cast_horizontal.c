@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 12:14:09 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/24 12:12:04 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/24 13:32:56 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,8 +104,8 @@ point_t	*get_horizontal_ray_coordinates_v1(game_t *game)
 	int map_y = game->game_map.height;
 
 	int pa = game->player.player_angle;
-	double px = game->player.player_coordinates.x;
-	double py = game->player.player_coordinates.y;
+	double px = game->player.coordinates.x;
+	double py = game->player.coordinates.y;
 	char **map = game->game_map.map;
 
 	int r, mx, my, mp, dof;
