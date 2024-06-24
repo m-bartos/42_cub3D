@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:46:56 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/24 20:25:43 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/24 20:38:01 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <stdio.h>
 # include <stdbool.h>
 # include <math.h>
-# include <string.h> // for memset
+# include <string.h>
 
 // Size of the map - not used now
 # define WIDTH 512
@@ -29,7 +29,7 @@
 // Define the pixel change when key is pressed
 # define KEY_PRESS 5
 
-#define PLAYER_LENGTH 100
+# define PLAYER_LENGTH 100
 
 // Color constants
 # define FLOOR get_rgba(101, 67, 33, 255)
@@ -78,6 +78,7 @@ typedef struct map_s
 	// In elements (sqaures)
 	int			width;
 	int			height;
+	int			square_size;
 	// struct to player
 	player_t	player;
 	// colors for the floor and ceiling

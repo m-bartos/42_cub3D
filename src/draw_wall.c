@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 17:44:30 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/24 20:24:19 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/24 20:45:05 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	draw_wall(game_t *game)
 
 		// set initial player angle
 		pa = game->player.player_angle;
-		printf("INIT:PA: %f\n", pa);
 		// set images to draw lines
 		game_planes =  game->game_planes;
 		// set field of view = the number of lines per width of the screen
@@ -78,5 +77,4 @@ void	draw_wall(game_t *game)
 			}
 		}
 		game->player.player_angle = pa;
-		printf("END:PA: %f\n", pa);
 }

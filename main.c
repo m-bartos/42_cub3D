@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:44:52 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/24 20:23:06 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/24 20:43:46 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,6 @@ int	main(void)
 	// Window Size
 	int w = 1920;
 	int h = 1200;
-	// Pane colors
-	// blue
-	unsigned int l_color = get_rgba(0, 10, 139, 255);
-	// black
-	unsigned int r_color = get_rgba(0, 0, 0, 255);
 
 	// Mlx main struct declaration
 	mlx_t *mlx;
@@ -66,8 +61,8 @@ int	main(void)
 	// Set color over two images
 	// Each image has its own coordinates starting 0, 0.
 	//set_img_background(game_planes.left_plane, game_planes.left_plane, l_color, r_color);
-	set_img_background(left_plane, l_color);
-	set_img_background(right_plane, r_color);
+	set_img_background(left_plane, L_BACKGROUND);
+	set_img_background(right_plane, R_BACKGROUND);
 
 	// Init the game
 	game_t game;
@@ -78,6 +73,11 @@ int	main(void)
 	game.player.coordinates.y = 600;
 	game.player.fov = 60;
 	game.game_map.map = game_map;
+	game.game_map.square_size = 64;
+	// width and height is automatically updated
+	// in load_map()
+	game.game_map.width = 0;
+	game.game_map.height = 0;
 
 	load_map(static_map, &game);
 	draw_map(left_plane, &game);
