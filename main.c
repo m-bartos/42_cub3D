@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:44:52 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/24 23:55:53 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/24 23:58:55 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,8 @@ int	main(void)
 	1) refactor draw rays
 	2) refactor draw walls - especially ray caster, wall drawing
 	1) clean memory
+		a) map
+		b) return form ray_cast_ver and hor
 	2) parser
 	3) dynamic minimap scaling
 	6) Wall collisions
