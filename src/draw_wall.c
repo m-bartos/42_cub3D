@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 17:44:30 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/24 00:24:28 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/24 11:07:18 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,6 @@ void	draw_wall(game_t *game)
 		pa = game->player.player_angle;
 		// set images to draw lines
 		game_planes =  game->game_planes;
-		// setup colors
-		unsigned int f_color = get_rgba(101, 67, 33, 255);
-		//int f_color = get_rgba(255, 0, 0, 255);
-		int c_color = get_rgba(0, 0, 255, 255);
-		unsigned int color = get_rgba(0, 255, 0, 255);
 		// set field of view = the number of lines per width of the screen
 		// you need to get for every line a different angle
 		fov = game->player.fow;
@@ -72,11 +67,11 @@ void	draw_wall(game_t *game)
 			for (int i = 0; i < 16; i++)
 			{
 				// floor
-				draw_line(game_planes->right_plane, ray_x_position, 1200, ray_x_position, line_offset, f_color);
+				draw_line(game_planes->right_plane, ray_x_position, 1200, ray_x_position, line_offset, FLOOR);
 				// wall
-				draw_line(game_planes->right_plane, ray_x_position, line_offset, ray_x_position, line_offset + line_height, color);
+				draw_line(game_planes->right_plane, ray_x_position, line_offset, ray_x_position, line_offset + line_height, WALL);
 				// ceiling
-				draw_line(game_planes->right_plane, ray_x_position, 0, ray_x_position, line_offset, c_color);
+				draw_line(game_planes->right_plane, ray_x_position, 0, ray_x_position, line_offset, CEILING);
 				//End of Drawing Walls
 				ray_x_position += 1;
 			}

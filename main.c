@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:44:52 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/23 23:49:04 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/24 11:19:35 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,6 @@ int	main(void)
 	game.player.player_coordinates.x = 600;
 	game.player.player_coordinates.y = 600;
 	game.player.fow = 60;
-	game.player.player_color = get_rgba(0, 255, 0, 255);
 	game.game_map.map = game_map;
 
 	load_map(static_map, &game);

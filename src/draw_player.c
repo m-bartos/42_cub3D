@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 17:20:32 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/23 17:33:22 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/24 11:19:03 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,5 @@ void	draw_player(game_t *game)
 	end.y = game->player.player_coordinates.y;
 	end.x = end.x + pdx * 100;
 	end.y = end.y - pdy * 100;
-	draw_line(game->game_planes->left_plane, start.x, start.y, end.x, end.y, game->player.player_color);
+	draw_line(game->game_planes->left_plane, start.x, start.y, end.x, end.y, PLAYER);
 }

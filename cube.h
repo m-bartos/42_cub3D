@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:46:56 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/23 18:04:08 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/24 11:19:26 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ typedef struct player_s
 	double		player_angle;
 	double		fow;
 	point_t		player_coordinates;
-	u_int32_t	player_color;
 }	player_t;
 
 typedef struct planes_s
@@ -59,6 +58,11 @@ typedef struct game_s
 	map_t		game_map;
 }	game_t;
 
+#define FLOOR get_rgba(101, 67, 33, 255)
+#define CEILING get_rgba(0, 0, 255, 255)
+#define WALL get_rgba(0, 255, 0, 255)
+#define RAY get_rgba(0, 0, 0, 255)
+#define PLAYER get_rgba(0, 255, 0, 255)
 // MLX42 Drawing functions
 
 //Bresenham’s line algorithm

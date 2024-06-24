@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:59:53 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/24 00:23:35 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/24 11:17:57 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ void	move_player(mlx_key_data_t key, void *param)
 	endX = x+pdx*100;
 	endY = y-pdy*100;
 // color and planes
-	unsigned int color = get_rgba(0, 255, 0, 255);
 	planes_t *game_planes = game->game_planes;
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -134,15 +133,14 @@ void	move_player(mlx_key_data_t key, void *param)
 
 		h_distance = sqrt((hrc->x - pl.player_coordinates.x) * (hrc->x - pl.player_coordinates.x) + (hrc->y - pl.player_coordinates.y) * (hrc->y - pl.player_coordinates.y));
 		v_distance = sqrt((vrc->x - pl.player_coordinates.x) * (vrc->x - pl.player_coordinates.x) + (vrc->y - pl.player_coordinates.y) * (vrc->y - pl.player_coordinates.y));
-		int ppp_color = get_rgba(0, 0, 0, 255);
 		if (v_distance < h_distance)
 		{
-			draw_line(game_planes->left_plane, pl.player_coordinates.x, pl.player_coordinates.y, vrc->x, vrc->y, ppp_color);
+			draw_line(game_planes->left_plane, pl.player_coordinates.x, pl.player_coordinates.y, vrc->x, vrc->y, RAY);
 			//draw_line(game_planes->right_plane, pl.player_coordinates.x, pl.player_coordinates.y, vrc->x, vrc->y, color);
 		}
 		else
 		{
-			draw_line(game_planes->left_plane, pl.player_coordinates.x, pl.player_coordinates.y, hrc->x, hrc->y, ppp_color);
+			draw_line(game_planes->left_plane, pl.player_coordinates.x, pl.player_coordinates.y, hrc->x, hrc->y, RAY);
 			//draw_line(game_planes->right_plane, pl.player_coordinates.x, pl.player_coordinates.y, hrc->x, hrc->y, color);
 		}
 	// End of Ray Casting
@@ -174,17 +172,14 @@ void	move_player(mlx_key_data_t key, void *param)
 		//{
 		// 	mlx_put_pixel(game_planes->right_plane, ray_x_position, y, color);  // Draw at the correct x-coordinate
 		// }
-		//int f_color = get_rgba(255, 0, 0, 255);
-		unsigned int f_color = get_rgba(101, 67, 33, 255);
-		int c_color = get_rgba(0, 0, 255, 255);
 		for (int i = 0; i < 16; i++)
 		{
 			// floor
-			draw_line(game_planes->right_plane, ray_x_position, 1200, ray_x_position, line_offset, f_color);
+			draw_line(game_planes->right_plane, ray_x_position, 1200, ray_x_position, line_offset, FLOOR);
 			// wall
-			draw_line(game_planes->right_plane, ray_x_position, line_offset, ray_x_position, line_offset + line_height, color);
+			draw_line(game_planes->right_plane, ray_x_position, line_offset, ray_x_position, line_offset + line_height, WALL);
 			// ceiling
-			draw_line(game_planes->right_plane, ray_x_position, 0, ray_x_position, line_offset, c_color);
+			draw_line(game_planes->right_plane, ray_x_position, 0, ray_x_position, line_offset, CEILING);
 			//End of Drawing Walls
 			ray_x_position += 1;
 		}
@@ -206,6 +201,6 @@ void	move_player(mlx_key_data_t key, void *param)
 	startY = y;
 	endX = x+pdx*100;
 	endY = y-pdy*100;
-	draw_line(game_planes->left_plane, startX, startY, endX, endY, color);
+	draw_line(game_planes->left_plane, startX, startY, endX, endY, PLAYER);
 	//draw_line(game_planes->right_plane, startX, startY, endX, endY, color);
 }

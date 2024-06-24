@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 15:26:00 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/23 22:45:55 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/24 11:13:22 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,41 +15,29 @@
 
 void	draw_rays(game_t *game)
 {
-	// Ray casting rendering
-	// Only cast rays ,take player x, y and an angle cat rays in FOV in a way they end in the wall
 	planes_t	*game_planes;
-	double		fow;
+	double		fov;
 	double		pa;
+	point_t		*hrc;
+	point_t		*vrc;
+	double h_distance = 0;
+	double v_distance = 0;
 
-	fow = game->player.fow;
+	fov = game->player.fow;
 	pa = game->player.player_angle;
 	game_planes = game->game_planes;
-	for (int r = 0; r < fow; r++)
+	for (int r = 0; r < fov; r++)
 	{
-		double h_distance = 0;
-		double v_distance = 0;
-		game->player.player_angle = fix_ang((pa - fow / 2) + r);
-		point_t *hrc;
-		point_t *vrc;
+
+		game->player.player_angle = fix_ang((pa - fov / 2) + r);
 		hrc = get_horizontal_ray_coordinates_v1(game);
 		vrc = get_vertical_ray_coordinates_v1(game);
 		h_distance = get_point_distance(game, hrc);
 		v_distance = get_point_distance(game, vrc);
-		int ppp_color = get_rgba(0, 0, 0, 255);
-		//unsigned int color = get_rgba(0, 255, 0, 255);
 		if (v_distance < h_distance)
-		{
-			draw_line(game_planes->left_plane, game->player.player_coordinates.x, game->player.player_coordinates.y, vrc->x, vrc->y, ppp_color);
-			//draw_line(game_planes.right_plane, pl.player_coordinates.x, pl.player_coordinates.y, vrc1->x, vrc1->y, color);
-		}
+			draw_line(game_planes->left_plane, game->player.player_coordinates.x, game->player.player_coordinates.y, vrc->x, vrc->y, RAY);
 		else
-		{
-			draw_line(game_planes->left_plane, game->player.player_coordinates.x, game->player.player_coordinates.y, hrc->x, hrc->y, ppp_color);
-			//draw_line(game_planes.right_plane, pl.player_coordinates.x, pl.player_coordinates.y, hrc1->x, hrc1->y, color);
-		}
+			draw_line(game_planes->left_plane, game->player.player_coordinates.x, game->player.player_coordinates.y, hrc->x, hrc->y, RAY);
 	}
 	game->player.player_angle = pa;
-	//printf("PA END: %f\n",game->player.player_angle);
-	 // End of Ray Casting
-	/////////////////////////////////////////////////////////////////////
 }
