@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:59:53 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/23 23:27:46 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/24 00:23:35 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,16 +167,17 @@ void	move_player(mlx_key_data_t key, void *param)
 		int line_offset = (screen_height / 2) - (line_height / 2); // Centering the wall slice vertically
 
 		// Correct horizontal position for each ray
-		int ray_x_position = (screen_width - 12) - r * (screen_width / 60); // Inverted to draw from left to right
+		int ray_x_position = (screen_width - 16) - r * (screen_width / 60); // Inverted to draw from left to right
 
 		// Draw the wall slice by filling pixels vertically
 		// for (int y = line_offset; y < line_offset + line_height; y++)
 		//{
 		// 	mlx_put_pixel(game_planes->right_plane, ray_x_position, y, color);  // Draw at the correct x-coordinate
 		// }
-		int f_color = get_rgba(255, 0, 0, 255);
+		//int f_color = get_rgba(255, 0, 0, 255);
+		unsigned int f_color = get_rgba(101, 67, 33, 255);
 		int c_color = get_rgba(0, 0, 255, 255);
-		for (int i = 0; i < 12; i++)
+		for (int i = 0; i < 16; i++)
 		{
 			// floor
 			draw_line(game_planes->right_plane, ray_x_position, 1200, ray_x_position, line_offset, f_color);
