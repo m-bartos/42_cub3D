@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:46:56 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/25 00:02:47 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/25 15:10:09 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ typedef struct map_s
 	int			height;
 	int			square_size;
 	// struct to player
-	player_t	player;
+	player_t	*player;
 	// colors for the floor and ceiling
 	uint32_t	floor_color;
 	uint32_t	ceiling_color;
@@ -130,5 +130,13 @@ int			fix_ang(int a);
 u_int32_t	get_rgba(u_int32_t r, u_int32_t g, u_int32_t b, u_int32_t a);
 int			load_map(char *map_str, game_t *game);
 void		draw_map(mlx_image_t *image, game_t *game);
+
+// parser
+
+// errors.c
+void	error_argc(int argc);
+
+// get_map.c
+void	get_map(map_t *map, char *str);
 
 #endif
