@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:44:52 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/26 14:43:22 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/26 21:02:18 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,11 @@ char *static_map = 	"111111111111111111\n"
 					"100000000000000001\n"
 					"100000000000000001\n"
 					"100000000000000001\n"
+					"100000000000000001\n"
+					"100000000000000001\n"
+					"100000000000000001\n"
+					"100000000000000001\n"
+					"100000000000000001\n"
 					"100000000000011111\n"
 					"100111100000000001\n"
 					"100000000000000001\n"
@@ -37,11 +42,16 @@ int	main(void)
 	int w = WINDOW_WIDTH;
 	int h = WINDOW_HEIGHT;
 
+	int screen_x;
+	int screen_y;
+
 	// Mlx main struct declaration
 	mlx_t *mlx;
 	// Mlx window setup
 	mlx = mlx_init(w, h, "Ray Caster", true);
-
+	mlx_get_monitor_size(0, &screen_x, &screen_y);
+	mlx_set_window_pos(mlx, screen_x / 2 - w/2, screen_y / 2 - h/2);
+	mlx_set_setting(MLX_STRETCH_IMAGE, 1);
 	// Mlx key func initialization
 	mlx_keyfunc move_p_func = move_player;
 
@@ -59,7 +69,7 @@ int	main(void)
 	game = (game_t){0};
 	load_map(static_map, &game);
 	game.game_planes = &game_planes;
-	game.player.player_angle = 90;
+	game.player.player_angle = 33;
 	game.player.coordinates.x = 600;
 	game.player.coordinates.y = 600;
 	game.player.fov = 60;
