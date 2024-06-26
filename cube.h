@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:46:56 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/25 00:02:47 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/26 10:18:22 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 # include <string.h>
 
 // Size of the map - not used now
-# define WINDOW_WIDTH 1920
-# define WINDOW_HEIGHT 1080
+# define WINDOW_WIDTH 1200
+# define WINDOW_HEIGHT 800
 // Will be determined at load time (based on map size)
 # define SQUARE_SIZE 64
 
@@ -71,9 +71,9 @@ typedef struct player_s
 typedef struct planes_s
 {
 	// minimap
-	mlx_image_t *left_plane;
+	mlx_image_t *mini_plane;
 	// 3D render
-	mlx_image_t *right_plane;
+	mlx_image_t *game_plane;
 } planes_t;
 
 typedef struct map_s

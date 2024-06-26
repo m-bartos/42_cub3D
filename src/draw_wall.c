@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 17:44:30 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/24 20:45:05 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/26 10:50:41 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ void	draw_wall(game_t *game)
 			else
 				corrected_distance = h_distance * cos(deg_to_rad(game->player.player_angle - pa));
 			// get screen size
-			int screen_height = game->game_planes->right_plane->height;
-			int screen_width = game->game_planes->right_plane->width;
+			int screen_height = game->game_planes->game_plane->height;
+			int screen_width = game->game_planes->game_plane->width;
 			// set max wall height
 			int max_wall_height = screen_height; // Wall extends the whole vertical line when directly facing
 
@@ -61,17 +61,17 @@ void	draw_wall(game_t *game)
 			 // Centering the wall slice vertically = offset that is same above the wall and below it
 			int line_offset = (screen_height / 2) - (line_height / 2);
 			// Correct horizontal position for each ray
-			int ray_x_position = (screen_width - 16) - r * (screen_width / fov); // Inverted to draw from left to right
+			int ray_x_position = (screen_width - 20) - r * (screen_width / fov); // Inverted to draw from left to right
 			//printf("Xray: %d\n", ray_x_position);
 			// Test to fill in all pixels: Note: number of new lines after ray_x_position (16) currently has to be the same offset from the right (screen_width - 16)
-			for (int i = 0; i < 16; i++)
+			for (int i = 0; i < 20; i++)
 			{
 				// floor
-				draw_line(game_planes->right_plane, ray_x_position, 1200, ray_x_position, line_offset, FLOOR);
+				draw_line(game_planes->game_plane, ray_x_position, WINDOW_HEIGHT, ray_x_position, line_offset, FLOOR);
 				// wall
-				draw_line(game_planes->right_plane, ray_x_position, line_offset, ray_x_position, line_offset + line_height, WALL);
+				draw_line(game_planes->game_plane, ray_x_position, line_offset, ray_x_position, line_offset + line_height, WALL);
 				// ceiling
-				draw_line(game_planes->right_plane, ray_x_position, 0, ray_x_position, line_offset, CEILING);
+				draw_line(game_planes->game_plane, ray_x_position, 0, ray_x_position, line_offset, CEILING);
 				//End of Drawing Walls
 				ray_x_position += 1;
 			}

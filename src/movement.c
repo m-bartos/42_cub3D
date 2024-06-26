@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:59:53 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/24 20:23:06 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/26 11:02:12 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,7 @@ void	move_player(mlx_key_data_t key, void *param)
 	pdy = sin(deg_to_rad(player->player_angle));
 ////////////////////////////////////////////////////////////////////////////////
 // Clean initial or previous screen
-
-	set_img_background(game->game_planes->left_plane, L_BACKGROUND);
-	set_img_background(game->game_planes->right_plane, R_BACKGROUND);
-	draw_map(game->game_planes->left_plane, game);
-
+	set_img_background(game->game_planes->game_plane, R_BACKGROUND);
 ////////////////////////////////////////////////////////////////////////////////
 // Update player coordinates based on key presses - key press == 5px change in position
 	if ((key.action == MLX_PRESS  || key.action == MLX_REPEAT) && key.key == MLX_KEY_D)
@@ -70,7 +66,5 @@ void	move_player(mlx_key_data_t key, void *param)
 	}
 ////////////////////////////////////////////////////////
 // Ray casting and Wall rendering
-	draw_rays(game);
-	draw_player(game);
 	draw_wall(game);
 }
