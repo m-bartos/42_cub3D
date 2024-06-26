@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:46:56 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/26 13:30:19 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/26 14:21:25 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 # include <string.h>
 
 // Size of the map - not used now
-# define WINDOW_WIDTH 1980
-# define WINDOW_HEIGHT 1200
+# define WINDOW_WIDTH 1200
+# define WINDOW_HEIGHT 800
 // Will be determined at load time (based on map size)
 # define SQUARE_SIZE 64
 
@@ -130,5 +130,8 @@ double		fix_ang(double a);
 u_int32_t	get_rgba(u_int32_t r, u_int32_t g, u_int32_t b, u_int32_t a);
 int			load_map(char *map_str, game_t *game);
 void		draw_map(mlx_image_t *image, game_t *game);
+
+// Wall collision
+bool no_wall(game_t *game, double step_x, double step_y);
 
 #endif
