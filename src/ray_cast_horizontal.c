@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 12:14:09 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/25 00:00:00 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/26 12:25:29 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ point_t	*get_horizontal_ray_coordinates(game_t *game)
 		map_max_size = map_y;
 	else
 		map_max_size = map_x;
-	int pa = game->player.player_angle;
+	double pa = game->player.player_angle;
 	double px = game->player.coordinates.x;
 	double py = game->player.coordinates.y;
 	char **map = game->game_map.map;
@@ -49,7 +49,7 @@ point_t	*get_horizontal_ray_coordinates(game_t *game)
 	{
 		ry = (((int) py >> 6) << 6) - 0.0001;
 		rx = (py - ry) * aTan + px;
-		yo = -64;
+		yo = -SQUARE_SIZE;
 		xo = -yo * aTan;
 	}
 	// look down 180 - 360
@@ -57,21 +57,21 @@ point_t	*get_horizontal_ray_coordinates(game_t *game)
 	{
 		ry = (((int) py >> 6) << 6) + 64;
 		rx = (py - ry) * aTan+px;
-		yo = 64;
+		yo = SQUARE_SIZE;
 		xo = -yo * aTan;
 	}
 	// look left or right - exactly horizontal
 	else
 	{
-		rx = 100000;
-		ry = 100000;
+		rx = INFINITY;
+		ry = INFINITY;
 		dof = map_max_size;
 	}
 	while (dof < map_max_size)
 	{
 		mx = (int) (rx)>>6;
 		my = (int) (ry)>>6;
-		if (mx >= 0 && mx < map_x && my >= 0 && my < map_y && map[my][mx] == '1')
+		if (mx >= 0 && mx < map_x && my >= 0 && my < map_y && map[my][mx] == M_WALL)
 			dof = map_max_size;
 		else
 		{
