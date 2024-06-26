@@ -6,12 +6,47 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:59:53 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/26 14:49:08 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/26 18:35:24 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cube.h"
+/*
 
+XA: 1.000000
+YA: 0.000000
+MAP_X: 9, MAP_Y: 9
+X605.000000: Y600.000000:
+Angle: 90.000000
+X605.000000: Y600.000000:
+Angle: 90.000000
+
+XA: 1.000000
+YA: 0.000000
+MAP_X: 9, MAP_Y: 9
+X620.000000: Y600.000000:
+Angle: 270.000000
+X620.000000: Y600.000000:
+Angle: 270.000000
+
+// These two are opposite
+XA: 1.000000
+YA: 0.000000
+MAP_X: 9, MAP_Y: 9
+X600.000000: Y605.000000:
+Angle: 0.000000
+X600.000000: Y605.000000:
+Angle: 0.000000
+
+XA: 1.000000
+YA: 0.000000
+MAP_X: 10, MAP_Y: 9
+X700.000000: Y600.000000:
+Angle: 180.000000
+X700.000000: Y600.000000:
+Angle: 180.000000
+
+*/
 void	move_player(mlx_key_data_t key, void *param)
 {
 ///////////////////////////////////////////////////////////////////////////////
@@ -32,19 +67,41 @@ void	move_player(mlx_key_data_t key, void *param)
 // Update player coordinates based on key presses - key press == 5px change in position
 	if ((key.action == MLX_PRESS  || key.action == MLX_REPEAT) && key.key == MLX_KEY_D)
 	{
-		if (no_wall(game, pdx * KEY_PRESS, pdy * KEY_PRESS))
+		double xa = cos(deg_to_rad(fix_ang(player->player_angle - 90)));
+		double ya = sin(deg_to_rad(fix_ang(player->player_angle + 90)));
+		printf("DXA: %f\n", xa);
+		printf("DYA: %f\n", ya);
+		printf("DXAS: %f\n", xa * KEY_PRESS);
+		printf("DYAS: %f\n", ya * KEY_PRESS);
+		if (no_wall(game, xa * KEY_PRESS, ya * KEY_PRESS))
 		{
-			player->coordinates.x += pdy * KEY_PRESS;
-			player->coordinates.y += pdx * KEY_PRESS;
+			player->coordinates.x += xa * KEY_PRESS;
+			player->coordinates.y += ya * KEY_PRESS;
 		}
+		// if (no_wall(game, pdx * KEY_PRESS, pdy * KEY_PRESS))
+		// {
+		// 	player->coordinates.x += pdy * KEY_PRESS;
+		// 	player->coordinates.y += pdx * KEY_PRESS;
+		// }
 	}
 	else if ((key.action == MLX_PRESS  || key.action == MLX_REPEAT) && key.key == MLX_KEY_A)
 	{
-		if (no_wall(game, -pdx * KEY_PRESS, -pdy * KEY_PRESS))
+		double xa = cos(deg_to_rad(fix_ang(player->player_angle + 90)));
+		double ya = sin(deg_to_rad(fix_ang(player->player_angle - 90)));
+		printf("AXA: %f\n", xa);
+		printf("AYA: %f\n", ya);
+		printf("AXAS: %f\n", xa * KEY_PRESS);
+		printf("AYAS: %f\n", ya * KEY_PRESS);
+		if (no_wall(game, xa * KEY_PRESS, ya * KEY_PRESS))
 		{
-			player->coordinates.x -= pdy * KEY_PRESS;
-			player->coordinates.y -= pdx * KEY_PRESS;
+			player->coordinates.x += xa * KEY_PRESS;
+			player->coordinates.y += ya * KEY_PRESS;
 		}
+		// if (no_wall(game, -pdx * KEY_PRESS, -pdy * KEY_PRESS))
+		// {
+		// 	player->coordinates.x -= pdy * KEY_PRESS;
+		// 	player->coordinates.y -= pdx * KEY_PRESS;
+		// }
 	}
 	else if ((key.action == MLX_PRESS  || key.action == MLX_REPEAT) && key.key == MLX_KEY_W)
 	{
@@ -66,6 +123,7 @@ void	move_player(mlx_key_data_t key, void *param)
 	{
 
 		player->player_angle += fix_ang(KEY_PRESS);
+		player->player_angle = fix_ang(player->player_angle);
 		pdx = cos(deg_to_rad(player->player_angle));
 		pdy = sin(deg_to_rad(player->player_angle));
 	}
@@ -73,6 +131,7 @@ void	move_player(mlx_key_data_t key, void *param)
 	{
 
 		player->player_angle -= fix_ang(KEY_PRESS);
+		player->player_angle = fix_ang(player->player_angle);
 		pdx = cos(deg_to_rad(player->player_angle));
 		pdy = sin(deg_to_rad(player->player_angle));
 	}
