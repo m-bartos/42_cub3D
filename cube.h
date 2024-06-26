@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:46:56 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/26 10:18:22 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/26 13:30:19 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 # include <string.h>
 
 // Size of the map - not used now
-# define WINDOW_WIDTH 1200
-# define WINDOW_HEIGHT 800
+# define WINDOW_WIDTH 1980
+# define WINDOW_HEIGHT 1200
 // Will be determined at load time (based on map size)
 # define SQUARE_SIZE 64
 
@@ -125,8 +125,8 @@ void	move_player(mlx_key_data_t key, void *param);
 
 
 // Utils
-float		deg_to_rad(int a);
-int			fix_ang(int a);
+double		deg_to_rad(double a);
+double		fix_ang(double a);
 u_int32_t	get_rgba(u_int32_t r, u_int32_t g, u_int32_t b, u_int32_t a);
 int			load_map(char *map_str, game_t *game);
 void		draw_map(mlx_image_t *image, game_t *game);

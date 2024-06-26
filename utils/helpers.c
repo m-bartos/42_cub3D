@@ -6,18 +6,18 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 18:40:42 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/26 12:51:39 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/26 13:05:40 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cube.h"
 
-double	deg_to_rad(int a)
+double	deg_to_rad(double a)
 {
 	return (a * M_PI / 180.0);
 }
 
-int	fix_ang(int a)
+double	fix_ang(double a)
 {
 	if (a > 359)
 		a -= 360;
