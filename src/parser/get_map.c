@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 10:31:44 by mbartos           #+#    #+#             */
-/*   Updated: 2024/06/25 15:48:05 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/06/27 21:06:29 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,21 +173,18 @@ char	**map_to_array(int fd)
 	if (one_line == NULL)
 		return (NULL);
 	lines = ft_strjoin("", one_line);
-	free (one_line);
+	free(one_line);
 	while (1)
 	{
 		one_line = get_next_line(fd);
 		if (one_line == NULL)
 			break ;
-		// old_lines = lines;
-		// lines = ft_strjoin(old_lines, "3");
-		// free(old_lines);
 		old_lines = lines;
 		lines = ft_strjoin(old_lines, one_line);
 		free(old_lines);
 		free(one_line);
 	}
-	map_array = ft_split(lines, '\n');
+	map_array = ft_split_empty(lines, '\n');
 	free(lines);
 	return (map_array);
 }
@@ -323,30 +320,158 @@ void	check_start_possitions(char **map_array)
 	}
 }
 
+int	is_empty_line(char *line)
+{
+	int	i;
+
+	i = 0;
+	while (line[i])
+	{
+		if (line[i] == ' ')
+			i++;
+		else
+		{
+			return (0);
+		}
+	}
+	return (1);
+}
+
+char	**seperate_map(char **file_content)
+{
+	int	i;
+	int	first_line;
+	int	last_line;
+	char	**map;
+
+	ft_putstr_fd("------FILE------\n", 1);
+	ft_print_array(file_content);
+	ft_putstr_fd("------FILE------\n\n", 1);
+	last_line = ft_len_of_arr(file_content) - 1;
+	while (last_line > 0)
+	{
+		if (!is_empty_line(file_content[last_line]))
+			break ;
+		last_line--;
+	}
+	first_line = last_line - 1;
+	if (first_line < 0)
+		first_line = 0;
+	while (first_line > 0)
+	{
+		if (is_empty_line(file_content[first_line]))
+			break ;
+		first_line--;
+	}
+	first_line++;
+	map = ft_init_array(last_line - first_line + 1);
+	i = 0;
+	while (first_line + i <= last_line)
+	{
+		map[i] = file_content[first_line + i];
+		file_content[first_line + i] = NULL;
+		i++;
+	}
+	ft_putstr_fd("---- MAP ----\n", 1);
+	ft_print_array(map);
+	ft_putstr_fd("---- MAP ----\n", 1);
+	ft_putstr_fd("\n", 1);
+	ft_putstr_fd("---- file_content ----\n", 1);
+	ft_print_array(file_content);
+	ft_putstr_fd("---- file_content ----\n\n", 1);
+	return(map);
+}
+
+char	*delete_extra_spaces(char *str)
+{
+	int		i;
+	char	*first_part;
+	char	*second_part;
+
+	if (str[0] == 0)
+		return (str);
+	i = 1;
+	while (str[i])
+	{
+		if (str[i] == ' ' && str[i - 1] == ' ')
+		{
+			first_part = ft_substr_e(str, 0, i);
+			second_part = ft_substr_e(str, i + 1, ft_strlen(str));
+			str = ft_strjoin_e(first_part, second_part);
+			free(first_part);
+			free(second_part);
+			i--;
+		}
+		i++;
+	}
+	return (str);
+}
+
+void	get_textures(map_t *map, char **file_content)
+{
+	int	i;
+
+	map->ceiling_color = 123;
+	if (file_content == NULL)
+		return ;
+	i = 0;
+	while(file_content[i])
+	{
+		file_content[i] = ft_strtrim_e(file_content[i], " ");
+		printf("%s\n", file_content[i]);
+		file_content[i] = delete_extra_spaces(file_content[i]);
+		printf("%s\n", file_content[i]);
+		if (ft_strncmp(file_content[i], "NO ", 3) == 0)
+			map->textures->angle_90 = ft_strdup_e(&file_content[i][3]);
+		else if (ft_strncmp(file_content[i], "SO ", 3) == 0)
+			map->textures->angle_270 = ft_strdup_e(&file_content[i][3]);
+		else if (ft_strncmp(file_content[i], "WE ", 3) == 0)
+			map->textures->angle_180 = ft_strdup_e(&file_content[i][3]);
+		else if (ft_strncmp(file_content[i], "EA ", 3) == 0)
+			map->textures->angle_0 = ft_strdup_e(&file_content[i][3]);
+		i++;
+	}
+}
+
 void	get_map(map_t *map, char *str)
 {
 	char	**map_flooded;
+	char	**file_content;
 
 	ft_putstr_fd("-------------------\n", 1);
 	ft_putstr_fd("-RUNNING_MAP_CHECK-\n", 1);
 	ft_putstr_fd("-------------------\n", 1);
+	
 	check_suffix(str);
-	map->map = map_file_to_array(str, map);
+	
+	file_content = map_file_to_array(str, map);
+	// map->map = map_file_to_array(str, map);
+	map->map = seperate_map(file_content);
+
+	get_textures(map, file_content);
+	printf("NO:/%s/, SO:/%s/, EA:/%s/, WE:/%s/\n", map->textures->angle_90, map->textures->angle_270, map->textures->angle_0, map->textures->angle_180);
 	map->map = add_borders(map->map);
 	fill_spaces(map->map);
-	ft_print_array(map->map);  //printing
 	check_start_possitions(map->map);
 	//check only one start possition
 	get_player_pos(map->map, map);
 	map_flooded = ft_arrdup(map->map);
 	map_flood_fill(map_flooded, map->player->coordinates.y, map->player->coordinates.x);
-	printf("\n"); //printing
+	
+	printf("-----FLOODED MAP-----\n"); //printing
 	ft_print_array(map_flooded); //printing
+	printf("-----FLOODED MAP-----\n\n");
+	
 	ft_putstr_fd("-------------------\n", 1);
 	ft_putstr_fd("---MAP_CHECK_OK----\n", 1);
 	ft_putstr_fd("-------------------\n\n", 1);
+	
 	map->height = max_line_width(map->map) - 2;
 	map->width = ft_len_of_arr(map->map);
+	
+	// ft_free_array(map->map);
+	// ft_free_array(file_content);
 	ft_free_array(map_flooded);
+	
 	// return (map);
 }
