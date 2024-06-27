@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:46:56 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/27 15:54:40 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/28 00:17:34 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,6 +157,7 @@ double		fix_ang(double a);
 u_int32_t	get_rgba(u_int32_t r, u_int32_t g, u_int32_t b, u_int32_t a);
 int			load_map(char *map_str, game_t *game);
 void		draw_map(mlx_image_t *image, game_t *game);
+uint32_t get_pixel_color(mlx_texture_t *texture, int y_height, int x_width);
 
 // Wall collision
 bool no_wall(game_t *game, double step_x, double step_y);
