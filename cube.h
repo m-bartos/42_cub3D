@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:46:56 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/26 14:21:25 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/27 15:54:40 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,12 @@
 # define M_OUT '9'
 # define M_DOOR '4'
 
+// Paths to PNG files for textures
+# define PRAGUE "./textures/prague1.png"
+# define BRNO "./textures/brno.png"
+# define OLOMOUC "./textures/olomouc.png"
+# define OSTRAVA "./textures/ostrava.png"
+# define B_WALL "./textures/brick_wall.png"
 
 typedef struct point_s
 {
@@ -74,7 +80,25 @@ typedef struct planes_s
 	mlx_image_t *mini_plane;
 	// 3D render
 	mlx_image_t *game_plane;
-} planes_t;
+}	planes_t;
+
+typedef struct png_paths_s
+{
+	char	*no;
+	char	*so;
+	char	*we;
+	char	*ea;
+}	png_paths_t;
+
+typedef struct textures_s
+{
+	mlx_texture_t	*prague;
+	mlx_texture_t	*brno;
+	mlx_texture_t	*olomouc;
+	mlx_texture_t	*ostrava;
+	mlx_texture_t	*wall;
+
+}	textures_t;
 
 typedef struct map_s
 {
@@ -93,6 +117,9 @@ typedef struct map_s
 	// colors for the floor and ceiling
 	uint32_t	floor_color;
 	uint32_t	ceiling_color;
+	png_paths_t	*png_paths;
+	textures_t	game_textures;
+
 
 }	map_t;
 
