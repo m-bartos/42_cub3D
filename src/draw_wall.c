@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 17:44:30 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/26 13:29:38 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/28 01:02:49 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,13 @@ void	draw_wall(game_t *game)
 
 		// Angle increment
 		double angle_increment = fov / screen_width;
-		for (int r = 0; r < screen_width; r++)
+		// Think about it r <== screen_width to get really 60 degree FOV
+		for (int r = 0; r <= screen_width; r++)
 		{
 			// calculate agle for the 60 fov
 			game->player.player_angle = fix_ang((pa - fov / 2) + r * angle_increment);
+			if (r == 0 || r == screen_width)
+				printf("R: %d, RA: %f\n", r, game->player.player_angle);
 			// cast ray and get horizontal coordiantes
 			hrc = get_horizontal_ray_coordinates(game);
 			// cast ray and get vertical coordinates
@@ -64,11 +67,47 @@ void	draw_wall(game_t *game)
 			 // Centering the wall slice vertically = offset that is same above the wall and below it
 			double line_offset = (screen_height / 2) - (line_height / 2);
 			int ray_x_position = WINDOW_WIDTH - r;
-			draw_line(game_planes->game_plane, ray_x_position, WINDOW_HEIGHT, ray_x_position, round(line_offset), FLOOR);
+			//////////////////////////////////////////////////////////////////////
+			// Textures
+			double	texture_x;
+			if (v_distance < h_distance)
+			{
+				texture_x = vrc->y - floor(vrc->y / SQUARE_SIZE) * SQUARE_SIZE;
+			}
+			else
+			{
+				texture_x = hrc->x - floor(hrc->x / SQUARE_SIZE) * SQUARE_SIZE;
+			}
+			int texture_x_index = (int)texture_x * game->game_map.game_textures.wall->width / SQUARE_SIZE;
+
+			// Draw the wall slice with texture mapping
+        	for (int y = 0; y < line_height; y++)
+			{
+				double texture_y_ratio = y / line_height; // it determines the ratio between unit of the line
+				int texture_y_index = (int)(texture_y_ratio * game->game_map.game_textures.wall->height); // gets y index from the texture height
+				unsigned int color = get_pixel_color(game->game_map.game_textures.wall, texture_y_index, texture_x_index);
+				mlx_put_pixel(game_planes->game_plane, ray_x_position, (int)(line_offset + y), color);
+			}
+			//////////////////////////////////////////////////////////////////////
+
+
+			// floor
+			//draw_line(game_planes->game_plane, ray_x_position, WINDOW_HEIGHT, ray_x_position, round(line_offset), FLOOR);
 			// wall
-			draw_line(game_planes->game_plane, ray_x_position, line_offset, ray_x_position, round (line_offset + line_height), WALL);
+			//draw_line(game_planes->game_plane, ray_x_position, line_offset, ray_x_position, round (line_offset + line_height), WALL);
 			// ceiling
 			draw_line(game_planes->game_plane, ray_x_position, 0, ray_x_position, round(line_offset), CEILING);
 		}
 		game->player.player_angle = pa;
 }
+
+
+/*
+	Get the texture that was hit with the ray, only 4 textures are available, for each cardinal direction.
+	Done
+	On the texture get the exact spot where it was hit and extract the vertical values from the texture
+	Not done
+	The vertical line height is already calculcated so add the values to it and draw it.
+	This does not seeem right.
+
+*/

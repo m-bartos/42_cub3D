@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:44:52 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/27 17:58:21 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/28 00:49:27 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	main(void)
 	mlx_image_to_window(mlx, game_img, 0, 0);
 
 	// Texture test image for testing the png files and image buffers
-	//mlx_image_t *texture_img = mlx_new_image(mlx, 1200, 800);
+	mlx_image_t *texture_img = mlx_new_image(mlx, 1200, 800);
 
 	// Add the image to game_planes struct and initialize background color
 	planes_t game_planes;
@@ -87,7 +87,7 @@ int	main(void)
 	game = (game_t){0};
 	load_map(static_map, &game);
 	game.game_planes = &game_planes;
-	game.player.player_angle = 33;
+	game.player.player_angle = 90;
 	game.player.coordinates.x = 600;
 	game.player.coordinates.y = 600;
 	game.player.fov = 60;
@@ -98,6 +98,21 @@ int	main(void)
 	// game.game_map.game_textures->olomouc = olomouc;
 	// game.game_map.game_textures->ostrava = ostrava;
 	game.game_map.game_textures.wall = wall;
+	//////////////////////////////////////////////////////////////
+	// Extract RGB values from the texture per byte or whatwever. Find out how the texture pixels are formatted.
+	//printf("%d, %d, %d, %s\n", wall->bytes_per_pixel, wall->width, wall->height, wall->pixels);
+	uint32_t color;
+    for (uint32_t y = 0; y < wall->height; y++) {
+        for (uint32_t x = 0; x < wall->width; x++) {
+            // uint32_t i = (y * wall->width + x) * 4;
+            // color = get_rgba(wall->pixels[i], wall->pixels[i+1], wall->pixels[i+2], wall->pixels[i+3]);
+			color = get_pixel_color(wall, y, x);
+            mlx_put_pixel(texture_img, x, y, color);
+        }
+    }
+	//mlx_image_to_window(mlx, texture_img, 0, 0);
+
+	//////////////////////////////////////////////////////////////
 
 
 	// Draw initial 3d scene.
