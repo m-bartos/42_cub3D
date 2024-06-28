@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:46:56 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/28 00:17:34 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/28 11:07:27 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,10 +92,10 @@ typedef struct png_paths_s
 
 typedef struct textures_s
 {
-	mlx_texture_t	*prague;
-	mlx_texture_t	*brno;
-	mlx_texture_t	*olomouc;
-	mlx_texture_t	*ostrava;
+	mlx_texture_t	*we;
+	mlx_texture_t	*ea;
+	mlx_texture_t	*no;
+	mlx_texture_t	*so;
 	mlx_texture_t	*wall;
 
 }	textures_t;
