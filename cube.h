@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:46:56 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/28 22:09:28 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/28 22:32:13 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ typedef struct map_s
 	uint32_t	ceiling_color;
 	textures_t	*textures;
 	png_paths_t	png_paths;
-	textures_t	game_textures;
+	//textures_t	game_textures;
 
 
 }	map_t;

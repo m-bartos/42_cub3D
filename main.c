@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:44:52 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/28 22:10:13 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/28 22:31:30 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ int	main(void)
 	south = mlx_load_png(SOUTH);
 	// Init the game
 	game_t game;
+	textures_t textures;
 	game = (game_t){0};
 	load_map(static_map, &game);
 	game.game_planes = &game_planes;
@@ -87,16 +88,21 @@ int	main(void)
 	game.game_map.square_size = SQUARE_SIZE;
 	//////////////////////////////////////
 	// New implementation
-	game.game_map.game_textures.t_angle_270 = west;
-	game.game_map.game_textures.t_angle_90 = east;
-	game.game_map.game_textures.t_angle_0 = north;
-	game.game_map.game_textures.t_angle_180 = south;
+	// game.game_map.game_textures.t_angle_270 = west;
+	// game.game_map.game_textures.t_angle_90 = east;
+	// game.game_map.game_textures.t_angle_0 = north;
+	// game.game_map.game_textures.t_angle_180 = south;
+	textures.t_angle_270 = west;
+	textures.t_angle_90 = east;
+	textures.t_angle_0 = north;
+	textures.t_angle_180 = south;
+	game.game_map.textures = &textures;
 	//////////////////////////////////////
 	// Test
-	printf("West: %d\n", game.game_map.game_textures.t_angle_270->width);
-	printf("East: %d\n", game.game_map.game_textures.t_angle_90->width);
-	printf("North: %d\n", game.game_map.game_textures.t_angle_0->width);
-	printf("South: %d\n", game.game_map.game_textures.t_angle_180->width);
+	printf("West: %d\n", game.game_map.textures->t_angle_270->width);
+	printf("East: %d\n", game.game_map.textures->t_angle_90->width);
+	printf("North: %d\n", game.game_map.textures->t_angle_0->width);
+	printf("South: %d\n", game.game_map.textures->t_angle_180->width);
 	//////////////////////////////////////
 	//////////////////////////////////////
 	// Previous implementation
