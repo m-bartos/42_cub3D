@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:46:56 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/28 12:48:05 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/06/28 15:30:23 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,10 +78,10 @@ typedef struct planes_s
 
 typedef struct textures_s
 {
-	char	*angle_0;
-	char	*angle_90;
-	char	*angle_180;
-	char	*angle_270;
+	mlx_texture_t *t_angle_0;
+	mlx_texture_t *t_angle_90;
+	mlx_texture_t *t_angle_180;
+	mlx_texture_t *t_angle_270;
 }	textures_t;
 
 typedef struct map_s
@@ -148,7 +148,7 @@ void	clean_map(map_t *map);
 void	error_argc(int argc);
 
 // get_map.c
-void	get_map(map_t *map, char *str);
+void	fill_map_struct(map_t *map, char *str);
 // Wall collision
 bool no_wall(game_t *game, double step_x, double step_y);
 
