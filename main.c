@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
+/*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:44:52 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/28 23:18:21 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/06/29 01:18:14 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,9 +89,9 @@ int	main(int argc, char **argv)
 	game.player = map.player;
 	game.game_map = &map;
 	game.game_planes = &game_planes;
-	// game.player->player_angle = 90;
-	// game.player->coordinates.x = 600;
-	// game.player->coordinates.y = 600;
+	game.player->player_angle = 90;
+	game.player->coordinates.x = 300;
+	game.player->coordinates.y = 300;
 	// game.player->fov = 60;
 	// game.game_map->square_size = SQUARE_SIZE;
 	//////////////////////////////////////
@@ -126,6 +126,7 @@ int	main(int argc, char **argv)
 	// printf("Test\n");
 	// exit(1);
 	// Key HOOK
+	//draw_map(game_img, &game);
 	mlx_key_hook(mlx, move_p_func, &game);
 	// Game LOOP
 	mlx_loop(mlx);

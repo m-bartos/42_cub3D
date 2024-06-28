@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movement.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
+/*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:59:53 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/28 23:01:26 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/06/29 01:25:49 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ void	move_player(mlx_key_data_t key, void *param)
 	else if ((key.action == MLX_PRESS  || key.action == MLX_REPEAT) && key.key == MLX_KEY_LEFT)
 	{
 
-		player->player_angle += fix_ang(KEY_PRESS/4);
+		player->player_angle += fix_ang(KEY_PRESS);
 		player->player_angle = fix_ang(player->player_angle);
 		pdx = cos(deg_to_rad(player->player_angle));
 		pdy = sin(deg_to_rad(player->player_angle));
@@ -112,7 +112,7 @@ void	move_player(mlx_key_data_t key, void *param)
 	else if ((key.action == MLX_PRESS  || key.action == MLX_REPEAT) && key.key == MLX_KEY_RIGHT)
 	{
 
-		player->player_angle -= fix_ang(KEY_PRESS/4);
+		player->player_angle -= fix_ang(KEY_PRESS);
 		player->player_angle = fix_ang(player->player_angle);
 		pdx = cos(deg_to_rad(player->player_angle));
 		pdy = sin(deg_to_rad(player->player_angle));
