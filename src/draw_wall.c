@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_wall.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 17:44:30 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/28 14:23:07 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/28 16:25:47 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void	draw_wall(game_t *game)
 			// Calculate the wall height based on the distance
 			// Adjust the wall size multiplyer to something appropriate like 64 or 128
 			double line_height = (SQUARE_SIZE * max_wall_height) / corrected_distance;
+			double old_line_height = line_height;
 			if (line_height > screen_height)
 				line_height = screen_height; // Ensure it doesn't exceed the screen height
 			 // Centering the wall slice vertically = offset that is same above the wall and below it
@@ -83,11 +84,15 @@ void	draw_wall(game_t *game)
 			}
 			int texture_x_index = (int)texture_x * wall->width / SQUARE_SIZE;
 
+			int texture_y_index;
 			// Draw the wall slice with texture mapping
         	for (int y = 0; y < line_height; y++)
 			{
-				double texture_y_ratio = y / line_height; // it determines the ratio between unit of the line
-				int texture_y_index = (int)(texture_y_ratio * wall->height); // calculates y position of the pixel
+				double texture_y_ratio = wall->height / old_line_height; // it determines the ratio between unit of the line
+				if (old_line_height > screen_height)
+					texture_y_index = (int)((y + (old_line_height - screen_height) / 2) * texture_y_ratio); // calculates y position of the pixel
+				else
+					texture_y_index = (int)(texture_y_ratio * y); // calculates y position of the pixel
 				// test the pixel color from the coordinates
 				unsigned int color = get_pixel_color(wall, texture_y_index, texture_x_index);
 				mlx_put_pixel(game_planes->game_plane, ray_x_position, (int)(line_offset + y), color);
@@ -96,11 +101,11 @@ void	draw_wall(game_t *game)
 			// End of textures
 			//////////////////////////////////////////////////////////////////////
 			// floor
-			draw_line(game_planes->game_plane, ray_x_position, WINDOW_HEIGHT, ray_x_position, WINDOW_HEIGHT - round(line_offset), FLOOR);
+			// draw_line(game_planes->game_plane, ray_x_position, WINDOW_HEIGHT, ray_x_position, WINDOW_HEIGHT - round(line_offset), FLOOR);
 			// wall
 			//draw_line(game_planes->game_plane, ray_x_position, line_offset, ray_x_position, round (line_offset + line_height), WALL);
 			// ceiling
-			draw_line(game_planes->game_plane, ray_x_position, 0, ray_x_position, round(line_offset), CEILING);
+			// draw_line(game_planes->game_plane, ray_x_position, 0, ray_x_position, round(line_offset), CEILING);
 		}
 		game->player.player_angle = pa;
 }
