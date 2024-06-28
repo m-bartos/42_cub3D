@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_map.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 10:31:44 by mbartos           #+#    #+#             */
-/*   Updated: 2024/06/28 21:45:21 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/28 23:17:01 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -585,6 +585,7 @@ void	fill_map_struct(map_t *map, char *str)
 	map->width = max_line_width(map->map) - 2;
 	map->height = ft_len_of_arr(map->map) - 2;
 	printf("W:%d, H:%d\n", map->width, map->height);
+	printf("Player angle:%f\n", map->player->player_angle);	
 }
 
 void	init_map(map_t *map)
@@ -598,6 +599,10 @@ void	init_map(map_t *map)
 	map->player = malloc(sizeof(player_t));
 	if (map->player == NULL)
 		exit(2);
+	map->player->fov = 60.0;
+	map->player->coordinates.x = 0;
+	map->player->coordinates.y = 0;
+	map->player->player_angle = 90;
 	map->textures = malloc(sizeof(textures_t));
 	if (map->textures == NULL)
 		exit(2);
@@ -605,7 +610,7 @@ void	init_map(map_t *map)
 	map->textures->t_angle_90 = NULL;
 	map->textures->t_angle_180 = NULL;
 	map->textures->t_angle_270 = NULL;
-	map->square_size = 64;
+	map->square_size = SQUARE_SIZE;
 	clean_map(map);
 }
 

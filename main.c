@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:44:52 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/28 22:51:49 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/06/28 23:18:21 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,12 +85,14 @@ int	main(int argc, char **argv)
 	textures_t textures;
 	game = (game_t){0};
 	// load_map(static_map, &game);
+	// exit(77);
+	game.player = map.player;
 	game.game_map = &map;
 	game.game_planes = &game_planes;
-	game.player.player_angle = 90;
-	game.player.coordinates.x = 600;
-	game.player.coordinates.y = 600;
-	game.player.fov = 60;
+	// game.player->player_angle = 90;
+	// game.player->coordinates.x = 600;
+	// game.player->coordinates.y = 600;
+	// game.player->fov = 60;
 	// game.game_map->square_size = SQUARE_SIZE;
 	//////////////////////////////////////
 	// New implementation
@@ -120,6 +122,7 @@ int	main(int argc, char **argv)
 	//////////////////////////////////////
 	// Draw initial 3d scene.
 	draw_wall(&game);
+	// exit(55);
 	// printf("Test\n");
 	// exit(1);
 	// Key HOOK

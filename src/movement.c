@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:59:53 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/28 22:52:30 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/06/28 23:01:26 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	move_player(mlx_key_data_t key, void *param)
 	double		pdy;
 
 	game = (game_t *)param;
-	player = &game->player;
+	player = game->player;
 	pdx = cos(deg_to_rad(player->player_angle));
 	pdy = sin(deg_to_rad(player->player_angle));
 ////////////////////////////////////////////////////////////////////////////////
@@ -130,7 +130,7 @@ bool no_wall(game_t *game, double step_x, double step_y)
 	point_t		new_xy;
 	point_t		map_xy;
 
-	player = &game->player;
+	player = game->player;
 	new_xy.x = player->coordinates.x + step_x;
 	new_xy.y = player->coordinates.y + step_y;
 	map_xy.x = (int)new_xy.x / SQUARE_SIZE;

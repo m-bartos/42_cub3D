@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 13:18:17 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/28 22:52:57 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/06/28 23:02:01 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ point_t *get_vertical_ray_coordinates(game_t *game)
 	else
 		map_max_size = map_x;
 	char **map = game->game_map->map;
-	double pa = game->player.player_angle; // 90
-	double px = game->player.coordinates.x; // 600
-	double py = game->player.coordinates.y; // 600
+	double pa = game->player->player_angle; // 90
+	double px = game->player->coordinates.x; // 600
+	double py = game->player->coordinates.y; // 600
 
 	int r, mx, my, dof;
 	double rx, ry, ra, xo, yo;

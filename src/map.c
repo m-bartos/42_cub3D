@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 23:36:47 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/24 23:38:05 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/28 23:00:53 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,18 +27,18 @@ int	load_map(char *map_str, game_t *game)
 			x++;
 		y++;
 	}
-	game->game_map.map = game_map;
-	game->game_map.width = x;
-	game->game_map.height = y;
+	game->game_map->map = game_map;
+	game->game_map->width = x;
+	game->game_map->height = y;
 	return (1);
 }
 
 void	draw_map(mlx_image_t *image, game_t *game)
 {
-	char	**arr = game->game_map.map;
-	int		s_size = game->game_map.square_size;
-	int		y_map_size = game->game_map.height;
-	int		x_map_size = game->game_map.width;
+	char	**arr = game->game_map->map;
+	int		s_size = game->game_map->square_size;
+	int		y_map_size = game->game_map->height;
+	int		x_map_size = game->game_map->width;
 	int		x;
 	int		y;
 

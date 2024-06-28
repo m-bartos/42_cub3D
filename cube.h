@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:46:56 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/28 22:54:01 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/06/28 22:57:03 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,7 @@ typedef struct map_s
 
 typedef struct game_s
 {
-	player_t	player;
+	player_t	*player;
 	planes_t	*game_planes;
 	map_t		*game_map;
 }	game_t;
