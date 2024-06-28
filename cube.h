@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:46:56 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/28 11:45:45 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/28 13:55:06 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,12 @@
 # define M_FLOOR '0'
 # define M_OUT '9'
 # define M_DOOR '4'
+
+// Cardinal directions within Unit circle
+# define EAST_D 90.0
+# define WEST_D 270.0
+# define NORTH_D 0.0
+# define SOUTH_D 180.0
 
 // Paths to PNG files for textures
 # define WEST "./textures/west.png"
@@ -96,8 +102,6 @@ typedef struct textures_s
 	mlx_texture_t	*ea;
 	mlx_texture_t	*no;
 	mlx_texture_t	*so;
-	mlx_texture_t	*wall;
-
 }	textures_t;
 
 typedef struct map_s
@@ -117,7 +121,7 @@ typedef struct map_s
 	// colors for the floor and ceiling
 	uint32_t	floor_color;
 	uint32_t	ceiling_color;
-	png_paths_t	*png_paths;
+	png_paths_t	png_paths;
 	textures_t	game_textures;
 
 

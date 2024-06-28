@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:44:52 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/28 12:23:08 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/28 13:57:37 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,6 @@ int	main(void)
 	mlx_image_t	*game_img = mlx_new_image(mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
 	mlx_image_to_window(mlx, game_img, 0, 0);
 
-	// Texture test image for testing the png files and image buffers
-	mlx_image_t *texture_img = mlx_new_image(mlx, 1200, 800);
-
 	// Add the image to game_planes struct and initialize background color
 	planes_t game_planes;
 	game_planes.game_plane = game_img;
@@ -73,16 +70,11 @@ int	main(void)
 	mlx_texture_t	*east;
 	mlx_texture_t	*north;
 	mlx_texture_t	*south;
-	mlx_texture_t	*wall;
 	// Load PNG files and return textures
 	west = mlx_load_png(WEST);
 	east = mlx_load_png(EAST);
-	printf("TEST\n");
 	north = mlx_load_png(NORTH);
 	south = mlx_load_png(SOUTH);
-	wall = mlx_load_png(B_WALL);
-	//texture_img = mlx_texture_to_image(mlx, wall);
-	//mlx_image_to_window(mlx, texture_img, 0,0);
 	// Init the game
 	game_t game;
 	game = (game_t){0};
@@ -98,23 +90,6 @@ int	main(void)
 	game.game_map.game_textures.ea = east;
 	game.game_map.game_textures.no = north;
 	game.game_map.game_textures.so = south;
-	game.game_map.game_textures.wall = wall;
-	//////////////////////////////////////////////////////////////
-	// Extract RGB values from the texture per byte or whatwever. Find out how the texture pixels are formatted.
-	//printf("%d, %d, %d, %s\n", wall->bytes_per_pixel, wall->width, wall->height, wall->pixels);
-	uint32_t color;
-    for (uint32_t y = 0; y < wall->height; y++) {
-        for (uint32_t x = 0; x < wall->width; x++) {
-            // uint32_t i = (y * wall->width + x) * 4;
-            // color = get_rgba(wall->pixels[i], wall->pixels[i+1], wall->pixels[i+2], wall->pixels[i+3]);
-			color = get_pixel_color(wall, y, x);
-            mlx_put_pixel(texture_img, x, y, color);
-        }
-    }
-	//mlx_image_to_window(mlx, texture_img, 0, 0);
-
-	//////////////////////////////////////////////////////////////
-
 
 	// Draw initial 3d scene.
 	draw_wall(&game);
@@ -136,6 +111,7 @@ int	main(void)
 	2) parser
 	3) dynamic minimap scaling
 	6) Wall collisions
+	7) Textures with directions
 	*/
 }
 

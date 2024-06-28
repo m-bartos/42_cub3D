@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 17:44:30 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/28 11:49:19 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/28 14:23:07 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ void	draw_wall(game_t *game)
 			//////////////////////////////////////////////////////////////////////
 			// Textures
 
-			// function that returns a type of mlx_texture
 			mlx_texture_t  *wall;
 			wall = get_texture(game, h_distance, v_distance);
 			double	texture_x;
@@ -96,8 +95,6 @@ void	draw_wall(game_t *game)
 
 			// End of textures
 			//////////////////////////////////////////////////////////////////////
-
-
 			// floor
 			draw_line(game_planes->game_plane, ray_x_position, WINDOW_HEIGHT, ray_x_position, WINDOW_HEIGHT - round(line_offset), FLOOR);
 			// wall
