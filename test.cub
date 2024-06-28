@@ -1,14 +1,17 @@
- EA east
+ EA ./textures/west.png
 
-WE first
-WE second
-          SA asd as da     
-NO north/north
+WE    ./textures/west.png
 
-SO sososo
+          SA                 ./textures/west.png     
+
+F   2 , 55,     0   
+
+SO ./textures/west.png
+C 0,0,0
+NO ./textures/west.png
 
  11 11111
 10111001
-101E101
-10111001   
+101E0101
+10111101   
 11111111
