@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 10:31:44 by mbartos           #+#    #+#             */
-/*   Updated: 2024/06/27 21:06:29 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/06/28 13:15:07 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,10 @@ void	check_suffix(char *str)
 		}
 		else
 		{
-			ft_putstr_fd("Error: invalid map name, *.ber suffix missing\n", 2);
+			ft_putstr_fd("Error: invalid map name, *.cub suffix missing\n", 2);
 			free(suf);
-			exit (1);
+			clean_map(NULL);
+			exit(1);
 		}
 	}
 	free(suf);
@@ -161,7 +162,7 @@ void	fill_spaces(char **map_array)
 	}
 }
 
-char	**map_to_array(int fd)
+char	**get_file_array(int fd)
 {
 	char	**map_array;
 	char	*one_line;
@@ -186,14 +187,17 @@ char	**map_to_array(int fd)
 	}
 	map_array = ft_split_empty(lines, '\n');
 	free(lines);
+	// ft_free_array(map_array); // test only
+	// clean_map(NULL); // test only
+	// exit(99); // test only
 	return (map_array);
 }
 
-char	**map_file_to_array(char *map_name, map_t *map)
+char	**file_to_array(char *map_name)
 {
 	int		fd;
-	// char	*map_path;
 	char	**map_array;
+	// char	*map_path;
 
 	// map_path = ft_strjoin("map/", map_name);
 	// printf("Looking for map at: %s\n", map_path);
@@ -201,17 +205,17 @@ char	**map_file_to_array(char *map_name, map_t *map)
 	// free(map_path);
 	if (fd < 0)
 	{
-		ft_putstr_fd("Error: Map not found. It has to be in map folder.\n", 2);
-		free(map);
+		ft_putstr_fd("Error: Map not found. It has to be in map folder.\n", 2); // change message
+		clean_map(NULL);
 		exit(1);
 	}
 	else
 		ft_putstr_fd("Map found!\n", 1);
-	map_array = map_to_array(fd);
+	map_array = get_file_array(fd);
 	if (map_array == NULL)
 	{
 		ft_putstr_fd("Error: Map file empty\n", 2);
-		free(map);
+		clean_map(NULL);
 		exit(2);
 	}
 	return (map_array);
@@ -235,11 +239,13 @@ char	**ft_arrdup(char **arr)
 	return (new_arr);
 }
 
-void	get_player_pos(char **map_array, map_t *map)
+void	get_player_pos(map_t *map)
 {
+	char	**map_array;
 	size_t	y;
 	size_t	x;
 
+	map_array = map->map;
 	map->player->coordinates.x = 0;
 	map->player->coordinates.y = 0;
 	y = 0;
@@ -281,7 +287,7 @@ void	map_flood_fill(char **map_array, size_t y, size_t x)
 	{
 		ft_putstr_fd("Map error: ", 2);
 		ft_free_array(map_array);
-		//free array and map_t
+		clean_map(NULL); //free array and map_t
 		exit (1);
 	}
 	map_flood_fill(map_array, y + 1, x);
@@ -314,7 +320,8 @@ void	check_start_possitions(char **map_array)
 	{
 		ft_putstr_fd("Map error: ", 2);
 		//map error
-		ft_free_array(map_array);
+		// ft_free_array(map_array);
+		clean_map(NULL);
 		//free array and map_t
 		exit(1);
 	}
@@ -387,6 +394,7 @@ char	*delete_extra_spaces(char *str)
 	int		i;
 	char	*first_part;
 	char	*second_part;
+	char	*old_str;
 
 	if (str[0] == 0)
 		return (str);
@@ -395,9 +403,11 @@ char	*delete_extra_spaces(char *str)
 	{
 		if (str[i] == ' ' && str[i - 1] == ' ')
 		{
+			old_str = str;
 			first_part = ft_substr_e(str, 0, i);
 			second_part = ft_substr_e(str, i + 1, ft_strlen(str));
 			str = ft_strjoin_e(first_part, second_part);
+			free(old_str);
 			free(first_part);
 			free(second_part);
 			i--;
@@ -407,28 +417,82 @@ char	*delete_extra_spaces(char *str)
 	return (str);
 }
 
-void	get_textures(map_t *map, char **file_content)
+void	get_textures(map_t *map, char **file_arr)
+{
+	int	i;
+	char	*temp_line;
+
+	if (file_arr == NULL)
+		return ;
+	i = 0;
+	while(file_arr[i])
+	{
+		temp_line = file_arr[i];
+		file_arr[i] = ft_strtrim_e(file_arr[i], " ");
+		free(temp_line);
+		// printf("%s\n", file_content[i]);
+		file_arr[i] = delete_extra_spaces(file_arr[i]);
+		printf("%s\n", file_arr[i]);
+		if (ft_strncmp(file_arr[i], "NO ", 3) == 0 && !map->textures->angle_90)
+			map->textures->angle_90 = ft_strdup_e(&file_arr[i][3]);
+		else if (ft_strncmp(file_arr[i], "SO ", 3) == 0 && !map->textures->angle_270)
+			map->textures->angle_270 = ft_strdup_e(&file_arr[i][3]);
+		else if (ft_strncmp(file_arr[i], "EA ", 3) == 0 && !map->textures->angle_0)
+			map->textures->angle_0 = ft_strdup_e(&file_arr[i][3]);
+		else if (ft_strncmp(file_arr[i], "WE ", 3) == 0 && !map->textures->angle_180)
+			map->textures->angle_180 = ft_strdup_e(&file_arr[i][3]);
+		i++;
+	}
+}
+
+int get_color_from_str(char *str)
+{
+	char	**colors;
+	int		red;
+	int		green;
+	int		blue;
+	int		color;
+
+
+	colors = ft_split_e(&str[2], ',');
+	if (ft_len_of_arr(colors) < 3)
+	{
+		ft_putstr_fd("Colours error. Not enough numbers.\n" , 2);
+		clean_map(NULL);
+		ft_free_array(colors);
+		exit(99);
+	}
+	// is it just digits -+ and spaces?
+	red = ft_atoi(colors[0]);
+	green = ft_atoi(colors[1]);
+	blue = ft_atoi(colors[2]);
+	printf("R:%u, G:%u, B:%u\n", red, green, blue);
+	if (red < 0 || green < 0 || blue < 0 ||
+		red > 255 || green > 255 || blue > 255)
+	{
+		ft_putstr_fd("Colours error.\n" , 2);
+		clean_map(NULL);
+		ft_free_array(colors);
+		exit(99);
+	}
+	color = get_rgba(red, green, blue, 0);
+	ft_free_array(colors);
+	return (color);
+}
+
+void	get_colors(map_t *map, char **file_arr)
 {
 	int	i;
 
-	map->ceiling_color = 123;
-	if (file_content == NULL)
+	if (file_arr == NULL)
 		return ;
 	i = 0;
-	while(file_content[i])
+	while(file_arr[i])
 	{
-		file_content[i] = ft_strtrim_e(file_content[i], " ");
-		printf("%s\n", file_content[i]);
-		file_content[i] = delete_extra_spaces(file_content[i]);
-		printf("%s\n", file_content[i]);
-		if (ft_strncmp(file_content[i], "NO ", 3) == 0)
-			map->textures->angle_90 = ft_strdup_e(&file_content[i][3]);
-		else if (ft_strncmp(file_content[i], "SO ", 3) == 0)
-			map->textures->angle_270 = ft_strdup_e(&file_content[i][3]);
-		else if (ft_strncmp(file_content[i], "WE ", 3) == 0)
-			map->textures->angle_180 = ft_strdup_e(&file_content[i][3]);
-		else if (ft_strncmp(file_content[i], "EA ", 3) == 0)
-			map->textures->angle_0 = ft_strdup_e(&file_content[i][3]);
+		if (ft_strncmp(file_arr[i], "F ", 2) == 0)
+			map->floor_color = get_color_from_str(file_arr[i]);
+		else if (ft_strncmp(file_arr[i], "C ", 2) == 0)
+			map->ceiling_color = get_color_from_str(file_arr[i]);
 		i++;
 	}
 }
@@ -436,25 +500,33 @@ void	get_textures(map_t *map, char **file_content)
 void	get_map(map_t *map, char *str)
 {
 	char	**map_flooded;
-	char	**file_content;
+	// char	**file_arr;
 
 	ft_putstr_fd("-------------------\n", 1);
 	ft_putstr_fd("-RUNNING_MAP_CHECK-\n", 1);
 	ft_putstr_fd("-------------------\n", 1);
-	
-	check_suffix(str);
-	
-	file_content = map_file_to_array(str, map);
-	// map->map = map_file_to_array(str, map);
-	map->map = seperate_map(file_content);
 
-	get_textures(map, file_content);
+	check_suffix(str);
+
+	map->temp_file_arr = file_to_array(str);
+	map->map = seperate_map(map->temp_file_arr);
+
+	
+	get_textures(map, map->temp_file_arr);
+	get_colors(map, map->temp_file_arr);
+	ft_print_array(map->temp_file_arr);
+	ft_free_array(map->temp_file_arr);
+	map->temp_file_arr = NULL;
 	printf("NO:/%s/, SO:/%s/, EA:/%s/, WE:/%s/\n", map->textures->angle_90, map->textures->angle_270, map->textures->angle_0, map->textures->angle_180);
+	printf("Ceiling: %u, floor: %u\n", map->ceiling_color, map->floor_color);
+	//check that none of the texture is NULL
+	// map checker:
 	map->map = add_borders(map->map);
 	fill_spaces(map->map);
 	check_start_possitions(map->map);
 	//check only one start possition
-	get_player_pos(map->map, map);
+	get_player_pos(map);
+
 	map_flooded = ft_arrdup(map->map);
 	map_flood_fill(map_flooded, map->player->coordinates.y, map->player->coordinates.x);
 	

@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:46:56 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/27 20:44:10 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/06/28 12:48:05 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ typedef struct map_s
 	// All spaces (empty or any other char) outside of the walls (1) be filled with (9)
 	// Empty spaces inside the map fill with space (0)
 	// For door (4)
+	char		**temp_file_arr;
 	char		**map;
 	// In elements (sqaures)
 	int			width;
@@ -140,6 +141,8 @@ int			load_map(char *map_str, game_t *game);
 void		draw_map(mlx_image_t *image, game_t *game);
 
 // parser
+
+void	clean_map(map_t *map);
 
 // errors.c
 void	error_argc(int argc);
