@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_wall.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
+/*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 17:44:30 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/28 16:25:47 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/06/28 22:10:50 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ void	draw_wall(game_t *game)
 			int ray_x_position = WINDOW_WIDTH - r;
 			//////////////////////////////////////////////////////////////////////
 			// Textures
-
 			mlx_texture_t  *wall;
 			wall = get_texture(game, h_distance, v_distance);
 			double	texture_x;
@@ -101,11 +100,11 @@ void	draw_wall(game_t *game)
 			// End of textures
 			//////////////////////////////////////////////////////////////////////
 			// floor
-			// draw_line(game_planes->game_plane, ray_x_position, WINDOW_HEIGHT, ray_x_position, WINDOW_HEIGHT - round(line_offset), FLOOR);
+			//draw_line(game_planes->game_plane, ray_x_position, WINDOW_HEIGHT, ray_x_position, WINDOW_HEIGHT - round(line_offset), FLOOR);
 			// wall
 			//draw_line(game_planes->game_plane, ray_x_position, line_offset, ray_x_position, round (line_offset + line_height), WALL);
 			// ceiling
-			// draw_line(game_planes->game_plane, ray_x_position, 0, ray_x_position, round(line_offset), CEILING);
+			//draw_line(game_planes->game_plane, ray_x_position, 0, ray_x_position, round(line_offset), CEILING);
 		}
 		game->player.player_angle = pa;
 }

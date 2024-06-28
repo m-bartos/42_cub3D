@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_parsing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
+/*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 10:02:00 by mbartos           #+#    #+#             */
-/*   Updated: 2024/06/28 15:30:23 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/06/28 21:26:14 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	free_map(map_t *map)
 {
 	ft_free_array(map->map);
 	ft_free_array(map->temp_file_arr);
-	free(map->player);	
+	free(map->player);
 	if (map->textures->t_angle_0)
 		mlx_delete_texture(map->textures->t_angle_0);
 	if (map->textures->t_angle_90)
@@ -63,16 +63,16 @@ void	clean_map(map_t *map)
 	free_map(static_map);
 }
 
-int main (int argc, char **argv)
-{
-	map_t 		map;
+// int main (int argc, char **argv)
+// {
+// 	map_t 		map;
 
-	error_argc(argc);
-	init_map(&map);
-	fill_map_struct(&map, argv[1]);
-	clean_map(NULL);
-	return (0);
-}
+// 	error_argc(argc);
+// 	init_map(&map);
+// 	fill_map_struct(&map, argv[1]);
+// 	clean_map(NULL);
+// 	return (0);
+// }
 
 
 // int	main ()

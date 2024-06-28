@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_map.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
+/*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 10:31:44 by mbartos           #+#    #+#             */
-/*   Updated: 2024/06/28 15:33:17 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/06/28 21:45:21 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -411,7 +411,7 @@ mlx_texture_t	*load_png_from_path(char *path)
 	if (texture == NULL)
 	{
 		ft_putstr_fd("Error: Problem with texture.\n", 2);
-		
+
 		clean_map(NULL);
 		exit(88); // improve
 	}
@@ -551,12 +551,12 @@ void	fill_map_struct(map_t *map, char *str)
 	map->temp_file_arr = file_to_array(str);
 	map->map = seperate_map(map->temp_file_arr);
 
-	
+
 	get_textures(map, map->temp_file_arr);
 	check_textures(map);
 	get_colors(map, map->temp_file_arr);
 	check_colors(map);
-	
+
 	ft_print_array(map->temp_file_arr);
 	ft_free_array(map->temp_file_arr);
 	map->temp_file_arr = NULL;
@@ -573,16 +573,67 @@ void	fill_map_struct(map_t *map, char *str)
 
 	map_flooded = ft_arrdup(map->map);
 	map_flood_fill(map_flooded, map->player->coordinates.y, map->player->coordinates.x);
-	
+
 	printf("-----FLOODED MAP-----\n"); //printing
 	ft_print_array(map_flooded); //printing
 	printf("-----FLOODED MAP-----\n\n");
 	ft_free_array(map_flooded);
-	
+
 	ft_putstr_fd("-------------------\n", 1);
 	ft_putstr_fd("---MAP_CHECK_OK----\n", 1);
 	ft_putstr_fd("-------------------\n\n", 1);
 	map->width = max_line_width(map->map) - 2;
 	map->height = ft_len_of_arr(map->map) - 2;
 	printf("W:%d, H:%d\n", map->width, map->height);
+}
+
+void	init_map(map_t *map)
+{
+	map->ceiling_color = 0;
+	map->floor_color = 0;
+	map->height = 0;
+	map->width = 0;
+	map->temp_file_arr = NULL;
+	map->map = NULL;
+	map->player = malloc(sizeof(player_t));
+	if (map->player == NULL)
+		exit(2);
+	map->textures = malloc(sizeof(textures_t));
+	if (map->textures == NULL)
+		exit(2);
+	map->textures->t_angle_0 = NULL;
+	map->textures->t_angle_90 = NULL;
+	map->textures->t_angle_180 = NULL;
+	map->textures->t_angle_270 = NULL;
+	map->square_size = 64;
+	clean_map(map);
+}
+
+void	free_map(map_t *map)
+{
+	ft_free_array(map->map);
+	ft_free_array(map->temp_file_arr);
+	free(map->player);
+	if (map->textures->t_angle_0)
+		mlx_delete_texture(map->textures->t_angle_0);
+	if (map->textures->t_angle_90)
+	mlx_delete_texture(map->textures->t_angle_90);
+	if (map->textures->t_angle_180)
+		mlx_delete_texture(map->textures->t_angle_180);
+	if (map->textures->t_angle_270)
+		mlx_delete_texture(map->textures->t_angle_270);
+	free(map->textures);
+	// free(map);
+}
+
+void	clean_map(map_t *map)
+{
+	static map_t	*static_map;
+
+	if (map != NULL)
+	{
+		static_map = map;
+		return ;
+	}
+	free_map(static_map);
 }
