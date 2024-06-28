@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:46:56 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/26 14:21:25 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/28 13:55:06 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,18 @@
 # define M_OUT '9'
 # define M_DOOR '4'
 
+// Cardinal directions within Unit circle
+# define EAST_D 90.0
+# define WEST_D 270.0
+# define NORTH_D 0.0
+# define SOUTH_D 180.0
+
+// Paths to PNG files for textures
+# define WEST "./textures/west.png"
+# define EAST "./textures/east.png"
+# define NORTH "./textures/north.png"
+# define SOUTH "./textures/south.png"
+# define B_WALL "./textures/brick_wall.png"
 
 typedef struct point_s
 {
@@ -74,7 +86,23 @@ typedef struct planes_s
 	mlx_image_t *mini_plane;
 	// 3D render
 	mlx_image_t *game_plane;
-} planes_t;
+}	planes_t;
+
+typedef struct png_paths_s
+{
+	char	*no;
+	char	*so;
+	char	*we;
+	char	*ea;
+}	png_paths_t;
+
+typedef struct textures_s
+{
+	mlx_texture_t	*we;
+	mlx_texture_t	*ea;
+	mlx_texture_t	*no;
+	mlx_texture_t	*so;
+}	textures_t;
 
 typedef struct map_s
 {
@@ -93,6 +121,9 @@ typedef struct map_s
 	// colors for the floor and ceiling
 	uint32_t	floor_color;
 	uint32_t	ceiling_color;
+	png_paths_t	png_paths;
+	textures_t	game_textures;
+
 
 }	map_t;
 
@@ -130,6 +161,8 @@ double		fix_ang(double a);
 u_int32_t	get_rgba(u_int32_t r, u_int32_t g, u_int32_t b, u_int32_t a);
 int			load_map(char *map_str, game_t *game);
 void		draw_map(mlx_image_t *image, game_t *game);
+uint32_t	get_pixel_color(mlx_texture_t *texture, int y_height, int x_width);
+mlx_texture_t	*get_texture(game_t *game, double h_distance, double v_distance);
 
 // Wall collision
 bool no_wall(game_t *game, double step_x, double step_y);
