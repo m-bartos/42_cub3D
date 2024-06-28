@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 12:14:09 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/26 12:25:29 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/27 20:36:40 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,10 @@ point_t	*get_horizontal_ray_coordinates(game_t *game)
 	ra = deg_to_rad(pa);
 	dof = 0;
 	float aTan = 1.0 / tan(ra);
-	// look up 0 - 180 right -> left right is 0
+	// look up 0 - 180
 	if (sin(ra) > 0.001)
 	{
-		ry = (((int) py >> 6) << 6) - 0.0001;
+		ry = (floor(py / SQUARE_SIZE) * SQUARE_SIZE) - 0.0001;
 		rx = (py - ry) * aTan + px;
 		yo = -SQUARE_SIZE;
 		xo = -yo * aTan;
@@ -55,7 +55,7 @@ point_t	*get_horizontal_ray_coordinates(game_t *game)
 	// look down 180 - 360
 	else if (sin(ra) < -0.001)
 	{
-		ry = (((int) py >> 6) << 6) + 64;
+		ry = (floor(py / SQUARE_SIZE) * SQUARE_SIZE) + SQUARE_SIZE;
 		rx = (py - ry) * aTan+px;
 		yo = SQUARE_SIZE;
 		xo = -yo * aTan;
@@ -69,8 +69,8 @@ point_t	*get_horizontal_ray_coordinates(game_t *game)
 	}
 	while (dof < map_max_size)
 	{
-		mx = (int) (rx)>>6;
-		my = (int) (ry)>>6;
+		mx = (int) (rx) / SQUARE_SIZE;
+		my = (int) (ry) / SQUARE_SIZE;
 		if (mx >= 0 && mx < map_x && my >= 0 && my < map_y && map[my][mx] == M_WALL)
 			dof = map_max_size;
 		else

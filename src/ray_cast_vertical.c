@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 13:18:17 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/26 12:30:31 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/27 20:42:08 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ point_t *get_vertical_ray_coordinates(game_t *game)
 		// Look left (90 - 270 degrees)
 		if (cos(ra) < -0.001)
 		{
-			rx = (((int) px >> 6) << 6) - 0.0001;
+			rx = (floor(px / SQUARE_SIZE) * SQUARE_SIZE) - 0.0001;
 			ry = (px - rx) * nTan + py;
 			xo = -SQUARE_SIZE;
 			yo = -xo * nTan;
@@ -53,7 +53,7 @@ point_t *get_vertical_ray_coordinates(game_t *game)
 		// Look right (270 - 90 degrees)
 		else if (cos(ra) > 0.001)
 		{
-			rx = (((int) px >> 6) << 6) + 64;
+			rx = (floor(px / SQUARE_SIZE) * SQUARE_SIZE) + 64;
 			ry = (px - rx) * nTan + py;
 			xo = SQUARE_SIZE;
 			yo = -xo * nTan;
@@ -67,8 +67,8 @@ point_t *get_vertical_ray_coordinates(game_t *game)
 		}
 		while (dof < map_max_size)
 		{
-			mx = (int) (rx) >> 6;
-			my = (int) (ry) >> 6;
+			mx = (int) (rx) / SQUARE_SIZE;
+			my = (int) (ry) / SQUARE_SIZE;
 			if (mx >= 0 && mx < map_x && my >= 0 && my < map_y && map[my][mx] == M_WALL)
 				dof = map_max_size;
 			else
