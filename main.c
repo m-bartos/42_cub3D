@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:44:52 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/28 00:49:27 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/28 12:23:08 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,16 +69,17 @@ int	main(void)
 	set_img_background(game_img, R_BACKGROUND);
 
 	// Declare texture variables
-	// mlx_texture_t	*prague;
-	// mlx_texture_t	*brno;
-	// mlx_texture_t	*olomouc;
-	// mlx_texture_t	*ostrava;
+	mlx_texture_t	*west;
+	mlx_texture_t	*east;
+	mlx_texture_t	*north;
+	mlx_texture_t	*south;
 	mlx_texture_t	*wall;
 	// Load PNG files and return textures
-	// prague = mlx_load_png(PRAGUE);
-	// brno = mlx_load_png(BRNO);
-	// olomouc = mlx_load_png(OLOMOUC);
-	// ostrava = mlx_load_png(OSTRAVA);
+	west = mlx_load_png(WEST);
+	east = mlx_load_png(EAST);
+	printf("TEST\n");
+	north = mlx_load_png(NORTH);
+	south = mlx_load_png(SOUTH);
 	wall = mlx_load_png(B_WALL);
 	//texture_img = mlx_texture_to_image(mlx, wall);
 	//mlx_image_to_window(mlx, texture_img, 0,0);
@@ -93,10 +94,10 @@ int	main(void)
 	game.player.fov = 60;
 	game.game_map.square_size = SQUARE_SIZE;
 	// Add textures to the game struct
-	// game.game_map.game_textures->prague = prague;
-	// game.game_map.game_textures->brno = brno;
-	// game.game_map.game_textures->olomouc = olomouc;
-	// game.game_map.game_textures->ostrava = ostrava;
+	game.game_map.game_textures.we = west;
+	game.game_map.game_textures.ea = east;
+	game.game_map.game_textures.no = north;
+	game.game_map.game_textures.so = south;
 	game.game_map.game_textures.wall = wall;
 	//////////////////////////////////////////////////////////////
 	// Extract RGB values from the texture per byte or whatwever. Find out how the texture pixels are formatted.

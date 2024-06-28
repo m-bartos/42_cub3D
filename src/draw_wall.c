@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 17:44:30 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/28 01:02:49 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/28 11:49:19 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,10 @@ void	draw_wall(game_t *game)
 			int ray_x_position = WINDOW_WIDTH - r;
 			//////////////////////////////////////////////////////////////////////
 			// Textures
+
+			// function that returns a type of mlx_texture
+			mlx_texture_t  *wall;
+			wall = get_texture(game, h_distance, v_distance);
 			double	texture_x;
 			if (v_distance < h_distance)
 			{
@@ -78,21 +82,24 @@ void	draw_wall(game_t *game)
 			{
 				texture_x = hrc->x - floor(hrc->x / SQUARE_SIZE) * SQUARE_SIZE;
 			}
-			int texture_x_index = (int)texture_x * game->game_map.game_textures.wall->width / SQUARE_SIZE;
+			int texture_x_index = (int)texture_x * wall->width / SQUARE_SIZE;
 
 			// Draw the wall slice with texture mapping
         	for (int y = 0; y < line_height; y++)
 			{
 				double texture_y_ratio = y / line_height; // it determines the ratio between unit of the line
-				int texture_y_index = (int)(texture_y_ratio * game->game_map.game_textures.wall->height); // gets y index from the texture height
-				unsigned int color = get_pixel_color(game->game_map.game_textures.wall, texture_y_index, texture_x_index);
+				int texture_y_index = (int)(texture_y_ratio * wall->height); // calculates y position of the pixel
+				// test the pixel color from the coordinates
+				unsigned int color = get_pixel_color(wall, texture_y_index, texture_x_index);
 				mlx_put_pixel(game_planes->game_plane, ray_x_position, (int)(line_offset + y), color);
 			}
+
+			// End of textures
 			//////////////////////////////////////////////////////////////////////
 
 
 			// floor
-			//draw_line(game_planes->game_plane, ray_x_position, WINDOW_HEIGHT, ray_x_position, round(line_offset), FLOOR);
+			draw_line(game_planes->game_plane, ray_x_position, WINDOW_HEIGHT, ray_x_position, WINDOW_HEIGHT - round(line_offset), FLOOR);
 			// wall
 			//draw_line(game_planes->game_plane, ray_x_position, line_offset, ray_x_position, round (line_offset + line_height), WALL);
 			// ceiling

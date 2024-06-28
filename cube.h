@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:46:56 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/28 11:07:27 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/28 11:45:45 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,10 @@
 # define M_DOOR '4'
 
 // Paths to PNG files for textures
-# define PRAGUE "./textures/prague1.png"
-# define BRNO "./textures/brno.png"
-# define OLOMOUC "./textures/olomouc.png"
-# define OSTRAVA "./textures/ostrava.png"
+# define WEST "./textures/west.png"
+# define EAST "./textures/east.png"
+# define NORTH "./textures/north.png"
+# define SOUTH "./textures/south.png"
 # define B_WALL "./textures/brick_wall.png"
 
 typedef struct point_s
@@ -157,7 +157,8 @@ double		fix_ang(double a);
 u_int32_t	get_rgba(u_int32_t r, u_int32_t g, u_int32_t b, u_int32_t a);
 int			load_map(char *map_str, game_t *game);
 void		draw_map(mlx_image_t *image, game_t *game);
-uint32_t get_pixel_color(mlx_texture_t *texture, int y_height, int x_width);
+uint32_t	get_pixel_color(mlx_texture_t *texture, int y_height, int x_width);
+mlx_texture_t	*get_texture(game_t *game, double h_distance, double v_distance);
 
 // Wall collision
 bool no_wall(game_t *game, double step_x, double step_y);
