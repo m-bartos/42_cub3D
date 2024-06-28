@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
+/*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:46:56 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/28 17:02:13 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/06/28 21:07:24 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <stdbool.h>
 # include <math.h>
 # include <string.h>
+# include <fcntl.h>
 
 // Size of the map - not used now
 # define WINDOW_WIDTH 1200
@@ -96,13 +97,13 @@ typedef struct png_paths_s
 	char	*ea;
 }	png_paths_t;
 
-typedef struct textures_s
-{
-	mlx_texture_t	*we;
-	mlx_texture_t	*ea;
-	mlx_texture_t	*no;
-	mlx_texture_t	*so;
-}	textures_t;
+// typedef struct textures_s
+// {
+// 	mlx_texture_t	*we;
+// 	mlx_texture_t	*ea;
+// 	mlx_texture_t	*no;
+// 	mlx_texture_t	*so;
+// }	textures_t;
 
 typedef struct textures_s
 {
@@ -174,9 +175,33 @@ void		draw_map(mlx_image_t *image, game_t *game);
 uint32_t	get_pixel_color(mlx_texture_t *texture, int y_height, int x_width);
 mlx_texture_t	*get_texture(game_t *game, double h_distance, double v_distance);
 
-// parser
-
+// Parser
 void	clean_map(map_t *map);
+int		max_line_width(char **map_array);
+void	check_suffix(char *str);
+char	**add_first_row(char **map_array);
+char	**add_last_row(char **map_array);
+char	**add_vertical_borders(char **map_array);
+char	**add_borders(char **map_array);
+void	fill_spaces(char **map_array);
+char	**get_file_array(int fd);
+char	**file_to_array(char *map_name);
+char	**ft_arrdup(char **arr);
+void	get_player_pos(map_t *map);
+void	map_flood_fill(char **map_array, size_t y, size_t x);
+void	check_start_possitions(char **map_array);
+int		is_empty_line(char *line);
+char	**seperate_map(char **file_content);
+char	*delete_extra_spaces(char *str);
+mlx_texture_t	*load_png_from_path(char *path);
+void	get_textures(map_t *map, char **file_arr);
+void	check_valid_color_line(char *str);
+int		get_color_from_str(char *str);
+void	get_colors(map_t *map, char **file_arr);
+void	check_textures(map_t *map);
+void	check_colors(map_t *map);
+void	fill_map_struct(map_t *map, char *str);
+
 
 // errors.c
 void	error_argc(int argc);

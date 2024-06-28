@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:44:52 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/28 13:57:37 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/28 21:53:17 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,12 +85,20 @@ int	main(void)
 	game.player.coordinates.y = 600;
 	game.player.fov = 60;
 	game.game_map.square_size = SQUARE_SIZE;
+	//////////////////////////////////////
+	// New implementation
+	game.game_map.game_textures.t_angle_270 = west;
+	game.game_map.game_textures.t_angle_90 = east;
+	game.game_map.game_textures.t_angle_0 = north;
+	game.game_map.game_textures.t_angle_180 = south;
+	//////////////////////////////////////
+	// Previous implementation
 	// Add textures to the game struct
-	game.game_map.game_textures.we = west;
-	game.game_map.game_textures.ea = east;
-	game.game_map.game_textures.no = north;
-	game.game_map.game_textures.so = south;
-
+	// game.game_map.game_textures.we = west;
+	// game.game_map.game_textures.ea = east;
+	// game.game_map.game_textures.no = north;
+	// game.game_map.game_textures.so = south;
+	//////////////////////////////////////
 	// Draw initial 3d scene.
 	draw_wall(&game);
 	// printf("Test\n");

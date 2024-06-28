@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_wall.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
+/*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 17:44:30 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/28 16:25:47 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/06/28 21:52:41 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	draw_wall(game_t *game)
 			// Calculate the wall height based on the distance
 			// Adjust the wall size multiplyer to something appropriate like 64 or 128
 			double line_height = (SQUARE_SIZE * max_wall_height) / corrected_distance;
-			double old_line_height = line_height;
+			//double old_line_height = line_height;
 			if (line_height > screen_height)
 				line_height = screen_height; // Ensure it doesn't exceed the screen height
 			 // Centering the wall slice vertically = offset that is same above the wall and below it
@@ -71,41 +71,42 @@ void	draw_wall(game_t *game)
 			//////////////////////////////////////////////////////////////////////
 			// Textures
 
-			mlx_texture_t  *wall;
-			wall = get_texture(game, h_distance, v_distance);
-			double	texture_x;
-			if (v_distance < h_distance)
-			{
-				texture_x = vrc->y - floor(vrc->y / SQUARE_SIZE) * SQUARE_SIZE;
-			}
-			else
-			{
-				texture_x = hrc->x - floor(hrc->x / SQUARE_SIZE) * SQUARE_SIZE;
-			}
-			int texture_x_index = (int)texture_x * wall->width / SQUARE_SIZE;
+			//mlx_texture_t  *wall;
+			//wall = game->game_map.textures->t_angle_0;
+			//wall = get_texture(game, h_distance, v_distance);
+			// double	texture_x;
+			// if (v_distance < h_distance)
+			// {
+			// 	texture_x = vrc->y - floor(vrc->y / SQUARE_SIZE) * SQUARE_SIZE;
+			// }
+			// else
+			// {
+			// 	texture_x = hrc->x - floor(hrc->x / SQUARE_SIZE) * SQUARE_SIZE;
+			// }
+			// int texture_x_index = (int)texture_x * wall->width / SQUARE_SIZE;
 
-			int texture_y_index;
-			// Draw the wall slice with texture mapping
-        	for (int y = 0; y < line_height; y++)
-			{
-				double texture_y_ratio = wall->height / old_line_height; // it determines the ratio between unit of the line
-				if (old_line_height > screen_height)
-					texture_y_index = (int)((y + (old_line_height - screen_height) / 2) * texture_y_ratio); // calculates y position of the pixel
-				else
-					texture_y_index = (int)(texture_y_ratio * y); // calculates y position of the pixel
-				// test the pixel color from the coordinates
-				unsigned int color = get_pixel_color(wall, texture_y_index, texture_x_index);
-				mlx_put_pixel(game_planes->game_plane, ray_x_position, (int)(line_offset + y), color);
-			}
+			// int texture_y_index;
+			// // Draw the wall slice with texture mapping
+        	// for (int y = 0; y < line_height; y++)
+			// {
+			// 	double texture_y_ratio = wall->height / old_line_height; // it determines the ratio between unit of the line
+			// 	if (old_line_height > screen_height)
+			// 		texture_y_index = (int)((y + (old_line_height - screen_height) / 2) * texture_y_ratio); // calculates y position of the pixel
+			// 	else
+			// 		texture_y_index = (int)(texture_y_ratio * y); // calculates y position of the pixel
+			// 	// test the pixel color from the coordinates
+			// 	unsigned int color = get_pixel_color(wall, texture_y_index, texture_x_index);
+			// 	mlx_put_pixel(game_planes->game_plane, ray_x_position, (int)(line_offset + y), color);
+			// }
 
 			// End of textures
 			//////////////////////////////////////////////////////////////////////
 			// floor
-			// draw_line(game_planes->game_plane, ray_x_position, WINDOW_HEIGHT, ray_x_position, WINDOW_HEIGHT - round(line_offset), FLOOR);
+			draw_line(game_planes->game_plane, ray_x_position, WINDOW_HEIGHT, ray_x_position, WINDOW_HEIGHT - round(line_offset), FLOOR);
 			// wall
-			//draw_line(game_planes->game_plane, ray_x_position, line_offset, ray_x_position, round (line_offset + line_height), WALL);
+			draw_line(game_planes->game_plane, ray_x_position, line_offset, ray_x_position, round (line_offset + line_height), WALL);
 			// ceiling
-			// draw_line(game_planes->game_plane, ray_x_position, 0, ray_x_position, round(line_offset), CEILING);
+			draw_line(game_planes->game_plane, ray_x_position, 0, ray_x_position, round(line_offset), CEILING);
 		}
 		game->player.player_angle = pa;
 }
