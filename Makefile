@@ -7,20 +7,19 @@ CFLAGS = -Wall -Wextra -Werror -I/opt/X11/include -I/opt/homebrew/include
 # Directories
 SRC_DIR = src
 UTILS_DIR = utils
-OBJ_DIR_SRC = $(SRC_DIR)/obj_files
-OBJ_DIR_UTILS = $(UTILS_DIR)/obj_files
+OBJ_DIR = obj_files
 LIBFT_DIR = 42_Libft
 MLX42_DIR = MLX42
 
 # Source files
-SRC_FILES = $(wildcard $(SRC_DIR)/*.c)
+SRC_FILES = $(wildcard $(SRC_DIR)/*.c) $(wildcard $(SRC_DIR)/**/*.c)
 UTILS_FILES = $(wildcard $(UTILS_DIR)/*.c)
-MAIN_FILE = main.c
+MAIN_FILE = main_parsing.c
 
 # Object files
-OBJ_FILES_SRC = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR_SRC)/%.o, $(SRC_FILES))
-OBJ_FILES_UTILS = $(patsubst $(UTILS_DIR)/%.c, $(OBJ_DIR_UTILS)/%.o, $(UTILS_FILES))
-MAIN_OBJ = $(MAIN_FILE:.c=.o)
+OBJ_FILES_SRC = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/src/%.o, $(SRC_FILES))
+OBJ_FILES_UTILS = $(patsubst $(UTILS_DIR)/%.c, $(OBJ_DIR)/utils/%.o, $(UTILS_FILES))
+MAIN_OBJ = $(patsubst %.c, $(OBJ_DIR)/%.o, $(MAIN_FILE))
 
 OBJ_FILES = $(OBJ_FILES_SRC) $(OBJ_FILES_UTILS) $(MAIN_OBJ)
 
@@ -39,16 +38,21 @@ $(EXEC): $(OBJ_FILES) $(LIBFT_LIB) $(MLX42_LIB)
 	$(CC) $(CFLAGS) -o $@ $^ -L$(MLX42_DIR)/build -lmlx42 -L/opt/X11/lib -lX11 -lXext -L/opt/homebrew/lib -lglfw -lpthread -lm -ldl
 
 # Compile source files
-$(OBJ_DIR_SRC)/%.o: $(SRC_DIR)/%.c
-	@mkdir -p $(OBJ_DIR_SRC)
+$(OBJ_DIR)/src/%.o: $(SRC_DIR)/%.c
+	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c $< -o $@
 
-$(OBJ_DIR_UTILS)/%.o: $(UTILS_DIR)/%.c
-	@mkdir -p $(OBJ_DIR_UTILS)
+$(OBJ_DIR)/src/%.o: $(SRC_DIR)/%/*.c
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+$(OBJ_DIR)/utils/%.o: $(UTILS_DIR)/%.c
+	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 # Compile main.c
-%.o: %.c
+$(OBJ_DIR)/%.o: %.c
+	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 # Build the libft library
@@ -62,7 +66,7 @@ $(MLX42_LIB):
 
 # Clean object files
 clean:
-	rm -rf $(OBJ_DIR_SRC) $(OBJ_DIR_UTILS) $(OBJ_FILES)
+	rm -rf $(OBJ_DIR)
 	$(MAKE) -C $(LIBFT_DIR) clean
 	rm -rf $(MLX42_DIR)/build
 

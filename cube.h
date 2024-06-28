@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:46:56 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/28 13:55:06 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/28 17:02:13 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,14 @@ typedef struct textures_s
 	mlx_texture_t	*so;
 }	textures_t;
 
+typedef struct textures_s
+{
+	mlx_texture_t *t_angle_0;
+	mlx_texture_t *t_angle_90;
+	mlx_texture_t *t_angle_180;
+	mlx_texture_t *t_angle_270;
+}	textures_t;
+
 typedef struct map_s
 {
 	//Map has always result to a square or a rectangle.
@@ -111,16 +119,18 @@ typedef struct map_s
 	// All spaces (empty or any other char) outside of the walls (1) be filled with (9)
 	// Empty spaces inside the map fill with space (0)
 	// For door (4)
+	char		**temp_file_arr;
 	char		**map;
 	// In elements (sqaures)
 	int			width;
 	int			height;
 	int			square_size;
 	// struct to player
-	player_t	player;
+	player_t	*player;
 	// colors for the floor and ceiling
 	uint32_t	floor_color;
 	uint32_t	ceiling_color;
+	textures_t	*textures;
 	png_paths_t	png_paths;
 	textures_t	game_textures;
 
@@ -164,6 +174,15 @@ void		draw_map(mlx_image_t *image, game_t *game);
 uint32_t	get_pixel_color(mlx_texture_t *texture, int y_height, int x_width);
 mlx_texture_t	*get_texture(game_t *game, double h_distance, double v_distance);
 
+// parser
+
+void	clean_map(map_t *map);
+
+// errors.c
+void	error_argc(int argc);
+
+// get_map.c
+void	fill_map_struct(map_t *map, char *str);
 // Wall collision
 bool no_wall(game_t *game, double step_x, double step_y);
 
