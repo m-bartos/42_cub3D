@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:44:52 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/28 21:53:17 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/28 22:10:13 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,13 @@ int	main(void)
 	game.game_map.game_textures.t_angle_90 = east;
 	game.game_map.game_textures.t_angle_0 = north;
 	game.game_map.game_textures.t_angle_180 = south;
+	//////////////////////////////////////
+	// Test
+	printf("West: %d\n", game.game_map.game_textures.t_angle_270->width);
+	printf("East: %d\n", game.game_map.game_textures.t_angle_90->width);
+	printf("North: %d\n", game.game_map.game_textures.t_angle_0->width);
+	printf("South: %d\n", game.game_map.game_textures.t_angle_180->width);
+	//////////////////////////////////////
 	//////////////////////////////////////
 	// Previous implementation
 	// Add textures to the game struct
