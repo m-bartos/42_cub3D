@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:44:52 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/28 22:31:30 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/28 22:51:49 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,13 @@ char *static_map = 	"111111111111111111\n"
 					"100000000000000001\n"
 					"111111111111111111\n";
 
-int	main(void)
+int	main(int argc, char **argv)
 {
+	map_t 		map;
+
+	error_argc(argc);
+	init_map(&map);
+	fill_map_struct(&map, argv[1]);
 	// Window Size
 	int w = WINDOW_WIDTH;
 	int h = WINDOW_HEIGHT;
@@ -79,13 +84,14 @@ int	main(void)
 	game_t game;
 	textures_t textures;
 	game = (game_t){0};
-	load_map(static_map, &game);
+	// load_map(static_map, &game);
+	game.game_map = &map;
 	game.game_planes = &game_planes;
 	game.player.player_angle = 90;
 	game.player.coordinates.x = 600;
 	game.player.coordinates.y = 600;
 	game.player.fov = 60;
-	game.game_map.square_size = SQUARE_SIZE;
+	// game.game_map->square_size = SQUARE_SIZE;
 	//////////////////////////////////////
 	// New implementation
 	// game.game_map.game_textures.t_angle_270 = west;
@@ -96,13 +102,13 @@ int	main(void)
 	textures.t_angle_90 = east;
 	textures.t_angle_0 = north;
 	textures.t_angle_180 = south;
-	game.game_map.textures = &textures;
+	game.game_map->textures = &textures;
 	//////////////////////////////////////
 	// Test
-	printf("West: %d\n", game.game_map.textures->t_angle_270->width);
-	printf("East: %d\n", game.game_map.textures->t_angle_90->width);
-	printf("North: %d\n", game.game_map.textures->t_angle_0->width);
-	printf("South: %d\n", game.game_map.textures->t_angle_180->width);
+	printf("West: %d\n", game.game_map->textures->t_angle_270->width);
+	printf("East: %d\n", game.game_map->textures->t_angle_90->width);
+	printf("North: %d\n", game.game_map->textures->t_angle_0->width);
+	printf("South: %d\n", game.game_map->textures->t_angle_180->width);
 	//////////////////////////////////////
 	//////////////////////////////////////
 	// Previous implementation
@@ -134,5 +140,6 @@ int	main(void)
 	6) Wall collisions
 	7) Textures with directions
 	*/
+	// clean_map(NULL);
 }
 

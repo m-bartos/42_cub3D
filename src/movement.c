@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movement.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:59:53 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/26 19:08:05 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/28 22:52:30 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ void	move_player(mlx_key_data_t key, void *param)
 	else if ((key.action == MLX_PRESS  || key.action == MLX_REPEAT) && key.key == MLX_KEY_LEFT)
 	{
 
-		player->player_angle += fix_ang(KEY_PRESS);
+		player->player_angle += fix_ang(KEY_PRESS/4);
 		player->player_angle = fix_ang(player->player_angle);
 		pdx = cos(deg_to_rad(player->player_angle));
 		pdy = sin(deg_to_rad(player->player_angle));
@@ -112,7 +112,7 @@ void	move_player(mlx_key_data_t key, void *param)
 	else if ((key.action == MLX_PRESS  || key.action == MLX_REPEAT) && key.key == MLX_KEY_RIGHT)
 	{
 
-		player->player_angle -= fix_ang(KEY_PRESS);
+		player->player_angle -= fix_ang(KEY_PRESS/4);
 		player->player_angle = fix_ang(player->player_angle);
 		pdx = cos(deg_to_rad(player->player_angle));
 		pdy = sin(deg_to_rad(player->player_angle));
@@ -135,9 +135,9 @@ bool no_wall(game_t *game, double step_x, double step_y)
 	new_xy.y = player->coordinates.y + step_y;
 	map_xy.x = (int)new_xy.x / SQUARE_SIZE;
 	map_xy.y = (int)new_xy.y / SQUARE_SIZE;
-	if (map_xy.x >= 0 && map_xy.x < game->game_map.width &&
-		map_xy.y >= 0 && map_xy.y < game->game_map.height &&
-		game->game_map.map[(int)map_xy.y][(int)map_xy.x] != M_WALL)
+	if (map_xy.x >= 0 && map_xy.x < game->game_map->width &&
+		map_xy.y >= 0 && map_xy.y < game->game_map->height &&
+		game->game_map->map[(int)map_xy.y][(int)map_xy.x] != M_WALL)
 	{
 		return true;
 	} else

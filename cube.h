@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:46:56 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/28 22:32:13 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/28 22:54:01 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,7 @@ typedef struct game_s
 {
 	player_t	player;
 	planes_t	*game_planes;
-	map_t		game_map;
+	map_t		*game_map;
 }	game_t;
 
 // MLX42 Drawing functions
@@ -177,6 +177,7 @@ mlx_texture_t	*get_texture(game_t *game, double h_distance, double v_distance);
 
 // Parser
 void	clean_map(map_t *map);
+void	init_map(map_t *map);
 int		max_line_width(char **map_array);
 void	check_suffix(char *str);
 char	**add_first_row(char **map_array);
