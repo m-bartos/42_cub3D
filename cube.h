@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
+/*   By: orezek <orezek@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:46:56 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/28 22:57:03 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/06/29 12:44:05 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -211,5 +211,19 @@ void	error_argc(int argc);
 void	fill_map_struct(map_t *map, char *str);
 // Wall collision
 bool no_wall(game_t *game, double step_x, double step_y);
+
+// Function defined structs
+typedef struct s_draw_wall
+{
+	planes_t	*game_planes;
+	point_t		*hrc;
+	point_t		*vrc;
+	double		fov;
+	double		pa;
+	double		h_distance;
+	double		v_distance;
+	int			r;
+
+}	t_draw_wall;
 
 #endif
