@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:46:56 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/29 16:01:16 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/29 17:02:37 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ typedef struct point_s
 typedef struct player_s
 {
 	// initial player angle in degrees (0 - 360) for NWES
-	double		player_angle;
+	double		angle;
 	// used for minimap - not for wall drawing
 	// we will use the whole width of the screen for the 3D render
 	double		fov;
@@ -90,13 +90,13 @@ typedef struct planes_s
 	mlx_image_t *game_plane;
 }	planes_t;
 
-typedef struct png_paths_s
-{
-	char	*no;
-	char	*so;
-	char	*we;
-	char	*ea;
-}	png_paths_t;
+// typedef struct png_paths_s
+// {
+// 	char	*no;
+// 	char	*so;
+// 	char	*we;
+// 	char	*ea;
+// }	png_paths_t;
 
 // typedef struct textures_s
 // {
@@ -108,10 +108,10 @@ typedef struct png_paths_s
 
 typedef struct textures_s
 {
-	mlx_texture_t *t_angle_0;
-	mlx_texture_t *t_angle_90;
-	mlx_texture_t *t_angle_180;
-	mlx_texture_t *t_angle_270;
+	mlx_texture_t *angle_0;
+	mlx_texture_t *angle_90;
+	mlx_texture_t *angle_180;
+	mlx_texture_t *angle_270;
 }	textures_t;
 
 typedef struct map_s
@@ -132,8 +132,8 @@ typedef struct map_s
 	// colors for the floor and ceiling
 	uint32_t	floor_color;
 	uint32_t	ceiling_color;
-	textures_t	*textures;
-	png_paths_t	png_paths;
+	textures_t	*txts;
+	// png_paths_t	png_paths;
 	//textures_t	game_textures;
 
 
@@ -142,8 +142,8 @@ typedef struct map_s
 typedef struct game_s
 {
 	player_t	*player;
-	planes_t	*game_planes;
-	map_t		*game_map;
+	planes_t	*planes;
+	map_t		*map;
 }	game_t;
 
 // MLX42 Drawing functions
@@ -216,7 +216,7 @@ bool no_wall(game_t *game, double step_x, double step_y);
 // Draw ray
 typedef struct s_draw_ray
 {
-	planes_t	*game_planes;
+	planes_t	*planes;
 	point_t		*hrc;
 	point_t		*vrc;
 	double		fov;
@@ -232,7 +232,7 @@ typedef struct s_draw_wall
 {
 	point_t		*hrc;
 	point_t		*vrc;
-	planes_t	*game_planes;
+	planes_t	*planes;
 	double		corrected_distance;
 	double		h_distance;
 	double		v_distance;

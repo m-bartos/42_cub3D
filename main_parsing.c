@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_parsing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 10:02:00 by mbartos           #+#    #+#             */
-/*   Updated: 2024/06/29 00:37:28 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/29 16:59:25 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@
 // 	map->textures = malloc(sizeof(textures_t));
 // 	if (map->textures == NULL)
 // 		exit(2);
-// 	map->textures->t_angle_0 = NULL;
-// 	map->textures->t_angle_90 = NULL;
-// 	map->textures->t_angle_180 = NULL;
-// 	map->textures->t_angle_270 = NULL;
+// 	map->textures->angle_0 = NULL;
+// 	map->textures->angle_90 = NULL;
+// 	map->textures->angle_180 = NULL;
+// 	map->textures->angle_270 = NULL;
 // 	map->square_size = 64;
 // 	clean_map(map);
 // }
@@ -39,14 +39,14 @@
 // 	ft_free_array(map->map);
 // 	ft_free_array(map->temp_file_arr);
 // 	free(map->player);
-// 	if (map->textures->t_angle_0)
-// 		mlx_delete_texture(map->textures->t_angle_0);
-// 	if (map->textures->t_angle_90)
-// 	mlx_delete_texture(map->textures->t_angle_90);
-// 	if (map->textures->t_angle_180)
-// 		mlx_delete_texture(map->textures->t_angle_180);
-// 	if (map->textures->t_angle_270)
-// 		mlx_delete_texture(map->textures->t_angle_270);
+// 	if (map->textures->angle_0)
+// 		mlx_delete_texture(map->textures->angle_0);
+// 	if (map->textures->angle_90)
+// 	mlx_delete_texture(map->textures->angle_90);
+// 	if (map->textures->angle_180)
+// 		mlx_delete_texture(map->textures->angle_180);
+// 	if (map->textures->angle_270)
+// 		mlx_delete_texture(map->textures->angle_270);
 // 	free(map->textures);
 // 	// free(map);
 // }
