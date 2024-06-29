@@ -71,27 +71,27 @@ int	main(int argc, char **argv)
 	set_img_background(game_img, R_BACKGROUND);
 
 	// Declare texture variables
-	mlx_texture_t	*west;
-	mlx_texture_t	*east;
-	mlx_texture_t	*north;
-	mlx_texture_t	*south;
+	// mlx_texture_t	*west;
+	// mlx_texture_t	*east;
+	// mlx_texture_t	*north;
+	// mlx_texture_t	*south;
 	// Load PNG files and return textures
-	west = mlx_load_png(WEST);
-	east = mlx_load_png(EAST);
-	north = mlx_load_png(NORTH);
-	south = mlx_load_png(SOUTH);
+	// west = mlx_load_png(WEST);
+	// east = mlx_load_png(EAST);
+	// north = mlx_load_png(NORTH);
+	// south = mlx_load_png(SOUTH);
 	// Init the game
 	game_t game;
-	textures_t textures;
+	// textures_t textures;
 	game = (game_t){0};
 	// load_map(static_map, &game);
 	// exit(77);
 	game.player = map.player;
 	game.game_map = &map;
 	game.game_planes = &game_planes;
-	game.player->player_angle = 90;
-	game.player->coordinates.x = 300;
-	game.player->coordinates.y = 300;
+	// game.player->player_angle = 90;
+	// game.player->coordinates.x = 300;
+	// game.player->coordinates.y = 300;
 	// game.player->fov = 60;
 	// game.game_map->square_size = SQUARE_SIZE;
 	//////////////////////////////////////
@@ -100,17 +100,17 @@ int	main(int argc, char **argv)
 	// game.game_map.game_textures.t_angle_90 = east;
 	// game.game_map.game_textures.t_angle_0 = north;
 	// game.game_map.game_textures.t_angle_180 = south;
-	textures.t_angle_270 = west;
-	textures.t_angle_90 = east;
-	textures.t_angle_0 = north;
-	textures.t_angle_180 = south;
-	game.game_map->textures = &textures;
+	// textures.t_angle_270 = west;
+	// textures.t_angle_90 = east;
+	// textures.t_angle_0 = north;
+	// textures.t_angle_180 = south;
+	// game.game_map->textures = &textures;
 	//////////////////////////////////////
 	// Test
-	printf("West: %d\n", game.game_map->textures->t_angle_270->width);
-	printf("East: %d\n", game.game_map->textures->t_angle_90->width);
-	printf("North: %d\n", game.game_map->textures->t_angle_0->width);
-	printf("South: %d\n", game.game_map->textures->t_angle_180->width);
+	// printf("West: %d\n", game.game_map->textures->t_angle_270->width);
+	// printf("East: %d\n", game.game_map->textures->t_angle_90->width);
+	// printf("North: %d\n", game.game_map->textures->t_angle_0->width);
+	// printf("South: %d\n", game.game_map->textures->t_angle_180->width);
 	//////////////////////////////////////
 	//////////////////////////////////////
 	// Previous implementation

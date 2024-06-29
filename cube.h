@@ -52,8 +52,8 @@
 # define M_DOOR '4'
 
 // Cardinal directions within Unit circle
-# define EAST_D 90.0
-# define WEST_D 270.0
+# define EAST_D 270.0
+# define WEST_D 90.0
 # define NORTH_D 0.0
 # define SOUTH_D 180.0
 

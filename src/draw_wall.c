@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_wall.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 17:44:30 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/29 01:41:30 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/29 11:59:10 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,11 +101,11 @@ void	draw_wall(game_t *game)
 			// End of textures
 			//////////////////////////////////////////////////////////////////////
 			// floor
-			draw_line(game_planes->game_plane, ray_x_position, WINDOW_HEIGHT - 1, ray_x_position, WINDOW_HEIGHT - 1 - round(line_offset), FLOOR);
+			draw_line(game_planes->game_plane, ray_x_position, WINDOW_HEIGHT - 1, ray_x_position, WINDOW_HEIGHT - 1 - round(line_offset), game->game_map->floor_color);
 			// wall
 			//draw_line(game_planes->game_plane, ray_x_position, line_offset, ray_x_position, round (line_offset + line_height), WALL);
 			// ceiling
-			draw_line(game_planes->game_plane, ray_x_position, 0, ray_x_position, round(line_offset), CEILING);
+			draw_line(game_planes->game_plane, ray_x_position, 0, ray_x_position, round(line_offset), game->game_map->ceiling_color);
 		}
 		game->player->player_angle = pa;
 }
