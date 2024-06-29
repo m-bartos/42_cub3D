@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 14:31:45 by mbartos           #+#    #+#             */
-/*   Updated: 2024/06/29 14:47:07 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/06/29 14:58:28 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,13 @@ int	get_color_from_str(char *str)
 	int		red;
 	int		green;
 	int		blue;
-	int		color;
+	int		final_color;
 
 	check_valid_color_line(&str[2]);
 	colors = ft_split_e(&str[2], ',');
 	if (ft_len_of_arr(colors) < 3)
+		invalid_colors(colors);
+	if (is_empty_line(colors[1]))
 		invalid_colors(colors);
 	red = ft_atoi(colors[0]);
 	green = ft_atoi(colors[1]);
@@ -56,9 +58,9 @@ int	get_color_from_str(char *str)
 	if (red < 0 || green < 0 || blue < 0
 		|| red > 255 || green > 255 || blue > 255)
 		invalid_colors(colors);
-	color = get_rgba(red, green, blue, 255);
+	final_color = get_rgba(red, green, blue, 255);
 	ft_free_array(colors);
-	return (color);
+	return (final_color);
 }
 
 void	get_colors(map_t *map, char **file_arr)
