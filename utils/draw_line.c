@@ -3,26 +3,67 @@
 /*                                                        :::      ::::::::   */
 /*   draw_line.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
+/*   By: orezek <orezek@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 15:03:23 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/22 19:26:30 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/29 22:14:24 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include <math.h>
-# include "../cube.h"
+#include "../cube.h"
 
-//Bresenham’s line algorithm
-void draw_line(void *image, double startX, double startY, double endX, double endY, unsigned int color)
+static void	init_draw_line(t_draw_line *d, point_t start, point_t end)
 {
-	mlx_image_t *img = (mlx_image_t *)image;
+	d->sxi = round(start.x);
+	d->syi = round(start.y);
+	d->exi = round(end.x);
+	d->eyi = round(end.y);
+	d->dx = abs(d->exi - d->sxi);
+	d->dy = abs(d->eyi - d->syi);
+}
+
+void	draw_line1(mlx_image_t *image, point_t start,
+	point_t end, uint32_t color)
+{
+	t_draw_line	d;
+
+	d = (t_draw_line){0};
+	init_draw_line(&d, start, end);
+	if (d.sxi < d.exi)
+		d.sx = 1;
+	else
+		d.sx = -1;
+	if (d.syi < d.eyi)
+		d.sy = 1;
+	else
+		d.sy = -1;
+	d.err = d.dx - d.dy;
+	while (true)
+	{
+		mlx_put_pixel(image, d.sxi, d.syi, color);
+		if (d.sxi == d.exi && d.syi == d.eyi)
+			break ;
+		d.e2 = 2 * d.err;
+		if (d.e2 > -d.dy)
+		{
+			d.err -= d.dy;
+			d.sxi += d.sx;
+		}
+		if (d.e2 < d.dx)
+		{
+			d.err += d.dx;
+			d.syi += d.sy;
+		}
+	}
+}
+
+void draw_line(mlx_image_t *image, double startX, double startY, double endX, double endY, unsigned int color)
+{
 	int sXi; int sYi; int eXi; int eYi;
 	sXi = round(startX);
 	sYi = round(startY);
 	eXi = round(endX);
 	eYi = round(endY);
-
 
 	int	dx = abs(eXi - sXi);
 	int	dy = abs(eYi - sYi);
@@ -32,7 +73,7 @@ void draw_line(void *image, double startX, double startY, double endX, double en
 
 	while (true)
 	{
-		mlx_put_pixel(img, sXi, sYi, color);
+		mlx_put_pixel(image, sXi, sYi, color);
 		if (sXi == eXi && sYi == eYi)
 			break;
 		int e2 = 2 * err;
