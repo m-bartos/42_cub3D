@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 10:31:44 by mbartos           #+#    #+#             */
-/*   Updated: 2024/06/29 15:17:37 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/06/29 15:23:56 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,6 +147,7 @@ void	fill_map_struct(map_t *map, char *str)
 	get_player_pos(map);
 	map_flooded = ft_arrdup(map->map);
 	map_flood_fill(map_flooded, map->player->coordinates.y, map->player->coordinates.x);
+	ft_free_array(map_flooded);
 	ft_putstr_fd("Map found and valid!\n", 1);
 	ft_putstr_fd("---- CONFIG_FILE CHECK DONE - OK ----\n", 1);
 	replace_start_pos_in_map(map->map);
