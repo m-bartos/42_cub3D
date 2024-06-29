@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 17:44:30 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/29 15:22:00 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/29 15:49:42 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,29 @@ typedef struct s_draw_wall
 	double 		old_line_height;
 	double 		line_offset;
 	int			ray_x_position;
-	mlx_texture_t  *wall;
+	mlx_texture_t	*wall;
 	double		texture_x;
 	int			texture_x_index;
 	int			texture_y_index;
 	double		texture_y_ratio;
 	unsigned int	color;
-	int	r;
-	int y;
+	int	ray;
+	int	pixel;
 }	t_draw_wall;
+
+void	init_draw_wall(game_t *game, t_draw_wall *w)
+{
+	*w = (t_draw_wall){0};
+	// get screen size
+	w->screen_height = game->game_planes->game_plane->height;
+	w->screen_width = game->game_planes->game_plane->width;
+	// set initial player angle
+	w->pa = game->player->player_angle;
+	w->game_planes = game->game_planes;
+	w->fov = game->player->fov;
+	// Angle increment
+	w->angle_increment = w->fov / w->screen_width;
+}
 
 void	draw_vertical_lines(game_t *game, t_draw_wall *w)
 {
@@ -61,27 +75,27 @@ void	draw_vertical_lines(game_t *game, t_draw_wall *w)
 		game->game_map->ceiling_color);
 }
 
-
+void	calculate_line_lenghts(t_draw_wall *w)
+{
+	w->max_wall_height = w->screen_height;
+	w->line_height = (SQUARE_SIZE * w->max_wall_height) / w->corrected_distance;
+	w->old_line_height = w->line_height;
+	if (w->line_height > w->screen_height)
+		w->line_height = w->screen_height;
+	w->line_offset = (w->screen_height / 2) - (w->line_height / 2);
+	w->ray_x_position = WINDOW_WIDTH - w->ray - 1;
+}
 
 void	draw_wall(game_t *game)
 {
 		t_draw_wall		w;
-		w = (t_draw_wall){0};
 
-		// get screen size
-		w.screen_height = game->game_planes->game_plane->height;
-		w.screen_width = game->game_planes->game_plane->width;
-		// set initial player angle
-		w.pa = game->player->player_angle;
-		w.game_planes = game->game_planes;
-		w.fov = game->player->fov;
+		init_draw_wall(game, &w);
 
-		// Angle increment
-		w.angle_increment = w.fov / w.screen_width;
-		for (int r = 0; r < w.screen_width; r++)
+		while (w.ray < w.screen_width)
 		{
 			// calculate agle for the 60 fov
-			game->player->player_angle = fix_ang((w.pa - w.fov / 2) + r * w.angle_increment);
+			game->player->player_angle = fix_ang((w.pa - w.fov / 2) + w.ray * w.angle_increment);
 			// cast ray and get horizontal coordiantes
 			w.hrc = get_horizontal_ray_coordinates(game);
 			// cast ray and get vertical coordinates
@@ -96,20 +110,8 @@ void	draw_wall(game_t *game)
 				w.corrected_distance = w.v_distance * cos(deg_to_rad(game->player->player_angle - w.pa));
 			else
 				w.corrected_distance = w.h_distance * cos(deg_to_rad(game->player->player_angle - w.pa));
-			// set max wall height
-			w.max_wall_height = w.screen_height; // Wall extends the whole vertical line when directly facing
-
-			// Calculate the wall height based on the distance
-			// Adjust the wall size multiplyer to something appropriate like 64 or 128
-			w.line_height = (SQUARE_SIZE * w.max_wall_height) / w.corrected_distance;
-			w.old_line_height = w.line_height;
-			if (w.line_height > w.screen_height)
-				w.line_height = w.screen_height; // Ensure it doesn't exceed the screen height
-			 // Centering the wall slice vertically = offset that is same above the wall and below it
-			w.line_offset = (w.screen_height / 2) - (w.line_height / 2);
-			w.ray_x_position = WINDOW_WIDTH - r - 1;
-			//////////////////////////////////////////////////////////////////////
-			// Textures
+			calculate_line_lenghts(&w);
+			// Draw Textures
 			w.wall = get_texture(game, w.h_distance, w.v_distance);
 			if (w.v_distance < w.h_distance)
 			{
@@ -121,19 +123,22 @@ void	draw_wall(game_t *game)
 			}
 			w.texture_x_index = (int)w.texture_x * w.wall->width / SQUARE_SIZE;
 			// Draw the wall slice with texture mapping
-        	for (int y = 0; y < w.line_height; y++)
+			w.pixel = 0;
+        	while (w.pixel < w.line_height)
 			{
 				w.texture_y_ratio = w.wall->height / w.old_line_height; // it determines the ratio between unit of the line
 				if (w.old_line_height > w.screen_height)
-					w.texture_y_index = (int)((y + (w.old_line_height - w.screen_height) / 2) * w.texture_y_ratio); // calculates y position of the pixel
+					w.texture_y_index = (int)((w.pixel + (w.old_line_height - w.screen_height) / 2) * w.texture_y_ratio); // calculates y position of the pixel
 				else
-					w.texture_y_index = (int)(w.texture_y_ratio * y); // calculates y position of the pixel
+					w.texture_y_index = (int)(w.texture_y_ratio * w.pixel); // calculates y position of the pixel
 				// test the pixel color from the coordinates
 				w.color = get_pixel_color(w.wall, w.texture_y_index, w.texture_x_index);
-				mlx_put_pixel(w.game_planes->game_plane, w.ray_x_position, (int)(w.line_offset + y), w.color);
+				mlx_put_pixel(w.game_planes->game_plane, w.ray_x_position, (int)(w.line_offset + w.pixel), w.color);
+				w.pixel++;
 			}
 			// End of textures
 			draw_vertical_lines(game, &w);
+			w.ray++;
 		}
 		game->player->player_angle = w.pa;
 }
