@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: orezek <orezek@student.42prague.com>       +#+  +:+       +#+        */
+/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:44:52 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/29 13:27:49 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/29 17:02:37 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,9 @@ int	main(int argc, char **argv)
 	mlx_image_t	*game_img = mlx_new_image(mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
 	mlx_image_to_window(mlx, game_img, 0, 0);
 
-	// Add the image to game_planes struct and initialize background color
-	planes_t game_planes;
-	game_planes.game_plane = game_img;
+	// Add the image to planes struct and initialize background color
+	planes_t planes;
+	planes.game_plane = game_img;
 	set_img_background(game_img, R_BACKGROUND);
 
 	// Declare texture variables
@@ -82,43 +82,43 @@ int	main(int argc, char **argv)
 	// south = mlx_load_png(SOUTH);
 	// Init the game
 	game_t game;
-	// textures_t textures;
+	// textures_t txts;
 	game = (game_t){0};
 	// load_map(static_map, &game);
 	// exit(77);
 	game.player = map.player;
-	game.game_map = &map;
-	game.game_planes = &game_planes;
-	// game.player->player_angle = 90;
+	game.map = &map;
+	game.planes = &planes;
+	// game.player->angle = 90;
 	// game.player->coordinates.x = 300;
 	// game.player->coordinates.y = 300;
 	// game.player->fov = 60;
-	// game.game_map->square_size = SQUARE_SIZE;
+	// game.map->square_size = SQUARE_SIZE;
 	//////////////////////////////////////
 	// New implementation
-	// game.game_map.game_textures.t_angle_270 = west;
-	// game.game_map.game_textures.t_angle_90 = east;
-	// game.game_map.game_textures.t_angle_0 = north;
-	// game.game_map.game_textures.t_angle_180 = south;
-	// textures.t_angle_270 = west;
-	// textures.t_angle_90 = east;
-	// textures.t_angle_0 = north;
-	// textures.t_angle_180 = south;
-	// game.game_map->textures = &textures;
+	// game.map.game_textures.angle_270 = west;
+	// game.map.game_textures.angle_90 = east;
+	// game.map.game_textures.angle_0 = north;
+	// game.map.game_textures.angle_180 = south;
+	// txts.angle_270 = west;
+	// txts.angle_90 = east;
+	// txts.angle_0 = north;
+	// txts.angle_180 = south;
+	// game.map->txts = &txts;
 	//////////////////////////////////////
 	// Test
-	// printf("West: %d\n", game.game_map->textures->t_angle_270->width);
-	// printf("East: %d\n", game.game_map->textures->t_angle_90->width);
-	// printf("North: %d\n", game.game_map->textures->t_angle_0->width);
-	// printf("South: %d\n", game.game_map->textures->t_angle_180->width);
+	// printf("West: %d\n", game.map->txts->angle_270->width);
+	// printf("East: %d\n", game.map->txts->angle_90->width);
+	// printf("North: %d\n", game.map->txts->angle_0->width);
+	// printf("South: %d\n", game.map->txts->angle_180->width);
 	//////////////////////////////////////
 	//////////////////////////////////////
 	// Previous implementation
 	// Add textures to the game struct
-	// game.game_map.game_textures.we = west;
-	// game.game_map.game_textures.ea = east;
-	// game.game_map.game_textures.no = north;
-	// game.game_map.game_textures.so = south;
+	// game.map.game_textures.we = west;
+	// game.map.game_textures.ea = east;
+	// game.map.game_textures.no = north;
+	// game.map.game_textures.so = south;
 	//////////////////////////////////////
 	// Draw initial 3d scene.
 	draw_wall(&game);

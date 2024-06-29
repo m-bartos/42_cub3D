@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 12:39:12 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/29 12:32:17 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/06/29 17:02:37 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,20 +27,20 @@ mlx_texture_t	*get_texture(game_t *game, double h_distance, double v_distance)
 {
 	double	ra;
 
-	ra = game->player->player_angle;
+	ra = game->player->angle;
 	if (h_distance < v_distance)
 	{
 		if (deg_to_rad(ra) > deg_to_rad(NORTH_D) && deg_to_rad(ra) < deg_to_rad(SOUTH_D))
-			return (game->game_map->textures->t_angle_90);
+			return (game->map->txts->angle_90);
 		else
-			return (game->game_map->textures->t_angle_270);
+			return (game->map->txts->angle_270);
 	}
 	else
 	{
 		if ((deg_to_rad(ra) > deg_to_rad(WEST_D) && deg_to_rad(ra) < deg_to_rad(EAST_D)))
-			return(game->game_map->textures->t_angle_180);
+			return(game->map->txts->angle_180);
 		else
-			return (game->game_map->textures->t_angle_0);
+			return (game->map->txts->angle_0);
 	}
 	return (NULL);
 
