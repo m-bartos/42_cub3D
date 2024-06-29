@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:46:56 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/29 18:31:58 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/29 19:25:48 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -211,6 +211,28 @@ typedef struct s_move_player
 	double		pdy;
 
 } t_move_player;
+
+// Get horizontal ray intersection
+typedef struct s_hrc
+{
+	point_t *hor_ray;
+	int		map_x;
+	int		map_y;
+	int		map_max_size;
+	double	pa;
+	double	px;
+	double	py;
+	char	**map;
+	int		mx;
+	int		my;
+	int		dof;
+	double	rx;
+	double	ry;
+	double	ra;
+	double	xo;
+	double	yo;
+	double	a_tan;
+}	t_hrc;
 
 // MLX42 Drawing functions
 
