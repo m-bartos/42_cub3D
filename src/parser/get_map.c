@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 10:31:44 by mbartos           #+#    #+#             */
-/*   Updated: 2024/06/29 15:07:57 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/06/29 15:12:49 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,7 +192,7 @@ void	fill_map_struct(map_t *map, char *str)
 	char	**map_flooded;
 
 	check_suffix(str);
-	ft_putstr_fd("---RUNNING_CONFIG_FILE_CHECK----\n", 1);
+	ft_putstr_fd("---- RUNNING CONFIG_FILE CHECK ----\n", 1);
 	map->temp_file_arr = file_to_array(str);
 	map->map = seperate_map(map->temp_file_arr);
 	get_textures(map, map->temp_file_arr);
@@ -206,7 +206,8 @@ void	fill_map_struct(map_t *map, char *str)
 	get_player_pos(map);
 	map_flooded = ft_arrdup(map->map);
 	map_flood_fill(map_flooded, map->player->coordinates.y, map->player->coordinates.x);
-	ft_putstr_fd("---CONFIG_FILE_CHECK_OK----\n", 1);
+	ft_putstr_fd("Map found and valid!\n", 1);
+	ft_putstr_fd("---- CONFIG_FILE CHECK DONE - OK ----\n", 1);
 	replace_start_pos_in_map(map->map);
 	map->player->coordinates.x = map->player->coordinates.x * SQUARE_SIZE + SQUARE_SIZE / 2;
 	map->player->coordinates.y = map->player->coordinates.y * SQUARE_SIZE + SQUARE_SIZE / 2;

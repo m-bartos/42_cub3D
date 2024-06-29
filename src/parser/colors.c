@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 14:31:45 by mbartos           #+#    #+#             */
-/*   Updated: 2024/06/29 14:58:28 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/06/29 15:13:56 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,4 +88,6 @@ void	check_colors(map_t *map)
 		clean_map(NULL);
 		exit(99);
 	}
+	else
+		ft_putstr_fd("Ceiling and floor colors found and imported!\n", 1);
 }
