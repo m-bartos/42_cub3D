@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:46:56 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/29 17:02:37 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/06/29 17:15:20 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ typedef struct map_s
 	// All spaces (empty or any other char) outside of the walls (1) be filled with (9)
 	// Empty spaces inside the map fill with space (0)
 	// For door (4)
-	char		**temp_file_arr;
+	char		**temp_arr;
 	char		**map;
 	// In elements (sqaures)
 	int			width;

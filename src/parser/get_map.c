@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 10:31:44 by mbartos           #+#    #+#             */
-/*   Updated: 2024/06/29 15:55:03 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/06/29 17:18:07 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,34 +118,38 @@ char	**seperate_map(char **file_content)
 	return (map);
 }
 
+void	set_map_size(map_t *map)
+{
+	map->width = max_line_width(map->map);
+	map->height = ft_len_of_arr(map->map);
+}
+
 void	fill_map_struct(map_t *map, char *str)
 {
-	char		**map_flooded;
 	player_t	*player;
 
 	player = map->player;
 	check_suffix(str);
 	ft_putstr_fd("---- RUNNING CONFIG_FILE CHECK ----\n", 1);
-	map->temp_file_arr = get_file_array(str);
-	delete_last_empty_lines_in_arr(map->temp_file_arr);
-	map->map = seperate_map(map->temp_file_arr);
-	get_textures(map, map->temp_file_arr);
+	map->temp_arr = get_file_array(str);
+	delete_last_empty_lines_in_arr(map->temp_arr);
+	map->map = seperate_map(map->temp_arr);
+	get_textures(map, map->temp_arr);
 	check_textures(map);
-	get_colors(map, map->temp_file_arr);
+	get_colors(map, map->temp_arr);
 	check_colors(map);
-	ft_free_array(map->temp_file_arr);
-	map->temp_file_arr = NULL;
+	ft_free_array(map->temp_arr);
+	map->temp_arr = NULL;
 	map->map = add_borders_fill_spaces(map->map);
 	check_start_possitions(map->map);
 	get_player_pos(map);
-	map_flooded = ft_arrdup(map->map);
-	map_flood_fill(map_flooded, player->coordinates.y, player->coordinates.x);
-	ft_free_array(map_flooded);
-	ft_putstr_fd("Map found and valid!\n", 1);
-	ft_putstr_fd("---- CONFIG_FILE CHECK DONE - OK ----\n", 1);
+	map->temp_arr = ft_arrdup(map->map);
+	map_flood_fill(map->temp_arr, player->coordinates.y, player->coordinates.x);
+	ft_free_array(map->temp_arr);
+	map->temp_arr = NULL;
 	replace_start_pos_in_map(map->map);
+	ft_putstr_fd("---- CONFIG_FILE CHECK DONE - OK ----\n", 1);
+	set_map_size(map);
 	player->coordinates.x = SQUARE_SIZE * (player->coordinates.x + 0.5);
 	player->coordinates.y = SQUARE_SIZE * (player->coordinates.y + 0.5);
-	map->width = max_line_width(map->map);
-	map->height = ft_len_of_arr(map->map);
 }
