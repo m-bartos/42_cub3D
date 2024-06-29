@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 15:26:00 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/29 12:43:58 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/29 13:18:19 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@
 
 void	draw_rays(game_t *game)
 {
-	t_draw_wall	d_wall;
+	t_draw_ray	d_wall;
 
-	d_wall = (t_draw_wall){0};
+	d_wall = (t_draw_ray){0};
 	d_wall.fov = game->player->fov;
 	d_wall.pa = game->player->player_angle;
 	d_wall.game_planes = game->game_planes;

@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:46:56 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/29 12:44:05 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/29 13:19:12 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,8 +212,10 @@ void	fill_map_struct(map_t *map, char *str);
 // Wall collision
 bool no_wall(game_t *game, double step_x, double step_y);
 
-// Function defined structs
-typedef struct s_draw_wall
+// Function structs
+
+//
+typedef struct s_draw_ray
 {
 	planes_t	*game_planes;
 	point_t		*hrc;
@@ -224,6 +226,6 @@ typedef struct s_draw_wall
 	double		v_distance;
 	int			r;
 
-}	t_draw_wall;
+}	t_draw_ray;
 
 #endif
