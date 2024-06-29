@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
+/*   By: orezek <orezek@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:44:52 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/29 11:56:05 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/06/29 12:42:33 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,7 @@ int	main(int argc, char **argv)
 	// exit(1);
 	// Key HOOK
 	//draw_map(game_img, &game);
+	draw_rays(&game);
 	mlx_key_hook(mlx, move_p_func, &game);
 	// Game LOOP
 	mlx_loop(mlx);
