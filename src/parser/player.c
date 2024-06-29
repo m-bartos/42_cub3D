@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 15:15:57 by mbartos           #+#    #+#             */
-/*   Updated: 2024/06/29 15:16:46 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/06/29 15:43:47 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	replace_start_pos_in_map(char **map)
 	size_t	j;
 
 	i = 0;
-	while(map[i])
+	while (map[i])
 	{
 		j = 0;
 		while (j < ft_strlen(map[i]))
