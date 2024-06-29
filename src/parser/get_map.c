@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 10:31:44 by mbartos           #+#    #+#             */
-/*   Updated: 2024/06/29 17:18:07 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/06/29 18:07:44 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,12 +118,6 @@ char	**seperate_map(char **file_content)
 	return (map);
 }
 
-void	set_map_size(map_t *map)
-{
-	map->width = max_line_width(map->map);
-	map->height = ft_len_of_arr(map->map);
-}
-
 void	fill_map_struct(map_t *map, char *str)
 {
 	player_t	*player;
@@ -150,6 +144,4 @@ void	fill_map_struct(map_t *map, char *str)
 	replace_start_pos_in_map(map->map);
 	ft_putstr_fd("---- CONFIG_FILE CHECK DONE - OK ----\n", 1);
 	set_map_size(map);
-	player->coordinates.x = SQUARE_SIZE * (player->coordinates.x + 0.5);
-	player->coordinates.y = SQUARE_SIZE * (player->coordinates.y + 0.5);
 }

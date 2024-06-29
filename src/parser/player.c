@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 15:15:57 by mbartos           #+#    #+#             */
-/*   Updated: 2024/06/29 17:38:36 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/06/29 18:07:33 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,4 +78,10 @@ void	replace_start_pos_in_map(char **map)
 		i++;
 	}
 	ft_putstr_fd("Map found and OK!\n", 1);
+}
+
+void	change_player_coordinates_format(player_t *player)
+{
+	player->coordinates.x = SQUARE_SIZE * (player->coordinates.x + 0.5);
+	player->coordinates.y = SQUARE_SIZE * (player->coordinates.y + 0.5);
 }
