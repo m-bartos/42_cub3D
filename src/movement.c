@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:59:53 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/26 19:08:05 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/29 01:25:49 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	move_player(mlx_key_data_t key, void *param)
 	double		pdy;
 
 	game = (game_t *)param;
-	player = &game->player;
+	player = game->player;
 	pdx = cos(deg_to_rad(player->player_angle));
 	pdy = sin(deg_to_rad(player->player_angle));
 ////////////////////////////////////////////////////////////////////////////////
@@ -130,14 +130,14 @@ bool no_wall(game_t *game, double step_x, double step_y)
 	point_t		new_xy;
 	point_t		map_xy;
 
-	player = &game->player;
+	player = game->player;
 	new_xy.x = player->coordinates.x + step_x;
 	new_xy.y = player->coordinates.y + step_y;
 	map_xy.x = (int)new_xy.x / SQUARE_SIZE;
 	map_xy.y = (int)new_xy.y / SQUARE_SIZE;
-	if (map_xy.x >= 0 && map_xy.x < game->game_map.width &&
-		map_xy.y >= 0 && map_xy.y < game->game_map.height &&
-		game->game_map.map[(int)map_xy.y][(int)map_xy.x] != M_WALL)
+	if (map_xy.x >= 0 && map_xy.x < game->game_map->width &&
+		map_xy.y >= 0 && map_xy.y < game->game_map->height &&
+		game->game_map->map[(int)map_xy.y][(int)map_xy.x] != M_WALL)
 	{
 		return true;
 	} else

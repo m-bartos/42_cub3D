@@ -6,62 +6,62 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 10:02:00 by mbartos           #+#    #+#             */
-/*   Updated: 2024/06/28 21:26:14 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/29 00:37:28 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
 
-void	init_map(map_t *map)
-{
-	map->ceiling_color = 0;
-	map->floor_color = 0;
-	map->height = 0;
-	map->width = 0;
-	map->temp_file_arr = NULL;
-	map->map = NULL;
-	map->player = malloc(sizeof(player_t));
-	if (map->player == NULL)
-		exit(2);
-	map->textures = malloc(sizeof(textures_t));
-	if (map->textures == NULL)
-		exit(2);
-	map->textures->t_angle_0 = NULL;
-	map->textures->t_angle_90 = NULL;
-	map->textures->t_angle_180 = NULL;
-	map->textures->t_angle_270 = NULL;
-	map->square_size = 64;
-	clean_map(map);
-}
+// void	init_map(map_t *map)
+// {
+// 	map->ceiling_color = 0;
+// 	map->floor_color = 0;
+// 	map->height = 0;
+// 	map->width = 0;
+// 	map->temp_file_arr = NULL;
+// 	map->map = NULL;
+// 	map->player = malloc(sizeof(player_t));
+// 	if (map->player == NULL)
+// 		exit(2);
+// 	map->textures = malloc(sizeof(textures_t));
+// 	if (map->textures == NULL)
+// 		exit(2);
+// 	map->textures->t_angle_0 = NULL;
+// 	map->textures->t_angle_90 = NULL;
+// 	map->textures->t_angle_180 = NULL;
+// 	map->textures->t_angle_270 = NULL;
+// 	map->square_size = 64;
+// 	clean_map(map);
+// }
 
-void	free_map(map_t *map)
-{
-	ft_free_array(map->map);
-	ft_free_array(map->temp_file_arr);
-	free(map->player);
-	if (map->textures->t_angle_0)
-		mlx_delete_texture(map->textures->t_angle_0);
-	if (map->textures->t_angle_90)
-	mlx_delete_texture(map->textures->t_angle_90);
-	if (map->textures->t_angle_180)
-		mlx_delete_texture(map->textures->t_angle_180);
-	if (map->textures->t_angle_270)
-		mlx_delete_texture(map->textures->t_angle_270);
-	free(map->textures);
-	// free(map);
-}
+// void	free_map(map_t *map)
+// {
+// 	ft_free_array(map->map);
+// 	ft_free_array(map->temp_file_arr);
+// 	free(map->player);
+// 	if (map->textures->t_angle_0)
+// 		mlx_delete_texture(map->textures->t_angle_0);
+// 	if (map->textures->t_angle_90)
+// 	mlx_delete_texture(map->textures->t_angle_90);
+// 	if (map->textures->t_angle_180)
+// 		mlx_delete_texture(map->textures->t_angle_180);
+// 	if (map->textures->t_angle_270)
+// 		mlx_delete_texture(map->textures->t_angle_270);
+// 	free(map->textures);
+// 	// free(map);
+// }
 
-void	clean_map(map_t *map)
-{
-	static map_t	*static_map;
+// void	clean_map(map_t *map)
+// {
+// 	static map_t	*static_map;
 
-	if (map != NULL)
-	{
-		static_map = map;
-		return ;
-	}
-	free_map(static_map);
-}
+// 	if (map != NULL)
+// 	{
+// 		static_map = map;
+// 		return ;
+// 	}
+// 	free_map(static_map);
+// }
 
 // int main (int argc, char **argv)
 // {

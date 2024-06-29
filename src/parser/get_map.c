@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 10:31:44 by mbartos           #+#    #+#             */
-/*   Updated: 2024/06/28 21:45:21 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/29 01:14:15 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -551,12 +551,10 @@ void	fill_map_struct(map_t *map, char *str)
 	map->temp_file_arr = file_to_array(str);
 	map->map = seperate_map(map->temp_file_arr);
 
-
 	get_textures(map, map->temp_file_arr);
 	check_textures(map);
 	get_colors(map, map->temp_file_arr);
 	check_colors(map);
-
 	ft_print_array(map->temp_file_arr);
 	ft_free_array(map->temp_file_arr);
 	map->temp_file_arr = NULL;
@@ -565,26 +563,31 @@ void	fill_map_struct(map_t *map, char *str)
 	// printf("Ceiling: %u, floor: %u\n", map->ceiling_color, map->floor_color);
 
 	// map checker:
-	map->map = add_borders(map->map);
-	fill_spaces(map->map);
-	check_start_possitions(map->map);
+	// Error overwrites the map array with some old map
+	//map->map = add_borders(map->map);
+	printf("STRING: %s\n", map->map[0]);
+	printf("STRING: %s\n", map->map[1]);
+	printf("STRING: %s\n", map->map[2]);
+	printf("STRING: %s\n", map->map[3]);
+	printf("STRING: %s\n", map->map[4]);
+	//fill_spaces(map->map);
+	//check_start_possitions(map->map);
 	//check only one start possition
-	get_player_pos(map);
-
+	//get_player_pos(map);
 	map_flooded = ft_arrdup(map->map);
-	map_flood_fill(map_flooded, map->player->coordinates.y, map->player->coordinates.x);
-
+	//map_flood_fill(map_flooded, map->player->coordinates.y, map->player->coordinates.x);
 	printf("-----FLOODED MAP-----\n"); //printing
-	ft_print_array(map_flooded); //printing
+	//ft_print_array(map_flooded); //printing
 	printf("-----FLOODED MAP-----\n\n");
 	ft_free_array(map_flooded);
 
 	ft_putstr_fd("-------------------\n", 1);
 	ft_putstr_fd("---MAP_CHECK_OK----\n", 1);
 	ft_putstr_fd("-------------------\n\n", 1);
-	map->width = max_line_width(map->map) - 2;
-	map->height = ft_len_of_arr(map->map) - 2;
+	map->width = max_line_width(map->map);
+	map->height = ft_len_of_arr(map->map);
 	printf("W:%d, H:%d\n", map->width, map->height);
+	printf("Player angle:%f\n", map->player->player_angle);
 }
 
 void	init_map(map_t *map)
@@ -598,6 +601,10 @@ void	init_map(map_t *map)
 	map->player = malloc(sizeof(player_t));
 	if (map->player == NULL)
 		exit(2);
+	map->player->fov = 60.0;
+	map->player->coordinates.x = 0;
+	map->player->coordinates.y = 0;
+	map->player->player_angle = 90;
 	map->textures = malloc(sizeof(textures_t));
 	if (map->textures == NULL)
 		exit(2);
@@ -605,7 +612,7 @@ void	init_map(map_t *map)
 	map->textures->t_angle_90 = NULL;
 	map->textures->t_angle_180 = NULL;
 	map->textures->t_angle_270 = NULL;
-	map->square_size = 64;
+	map->square_size = SQUARE_SIZE;
 	clean_map(map);
 }
 

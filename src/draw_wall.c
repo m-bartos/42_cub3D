@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 17:44:30 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/28 22:10:50 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/29 01:41:30 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,22 +27,23 @@ void	draw_wall(game_t *game)
 		int screen_height = game->game_planes->game_plane->height;
 		int screen_width = game->game_planes->game_plane->width;
 		// set initial player angle
-		pa = game->player.player_angle;
+		pa = game->player->player_angle;
+		// exit(55);
 		// set images to draw lines
 		game_planes =  game->game_planes;
 		// set field of view = the number of lines per width of the screen
 		// you need to get for every line a different angle
-		fov = game->player.fov;
+		fov = game->player->fov;
 
 		// Angle increment
 		double angle_increment = fov / screen_width;
 		// Think about it r <== screen_width to get really 60 degree FOV
-		for (int r = 0; r <= screen_width; r++)
+		for (int r = 0; r < screen_width; r++)
 		{
 			// calculate agle for the 60 fov
-			game->player.player_angle = fix_ang((pa - fov / 2) + r * angle_increment);
+			game->player->player_angle = fix_ang((pa - fov / 2) + r * angle_increment);
 			if (r == 0 || r == screen_width)
-				printf("R: %d, RA: %f\n", r, game->player.player_angle);
+				printf("R: %d, RA: %f\n", r, game->player->player_angle);
 			// cast ray and get horizontal coordiantes
 			hrc = get_horizontal_ray_coordinates(game);
 			// cast ray and get vertical coordinates
@@ -53,9 +54,9 @@ void	draw_wall(game_t *game)
 			v_distance = get_point_distance(game, vrc);
 			// choose shorter distance
 			if (v_distance < h_distance)
-				corrected_distance = v_distance * cos(deg_to_rad(game->player.player_angle - pa));
+				corrected_distance = v_distance * cos(deg_to_rad(game->player->player_angle - pa));
 			else
-				corrected_distance = h_distance * cos(deg_to_rad(game->player.player_angle - pa));
+				corrected_distance = h_distance * cos(deg_to_rad(game->player->player_angle - pa));
 			// set max wall height
 			double max_wall_height = screen_height; // Wall extends the whole vertical line when directly facing
 
@@ -67,7 +68,7 @@ void	draw_wall(game_t *game)
 				line_height = screen_height; // Ensure it doesn't exceed the screen height
 			 // Centering the wall slice vertically = offset that is same above the wall and below it
 			double line_offset = (screen_height / 2) - (line_height / 2);
-			int ray_x_position = WINDOW_WIDTH - r;
+			int ray_x_position = WINDOW_WIDTH - r - 1;
 			//////////////////////////////////////////////////////////////////////
 			// Textures
 			mlx_texture_t  *wall;
@@ -100,13 +101,13 @@ void	draw_wall(game_t *game)
 			// End of textures
 			//////////////////////////////////////////////////////////////////////
 			// floor
-			//draw_line(game_planes->game_plane, ray_x_position, WINDOW_HEIGHT, ray_x_position, WINDOW_HEIGHT - round(line_offset), FLOOR);
+			draw_line(game_planes->game_plane, ray_x_position, WINDOW_HEIGHT - 1, ray_x_position, WINDOW_HEIGHT - 1 - round(line_offset), FLOOR);
 			// wall
 			//draw_line(game_planes->game_plane, ray_x_position, line_offset, ray_x_position, round (line_offset + line_height), WALL);
 			// ceiling
-			//draw_line(game_planes->game_plane, ray_x_position, 0, ray_x_position, round(line_offset), CEILING);
+			draw_line(game_planes->game_plane, ray_x_position, 0, ray_x_position, round(line_offset), CEILING);
 		}
-		game->player.player_angle = pa;
+		game->player->player_angle = pa;
 }
 
 
