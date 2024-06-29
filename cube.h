@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:46:56 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/29 15:19:47 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/29 16:01:16 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,7 +215,7 @@ bool no_wall(game_t *game, double step_x, double step_y);
 
 // Function structs
 
-//
+// Draw ray
 typedef struct s_draw_ray
 {
 	planes_t	*game_planes;
@@ -228,5 +228,34 @@ typedef struct s_draw_ray
 	int			r;
 
 }	t_draw_ray;
+
+// Draw Wall
+typedef struct s_draw_wall
+{
+	point_t		*hrc;
+	point_t		*vrc;
+	planes_t	*game_planes;
+	double		corrected_distance;
+	double		h_distance;
+	double		v_distance;
+	double		fov;
+	double		pa;
+	double		angle_increment;
+	int			screen_height;
+	int			screen_width;
+	double		max_wall_height;
+	double		line_height;
+	double 		old_line_height;
+	double 		line_offset;
+	int			ray_x_position;
+	mlx_texture_t	*wall;
+	double		texture_x;
+	int			texture_x_index;
+	int			texture_y_index;
+	double		texture_y_ratio;
+	unsigned int	color;
+	int	ray;
+	int	pixel;
+}	t_draw_wall;
 
 #endif
