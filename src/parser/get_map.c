@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 10:31:44 by mbartos           #+#    #+#             */
-/*   Updated: 2024/06/29 15:49:22 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/06/29 15:55:03 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,29 +118,16 @@ char	**seperate_map(char **file_content)
 	return (map);
 }
 
-void	delete_last_empty_lines(char **file_content)
-{
-	int		last_line;
-
-	last_line = ft_len_of_arr(file_content) - 1;
-	while (last_line > 0)
-	{
-		if (!is_empty_line(file_content[last_line]))
-			break ;
-		free(file_content[last_line]);
-		file_content[last_line] = NULL;
-		last_line--;
-	}
-}
-
 void	fill_map_struct(map_t *map, char *str)
 {
-	char	**map_flooded;
+	char		**map_flooded;
+	player_t	*player;
 
+	player = map->player;
 	check_suffix(str);
 	ft_putstr_fd("---- RUNNING CONFIG_FILE CHECK ----\n", 1);
 	map->temp_file_arr = get_file_array(str);
-	delete_last_empty_lines(map->temp_file_arr);
+	delete_last_empty_lines_in_arr(map->temp_file_arr);
 	map->map = seperate_map(map->temp_file_arr);
 	get_textures(map, map->temp_file_arr);
 	check_textures(map);
@@ -152,13 +139,13 @@ void	fill_map_struct(map_t *map, char *str)
 	check_start_possitions(map->map);
 	get_player_pos(map);
 	map_flooded = ft_arrdup(map->map);
-	map_flood_fill(map_flooded, map->player->coordinates.y, map->player->coordinates.x);
+	map_flood_fill(map_flooded, player->coordinates.y, player->coordinates.x);
 	ft_free_array(map_flooded);
 	ft_putstr_fd("Map found and valid!\n", 1);
 	ft_putstr_fd("---- CONFIG_FILE CHECK DONE - OK ----\n", 1);
 	replace_start_pos_in_map(map->map);
-	map->player->coordinates.x = map->player->coordinates.x * SQUARE_SIZE + SQUARE_SIZE / 2;
-	map->player->coordinates.y = map->player->coordinates.y * SQUARE_SIZE + SQUARE_SIZE / 2;
+	player->coordinates.x = SQUARE_SIZE * (player->coordinates.x + 0.5);
+	player->coordinates.y = SQUARE_SIZE * (player->coordinates.y + 0.5);
 	map->width = max_line_width(map->map);
 	map->height = ft_len_of_arr(map->map);
 }

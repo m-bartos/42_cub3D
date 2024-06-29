@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   line_utils.c                                       :+:      :+:    :+:   */
+/*   array_and_line_utils.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 14:33:34 by mbartos           #+#    #+#             */
-/*   Updated: 2024/06/29 15:03:47 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/06/29 15:55:08 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,4 +73,19 @@ char	*delete_extra_spaces(char *str)
 		i++;
 	}
 	return (str);
+}
+
+void	delete_last_empty_lines_in_arr(char **file_content)
+{
+	int		last_line;
+
+	last_line = ft_len_of_arr(file_content) - 1;
+	while (last_line > 0)
+	{
+		if (!is_empty_line(file_content[last_line]))
+			break ;
+		free(file_content[last_line]);
+		file_content[last_line] = NULL;
+		last_line--;
+	}
 }

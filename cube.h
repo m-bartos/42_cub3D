@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:46:56 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/29 15:20:26 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/06/29 15:55:26 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,6 +179,7 @@ mlx_texture_t	*get_texture(game_t *game, double h_distance, double v_distance);
 void	clean_map(map_t *map);
 void	init_map(map_t *map);
 int		max_line_width(char **map_array);
+void	delete_last_empty_lines_in_arr(char **file_content);
 void	check_suffix(char *str);
 char	**add_borders_fill_spaces(char **map_array);
 char	**load_file_to_array(int fd);
