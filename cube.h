@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: orezek <orezek@student.42prague.com>       +#+  +:+       +#+        */
+/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:46:56 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/29 13:19:12 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/29 14:28:28 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,11 +180,7 @@ void	clean_map(map_t *map);
 void	init_map(map_t *map);
 int		max_line_width(char **map_array);
 void	check_suffix(char *str);
-char	**add_first_row(char **map_array);
-char	**add_last_row(char **map_array);
-char	**add_vertical_borders(char **map_array);
-char	**add_borders(char **map_array);
-void	fill_spaces(char **map_array);
+char	**add_borders_fill_spaces(char **map_array);
 char	**get_file_array(int fd);
 char	**file_to_array(char *map_name);
 char	**ft_arrdup(char **arr);

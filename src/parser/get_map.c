@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 10:31:44 by mbartos           #+#    #+#             */
-/*   Updated: 2024/06/29 12:29:45 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/06/29 14:28:27 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,109 +47,6 @@ int	max_line_width(char **map_array)
 		i++;
 	}
 	return (max_length);
-}
-
-char	**add_first_row(char **map_array)
-{
-	int		longest_line;
-	int		i;
-	char	*first_line;
-	char	**old_map_array;
-
-	longest_line = max_line_width(map_array);
-	first_line = (char *) malloc(sizeof(char) * (longest_line + 1));
-	if (first_line == NULL)
-		exit(1);
-	first_line[longest_line] = 0;
-	ft_memset(first_line, M_OUT, longest_line);
-	old_map_array = map_array;
-	map_array = ft_init_array(ft_len_of_arr(map_array) + 1);
-	map_array[0] = first_line;
-	i = 0;
-	while (old_map_array[i])
-	{
-		map_array[i + 1] = old_map_array[i];
-		i++;
-	}
-	free(old_map_array);
-	return (map_array);
-}
-
-char	**add_last_row(char **map_array)
-{
-	int		longest_line;
-	int		i;
-	char	*last_line;
-	char	**old_map_array;
-
-	longest_line = max_line_width(map_array);
-	last_line = (char *) malloc(sizeof(char) * (longest_line + 1));
-	if (last_line == NULL)
-		exit(1);
-	last_line[longest_line] = 0;
-	ft_memset(last_line, M_OUT, longest_line);
-	old_map_array = map_array;
-	map_array = ft_init_array(ft_len_of_arr(map_array) + 1);
-	i = 0;
-	while (old_map_array[i])
-	{
-		map_array[i] = old_map_array[i];
-		i++;
-	}
-	map_array[i] = last_line;
-	free(old_map_array);
-	return (map_array);
-}
-
-char	**add_vertical_borders(char **map_array)
-{
-	char	*old_line;
-	int		i;
-
-	i = 0;
-	while (map_array[i])
-	{
-		old_line = map_array[i];
-		map_array[i] = ft_strjoin_e(old_line, "9");
-		free(old_line);
-		old_line = map_array[i];
-		map_array[i] = ft_strjoin_e("9", old_line);
-		free(old_line);
-
-		i++;
-	}
-	return (map_array);
-}
-
-char	**add_borders(char **map_array)
-{
-	if (map_array == NULL)
-		return (NULL);
-	map_array = add_first_row(map_array);
-	map_array = add_last_row(map_array);
-	map_array = add_vertical_borders(map_array);
-	return (map_array);
-}
-
-void	fill_spaces(char **map_array)
-{
-	int	i;
-	int	j;
-
-	if (map_array == NULL)
-		return ;
-	i = 0;
-	while (map_array[i])
-	{
-		j = 0;
-		while (map_array[i][j])
-		{
-			if (map_array[i][j] == ' ')
-				map_array[i][j] = '9';
-			j++;
-		}
-		i++;
-	}
 }
 
 char	**get_file_array(int fd)
@@ -544,7 +441,7 @@ void	check_colors(map_t *map)
 	}
 }
 
-void	replace_start_pos(char **map)
+void	replace_start_pos_in_map(char **map)
 {
 	int	i;
 	size_t	j;
@@ -597,17 +494,10 @@ void	fill_map_struct(map_t *map, char *str)
 	// Error overwrites the map array with some old map
 	ft_print_array(map->map);
 	ft_putstr_fd("\n\n", 1);
-	map->map = add_borders(map->map);
+	map->map = add_borders_fill_spaces(map->map);
 	ft_print_array(map->map);
 	ft_putstr_fd("\n\n", 1);
-	// printf("STRING: %s\n", map->map[0]);
-	// printf("STRING: %s\n", map->map[1]);
-	// printf("STRING: %s\n", map->map[2]);
-	// printf("STRING: %s\n", map->map[3]);
-	// printf("STRING: %s\n", map->map[4]);
-	fill_spaces(map->map);
-	ft_print_array(map->map);
-	ft_putstr_fd("\n\n", 1);
+
 	check_start_possitions(map->map);
 	// check only one start possition
 	get_player_pos(map);
@@ -624,66 +514,12 @@ void	fill_map_struct(map_t *map, char *str)
 	ft_putstr_fd("---MAP_CHECK_OK----\n", 1);
 	ft_putstr_fd("-------------------\n\n", 1);
 
-	replace_start_pos(map->map);
-	map->player->coordinates.x = map->player->coordinates.x * SQUARE_SIZE + SQUARE_SIZE/2;
-	map->player->coordinates.y = map->player->coordinates.y * SQUARE_SIZE + SQUARE_SIZE/2;
+	replace_start_pos_in_map(map->map);
+	map->player->coordinates.x = map->player->coordinates.x * SQUARE_SIZE + SQUARE_SIZE / 2;
+	map->player->coordinates.y = map->player->coordinates.y * SQUARE_SIZE + SQUARE_SIZE / 2;
 	map->width = max_line_width(map->map);
 	map->height = ft_len_of_arr(map->map);
-	printf("W:%d, H:%d\n", map->width, map->height);
-	printf("Player angle:%f\n", map->player->player_angle);
+	// printf("W:%d, H:%d\n", map->width, map->height);
+	// printf("Player angle:%f\n", map->player->player_angle);
 }
 
-void	init_map(map_t *map)
-{
-	map->ceiling_color = 0;
-	map->floor_color = 0;
-	map->height = 0;
-	map->width = 0;
-	map->temp_file_arr = NULL;
-	map->map = NULL;
-	map->player = malloc(sizeof(player_t));
-	if (map->player == NULL)
-		exit(2);
-	map->player->fov = 60.0;
-	map->player->coordinates.x = 0;
-	map->player->coordinates.y = 0;
-	map->player->player_angle = 0;
-	map->textures = malloc(sizeof(textures_t));
-	if (map->textures == NULL)
-		exit(2);
-	map->textures->t_angle_0 = NULL;
-	map->textures->t_angle_90 = NULL;
-	map->textures->t_angle_180 = NULL;
-	map->textures->t_angle_270 = NULL;
-	map->square_size = SQUARE_SIZE;
-	clean_map(map);
-}
-
-void	free_map(map_t *map)
-{
-	ft_free_array(map->map);
-	ft_free_array(map->temp_file_arr);
-	free(map->player);
-	if (map->textures->t_angle_0)
-		mlx_delete_texture(map->textures->t_angle_0);
-	if (map->textures->t_angle_90)
-	mlx_delete_texture(map->textures->t_angle_90);
-	if (map->textures->t_angle_180)
-		mlx_delete_texture(map->textures->t_angle_180);
-	if (map->textures->t_angle_270)
-		mlx_delete_texture(map->textures->t_angle_270);
-	free(map->textures);
-	// free(map);
-}
-
-void	clean_map(map_t *map)
-{
-	static map_t	*static_map;
-
-	if (map != NULL)
-	{
-		static_map = map;
-		return ;
-	}
-	free_map(static_map);
-}
