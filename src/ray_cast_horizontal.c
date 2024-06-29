@@ -3,17 +3,62 @@
 /*                                                        :::      ::::::::   */
 /*   ray_cast_horizontal.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
+/*   By: orezek <orezek@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 12:14:09 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/29 17:02:37 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/06/29 19:01:17 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../cube.h"
 
+typedef struct s_hrc
+{
+	point_t *hor_ray;
+	int		map_x;
+	int		map_y;
+	int		map_max_size;
+	double	pa;
+	double	px;
+	double	py;
+	char	**map;
+	int		mx;
+	int		my;
+	int		dof;
+	double	rx;
+	double	ry;
+	double	ra;
+	double	xo;
+	double	yo;
+	double	a_tan;
+}	t_hrc;
+
+void	init_hrc(game_t *game, t_hrc *h)
+{
+	h->hor_ray = malloc(sizeof(point_t));
+	if (!h->hor_ray)
+		exit(1);
+	h->map_x = game->map->width;
+	h->map_y = game->map->height;
+	if (h->map_x < h->map_y)
+		h->map_max_size = h->map_y;
+	else
+		h->map_max_size = h->map_x;
+	h->pa = game->player->angle;
+	h->px = game->player->coordinates.x;
+	h->py = game->player->coordinates.y;
+	h->map = game->map->map;
+	h->ra = deg_to_rad(h->pa);
+	h->a_tan = 1.0 / tan(h->ra);
+}
+
+
 point_t	*get_horizontal_ray_coordinates(game_t *game)
 {
+	t_hrc	h;
+	h = (t_hrc){0};
+	init_hrc(game, &h);
+
 	point_t *hor_ray;
 	hor_ray = malloc(sizeof(point_t));
 	if (!hor_ray)
@@ -35,9 +80,6 @@ point_t	*get_horizontal_ray_coordinates(game_t *game)
 
 	mx = 0; my = 0; dof = 0;
 	rx = 0; ry = 0; ra = 0; xo = 0; yo = 0;
-	// ray angle = player angle
-	ra = deg_to_rad(pa);
-
 
 // Horizontal lines
 // no of lines
