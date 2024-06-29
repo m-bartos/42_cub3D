@@ -6,13 +6,13 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 10:31:44 by mbartos           #+#    #+#             */
-/*   Updated: 2024/06/29 15:12:49 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/06/29 15:17:37 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../cube.h"
 
-char	**get_file_array(int fd)
+char	**load_file_to_array(int fd)
 {
 	char	**map_array;
 	char	*one_line;
@@ -40,7 +40,7 @@ char	**get_file_array(int fd)
 	return (map_array);
 }
 
-char	**file_to_array(char *map_name)
+char	**get_file_array(char *map_name)
 {
 	int		fd;
 	char	**map_array;
@@ -54,7 +54,7 @@ char	**file_to_array(char *map_name)
 	}
 	else
 		ft_putstr_fd("Config file found!\n", 1);
-	map_array = get_file_array(fd);
+	map_array = load_file_to_array(fd);
 	if (map_array == NULL)
 	{
 		ft_putstr_fd("Error: Config file empty\n", 2);
@@ -62,40 +62,6 @@ char	**file_to_array(char *map_name)
 		exit(2);
 	}
 	return (map_array);
-}
-
-void	get_player_pos(map_t *map)
-{
-	char	**map_array;
-	size_t	y;
-	size_t	x;
-
-	map_array = map->map;
-	y = 0;
-	while (map_array[y])
-	{
-		x = 0;
-		while (map_array[y][x])
-		{
-			if (map_array[y][x] == 'N' || map_array[y][x] == 'S'
-				|| map_array[y][x] == 'E' || map_array[y][x] == 'W')
-			{
-				map->player->coordinates.x = x;
-				map->player->coordinates.y = y;
-				if (map_array[y][x] == 'N')
-					map->player->player_angle = NORTH_D;
-				if (map_array[y][x] == 'S')
-					map->player->player_angle = SOUTH_D;
-				if (map_array[y][x] == 'E')
-					map->player->player_angle = EAST_D;
-				if (map_array[y][x] == 'W')
-					map->player->player_angle = WEST_D;
-				return ;
-			}
-			x++;
-		}
-		y++;
-	}
 }
 
 void	map_flood_fill(char **map_array, size_t y, size_t x)
@@ -162,38 +128,13 @@ char	**seperate_map(char **file_content)
 	return (map);
 }
 
-void	replace_start_pos_in_map(char **map)
-{
-	int		i;
-	size_t	j;
-
-	i = 0;
-	while(map[i])
-	{
-		j = 0;
-		while (j < ft_strlen(map[i]))
-		{
-			if (map[i][j] == 'E')
-				map[i][j] = '0';
-			if (map[i][j] == 'W')
-				map[i][j] = '0';
-			if (map[i][j] == 'S')
-				map[i][j] = '0';
-			if (map[i][j] == 'N')
-				map[i][j] = '0';
-			j++;
-		}
-		i++;
-	}
-}
-
 void	fill_map_struct(map_t *map, char *str)
 {
 	char	**map_flooded;
 
 	check_suffix(str);
 	ft_putstr_fd("---- RUNNING CONFIG_FILE CHECK ----\n", 1);
-	map->temp_file_arr = file_to_array(str);
+	map->temp_file_arr = get_file_array(str);
 	map->map = seperate_map(map->temp_file_arr);
 	get_textures(map, map->temp_file_arr);
 	check_textures(map);

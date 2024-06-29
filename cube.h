@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:46:56 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/29 14:28:28 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/06/29 15:17:37 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,8 +181,8 @@ void	init_map(map_t *map);
 int		max_line_width(char **map_array);
 void	check_suffix(char *str);
 char	**add_borders_fill_spaces(char **map_array);
-char	**get_file_array(int fd);
-char	**file_to_array(char *map_name);
+char	**load_file_to_array(int fd);
+char	**get_file_array(char *map_name);
 char	**ft_arrdup(char **arr);
 void	get_player_pos(map_t *map);
 void	map_flood_fill(char **map_array, size_t y, size_t x);
