@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:46:56 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/28 22:57:03 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/06/29 12:28:37 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@
 # define M_DOOR '4'
 
 // Cardinal directions within Unit circle
-# define EAST_D 90.0
-# define WEST_D 270.0
+# define EAST_D 270.0
+# define WEST_D 90.0
 # define NORTH_D 0.0
 # define SOUTH_D 180.0
 

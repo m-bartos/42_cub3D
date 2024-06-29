@@ -1,19 +1,22 @@
- EA ./textures/west.png
+ EA ./textures/east4.png
 
-WE    ./textures/west.png
+WE    ./textures/west4.png
 
-          SA                 ./textures/west.png
 
-F   2 , 55,     0
+F   0 , 255,     0
 
-SO ./textures/west.png
-C 0,0,0
-NO ./textures/west.png
+SO ./textures/south4.png
+C 0,0,255
+NO ./textures/north4.png
 
 11111111111
+1000010000111
+1000010000111
+1000010000111
+1000010000111
 10000000001
-10000100001
-10000000001
-10000100001
-10000000001
-11111111111
+1000010000111
+1000000S000001
+1000010000111
+10011100001
+1111  11111
