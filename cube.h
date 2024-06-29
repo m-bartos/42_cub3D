@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
+/*   By: orezek <orezek@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:46:56 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/29 17:02:37 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/06/29 17:26:22 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -255,5 +255,17 @@ typedef struct s_draw_wall
 	int	ray;
 	int	pixel;
 }	t_draw_wall;
+
+// Draw_map
+typedef struct s_draw_map
+{
+	char	**arr;
+	int		s_size;
+	int		y_map_size;
+	int		x_map_size;
+	int		x;
+	int		y;
+}	t_draw_map;
+
 
 #endif
