@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 15:15:57 by mbartos           #+#    #+#             */
-/*   Updated: 2024/06/29 17:23:54 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/06/29 17:38:36 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,5 +77,5 @@ void	replace_start_pos_in_map(char **map)
 		}
 		i++;
 	}
-	ft_putstr_fd("---- CONFIG_FILE CHECK DONE - OK ----\n", 1);
+	ft_putstr_fd("Map found and OK!\n", 1);
 }
