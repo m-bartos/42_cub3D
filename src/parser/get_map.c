@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 10:31:44 by mbartos           #+#    #+#             */
-/*   Updated: 2024/06/29 15:23:56 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/06/29 15:39:02 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,22 +101,18 @@ char	**seperate_map(char **file_content)
 	char	**map;
 
 	last_line = ft_len_of_arr(file_content) - 1;
-	while (last_line > 0)
-	{
-		if (!is_empty_line(file_content[last_line]))
-			break ;
-		last_line--;
-	}
 	first_line = last_line - 1;
 	if (first_line < 0)
 		first_line = 0;
 	while (first_line > 0)
 	{
 		if (is_empty_line(file_content[first_line]))
+		{
+			first_line++;
 			break ;
+		}
 		first_line--;
 	}
-	first_line++;
 	map = ft_init_array(last_line - first_line + 1);
 	i = 0;
 	while (first_line + i <= last_line)
@@ -128,6 +124,21 @@ char	**seperate_map(char **file_content)
 	return (map);
 }
 
+void	delete_last_empty_lines(char	**file_content)
+{
+	int		last_line;
+
+	last_line = ft_len_of_arr(file_content) - 1;
+	while (last_line > 0)
+	{
+		if (!is_empty_line(file_content[last_line]))
+			break ;
+		free(file_content[last_line]);
+		file_content[last_line] = NULL;
+		last_line--;
+	}
+}
+
 void	fill_map_struct(map_t *map, char *str)
 {
 	char	**map_flooded;
@@ -135,6 +146,7 @@ void	fill_map_struct(map_t *map, char *str)
 	check_suffix(str);
 	ft_putstr_fd("---- RUNNING CONFIG_FILE CHECK ----\n", 1);
 	map->temp_file_arr = get_file_array(str);
+	delete_last_empty_lines(map->temp_file_arr);
 	map->map = seperate_map(map->temp_file_arr);
 	get_textures(map, map->temp_file_arr);
 	check_textures(map);
