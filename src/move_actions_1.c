@@ -6,12 +6,11 @@
 /*   By: orezek <orezek@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 18:25:30 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/29 18:27:27 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/29 18:38:59 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cube.h"
-
 
 void	step_right(t_move_player *p)
 {
@@ -52,4 +51,3 @@ void	move_backward(t_move_player *p)
 		p->player->coordinates.y += p->pdy * KEY_PRESS;
 	}
 }
-
