@@ -6,11 +6,13 @@
 /*   By: orezek <orezek@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 17:44:30 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/29 15:08:20 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/29 15:22:00 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../cube.h"
+
+
 
 typedef struct s_draw_wall
 {
@@ -40,6 +42,24 @@ typedef struct s_draw_wall
 	int y;
 }	t_draw_wall;
 
+void	draw_vertical_lines(game_t *game, t_draw_wall *w)
+{
+	// floor
+	draw_line(w->game_planes->game_plane,
+		w->ray_x_position, WINDOW_HEIGHT - 1,
+		w->ray_x_position, WINDOW_HEIGHT - 1 - round(w->line_offset),
+		game->game_map->floor_color);
+	// wall
+	if (NO_TEXTURES)
+		draw_line(w->game_planes->game_plane,
+		w->ray_x_position, w->line_offset,
+		w->ray_x_position, round (w->line_offset + w->line_height), WALL);
+	// ceiling
+	draw_line(w->game_planes->game_plane,
+		w->ray_x_position, 0, w->ray_x_position,
+		round(w->line_offset),
+		game->game_map->ceiling_color);
+}
 
 
 
@@ -113,24 +133,7 @@ void	draw_wall(game_t *game)
 				mlx_put_pixel(w.game_planes->game_plane, w.ray_x_position, (int)(w.line_offset + y), w.color);
 			}
 			// End of textures
-			//////////////////////////////////////////////////////////////////////
-			// floor
-			draw_line(w.game_planes->game_plane, w.ray_x_position, WINDOW_HEIGHT - 1, w.ray_x_position, WINDOW_HEIGHT - 1 - round(w.line_offset), game->game_map->floor_color);
-			// wall
-			//draw_line(game_planes->game_plane, ray_x_position, line_offset, ray_x_position, round (line_offset + line_height), WALL);
-			// ceiling
-			draw_line(w.game_planes->game_plane, w.ray_x_position, 0, w.ray_x_position, round(w.line_offset), game->game_map->ceiling_color);
+			draw_vertical_lines(game, &w);
 		}
 		game->player->player_angle = w.pa;
 }
-
-
-/*
-	Get the texture that was hit with the ray, only 4 textures are available, for each cardinal direction.
-	Done
-	On the texture get the exact spot where it was hit and extract the vertical values from the texture
-	Not done
-	The vertical line height is already calculcated so add the values to it and draw it.
-	This does not seeem right.
-
-*/

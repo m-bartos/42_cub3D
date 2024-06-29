@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:46:56 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/29 13:19:12 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/29 15:19:47 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # define WINDOW_HEIGHT 800
 // Will be determined at load time (based on map size)
 # define SQUARE_SIZE 64
+# define NO_TEXTURES false
 
 // Define the pixel change when key is pressed
 # define KEY_PRESS 5
