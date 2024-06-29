@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:46:56 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/29 19:25:48 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/29 20:33:55 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -233,6 +233,27 @@ typedef struct s_hrc
 	double	yo;
 	double	a_tan;
 }	t_hrc;
+
+typedef struct s_vrc
+{
+	point_t *ver_ray;
+	int		map_x;
+	int		map_y;
+	int		map_max_size;
+	double	pa;
+	double	px;
+	double	py;
+	char	**map;
+	int		mx;
+	int		my;
+	int		dof;
+	double	rx;
+	double	ry;
+	double	ra;
+	double	xo;
+	double	yo;
+	double	n_tan;
+}	t_vrc;
 
 // MLX42 Drawing functions
 
