@@ -1,0 +1,22 @@
+EA ./textures/east.png
+WE ./textures/west.png
+SO ./textures/south.png
+NO ./textures/north.png
+
+NOS ./test
+E ./lsdsdasdfasf
+EAE ./amardasdfasf
+F 220,100,0
+C 225,30,0
+lorem ipsum
+ 
+11111111111
+1N000000001
+10000000001 
+10000000001 
+10000000001
+10000000001
+10000000001  
+10000000001
+10000000001
+11111111111  
