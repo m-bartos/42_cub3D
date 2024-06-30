@@ -6,11 +6,12 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:46:56 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/30 15:53:20 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/06/30 15:57:53 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUBE
+#ifndef CUBE_H
+# define CUBE_H
 
 # include "./MLX42/include/MLX42/MLX42.h"
 # include "./42_Libft/libft.h"
@@ -44,7 +45,6 @@
 # define R_BACKGROUND get_rgba(0, 0, 0, 255)
 # define MINI_WALL get_rgba(255, 0, 0, 255)
 # define MINI_FLOOR get_rgba(255, 255, 255, 255)
-
 
 // Map Constants
 # define M_WALL '1'
@@ -85,17 +85,17 @@ typedef struct s_player
 typedef struct s_planes
 {
 	// minimap
-	mlx_image_t *mini_plane;
+	mlx_image_t	*mini_plane;
 	// 3D render
-	mlx_image_t *game_plane;
+	mlx_image_t	*game_plane;
 }	t_planes;
 
 typedef struct s_textures
 {
-	mlx_texture_t *angle_0;
-	mlx_texture_t *angle_90;
-	mlx_texture_t *angle_180;
-	mlx_texture_t *angle_270;
+	mlx_texture_t	*angle_0;
+	mlx_texture_t	*angle_90;
+	mlx_texture_t	*angle_180;
+	mlx_texture_t	*angle_270;
 }	textures_t;
 
 typedef struct s_map
