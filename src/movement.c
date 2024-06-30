@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:59:53 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/30 16:21:48 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/30 17:18:55 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,12 @@
 
 static void	init_move_player(t_move_player *p, void *param)
 {
+	*p = (t_move_player){0};
 	p->game = (t_game *)param;
 	p->player = p->game->player;
 	p->pdx = cos(deg_to_rad(p->player->angle));
 	p->pdy = sin(deg_to_rad(p->player->angle));
+	printf("Player Angle: %f\n", p->game->player->angle);
 }
 
 static void	clean_init_or_prev_screen(t_move_player *p)
@@ -52,7 +54,6 @@ void	move_player(mlx_key_data_t key, void *param)
 {
 	t_move_player	p;
 
-	p = (t_move_player){0};
 	init_move_player(&p, param);
 	clean_init_or_prev_screen(&p);
 	if ((key.action == MLX_PRESS || key.action == MLX_REPEAT)
@@ -75,6 +76,5 @@ void	move_player(mlx_key_data_t key, void *param)
 		turn_right(&p);
 	else if (key.action == MLX_PRESS && key.key == MLX_KEY_ESCAPE)
 		pres_esc(&p);
-	printf("Player Angle: %f\n", p.player->angle);
 	draw_wall(p.game);
 }
