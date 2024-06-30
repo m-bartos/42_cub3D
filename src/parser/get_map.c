@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_map.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: orezek <orezek@student.42prague.com>       +#+  +:+       +#+        */
+/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 10:31:44 by mbartos           #+#    #+#             */
-/*   Updated: 2024/06/30 14:21:06 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/29 15:55:03 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,10 +118,10 @@ char	**seperate_map(char **file_content)
 	return (map);
 }
 
-void	fill_map_struct(t_map *map, char *str)
+void	fill_map_struct(map_t *map, char *str)
 {
 	char		**map_flooded;
-	t_player	*player;
+	player_t	*player;
 
 	player = map->player;
 	check_suffix(str);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: orezek <orezek@student.42prague.com>       +#+  +:+       +#+        */
+/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:44:52 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/30 14:21:27 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/29 17:02:37 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char *static_map = 	"111111111111111111\n"
 
 int	main(int argc, char **argv)
 {
-	t_map 		map;
+	map_t 		map;
 
 	error_argc(argc);
 	init_map(&map);
@@ -66,7 +66,7 @@ int	main(int argc, char **argv)
 	mlx_image_to_window(mlx, game_img, 0, 0);
 
 	// Add the image to planes struct and initialize background color
-	t_planes planes;
+	planes_t planes;
 	planes.game_plane = game_img;
 	set_img_background(game_img, R_BACKGROUND);
 
@@ -81,9 +81,9 @@ int	main(int argc, char **argv)
 	// north = mlx_load_png(NORTH);
 	// south = mlx_load_png(SOUTH);
 	// Init the game
-	t_game game;
-	// t_textures txts;
-	game = (t_game){0};
+	game_t game;
+	// textures_t txts;
+	game = (game_t){0};
 	// load_map(static_map, &game);
 	// exit(77);
 	game.player = map.player;

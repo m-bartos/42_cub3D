@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:59:53 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/30 14:21:27 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/29 18:37:43 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	init_move_player(t_move_player *p, void *param)
 {
-	p->game = (t_game *)param;
+	p->game = (game_t *)param;
 	p->player = p->game->player;
 	p->pdx = cos(deg_to_rad(p->player->angle));
 	p->pdy = sin(deg_to_rad(p->player->angle));
@@ -25,11 +25,11 @@ static void	clean_init_or_prev_screen(t_move_player *p)
 	set_img_background(p->game->planes->game_plane, R_BACKGROUND);
 }
 
-bool	no_wall(t_game *game, double step_x, double step_y)
+bool	no_wall(game_t *game, double step_x, double step_y)
 {
-	t_player	*player;
-	t_point		new_xy;
-	t_point		map_xy;
+	player_t	*player;
+	point_t		new_xy;
+	point_t		map_xy;
 
 	player = game->player;
 	new_xy.x = player->coordinates.x + step_x;

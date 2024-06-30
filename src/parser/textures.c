@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   textures.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: orezek <orezek@student.42prague.com>       +#+  +:+       +#+        */
+/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 14:31:09 by mbartos           #+#    #+#             */
-/*   Updated: 2024/06/30 14:21:06 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/29 17:01:56 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ mlx_texture_t	*load_png_from_path(char *path)
 	return (texture);
 }
 
-void	get_textures(t_map *map, char **file_arr)
+void	get_textures(map_t *map, char **file_arr)
 {
 	int		i;
 	char	*temp_line;
@@ -52,7 +52,7 @@ void	get_textures(t_map *map, char **file_arr)
 	}
 }
 
-void	check_textures(t_map *map)
+void	check_textures(map_t *map)
 {
 	if (map->txts->angle_0 == NULL
 		|| map->txts->angle_90 == NULL
