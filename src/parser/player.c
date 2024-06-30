@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   player.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
+/*   By: orezek <orezek@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 15:15:57 by mbartos           #+#    #+#             */
-/*   Updated: 2024/06/29 16:55:15 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/06/30 14:21:06 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../cube.h"
 
-void	get_player_pos(map_t *map)
+void	get_player_pos(t_map *map)
 {
 	char	**map_array;
 	size_t	y;

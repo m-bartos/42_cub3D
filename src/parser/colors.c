@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   colors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
+/*   By: orezek <orezek@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 14:31:45 by mbartos           #+#    #+#             */
-/*   Updated: 2024/06/29 15:13:56 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/06/30 14:21:06 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	get_color_from_str(char *str)
 	return (final_color);
 }
 
-void	get_colors(map_t *map, char **file_arr)
+void	get_colors(t_map *map, char **file_arr)
 {
 	int	i;
 
@@ -80,7 +80,7 @@ void	get_colors(map_t *map, char **file_arr)
 	}
 }
 
-void	check_colors(map_t *map)
+void	check_colors(t_map *map)
 {
 	if (map->ceiling_color == 0 || map->floor_color == 0)
 	{

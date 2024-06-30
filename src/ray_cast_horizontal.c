@@ -3,84 +3,85 @@
 /*                                                        :::      ::::::::   */
 /*   ray_cast_horizontal.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
+/*   By: orezek <orezek@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 12:14:09 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/29 17:02:37 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/06/30 14:21:27 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../cube.h"
+#include "../cube.h"
 
-point_t	*get_horizontal_ray_coordinates(game_t *game)
+static void	init_hrc(t_game *game, t_hrc *h)
 {
-	point_t *hor_ray;
-	hor_ray = malloc(sizeof(point_t));
-	if (!hor_ray)
-		return (NULL);
-	int map_x = game->map->width;
-	int map_y = game->map->height;
-	int map_max_size;
-	if (map_x < map_y)
-		map_max_size = map_y;
+	h->hor_ray = malloc(sizeof(t_point));
+	if (!h->hor_ray)
+		exit(1);
+	h->map_x = game->map->width;
+	h->map_y = game->map->height;
+	if (h->map_x < h->map_y)
+		h->map_max_size = h->map_y;
 	else
-		map_max_size = map_x;
-	double pa = game->player->angle;
-	double px = game->player->coordinates.x;
-	double py = game->player->coordinates.y;
-	char **map = game->map->map;
+		h->map_max_size = h->map_x;
+	h->pa = game->player->angle;
+	h->px = game->player->coordinates.x;
+	h->py = game->player->coordinates.y;
+	h->map = game->map->map;
+	h->ra = deg_to_rad(h->pa);
+	h->a_tan = 1.0 / tan(h->ra);
+}
 
-	int mx, my, dof;
-	double rx, ry, ra, xo, yo;
-
-	mx = 0; my = 0; dof = 0;
-	rx = 0; ry = 0; ra = 0; xo = 0; yo = 0;
-	// ray angle = player angle
-	ra = deg_to_rad(pa);
-
-
-// Horizontal lines
-// no of lines
-	ra = deg_to_rad(pa);
-	dof = 0;
-	float aTan = 1.0 / tan(ra);
-	// look up 0 - 180
-	if (sin(ra) > 0.001)
+static void	get_horizontal_intersection(t_hrc *h)
+{
+	while (h->dof < h->map_max_size)
 	{
-		ry = (floor(py / SQUARE_SIZE) * SQUARE_SIZE) - 0.0001;
-		rx = (py - ry) * aTan + px;
-		yo = -SQUARE_SIZE;
-		xo = -yo * aTan;
-	}
-	// look down 180 - 360
-	else if (sin(ra) < -0.001)
-	{
-		ry = (floor(py / SQUARE_SIZE) * SQUARE_SIZE) + SQUARE_SIZE;
-		rx = (py - ry) * aTan+px;
-		yo = SQUARE_SIZE;
-		xo = -yo * aTan;
-	}
-	// look left or right - exactly horizontal
-	else
-	{
-		rx = INFINITY;
-		ry = INFINITY;
-		dof = map_max_size;
-	}
-	while (dof < map_max_size)
-	{
-		mx = (int) (rx) / SQUARE_SIZE;
-		my = (int) (ry) / SQUARE_SIZE;
-		if (mx >= 0 && mx < map_x && my >= 0 && my < map_y && map[my][mx] == M_WALL)
-			dof = map_max_size;
+		h->mx = (int)(h->rx) / SQUARE_SIZE;
+		h->my = (int)(h->ry) / SQUARE_SIZE;
+		if (h->mx >= 0 && h->mx < h->map_x && h->my >= 0
+			&& h->my < h->map_y && h->map[h->my][h->mx] == M_WALL)
+			h->dof = h->map_max_size;
 		else
 		{
-			rx += xo;
-			ry += yo;
-			dof += 1;
+			h->rx += h->xo;
+			h->ry += h->yo;
+			h->dof += 1;
 		}
 	}
-	hor_ray->x = rx;
-	hor_ray->y = ry;
-	return (hor_ray);
+}
+
+static void	calculate_horizontal_coordiantes(t_hrc *h)
+{
+	if (sin(h->ra) > 0.001)
+	{
+		h->ry = (floor(h->py / SQUARE_SIZE) * SQUARE_SIZE) - 0.0001;
+		h->rx = (h->py - h->ry) * h->a_tan + h->px;
+		h->yo = -SQUARE_SIZE;
+		h->xo = -h->yo * h->a_tan;
+	}
+	else if (sin(h->ra) < -0.001)
+	{
+		h->ry = (floor(h->py / SQUARE_SIZE) * SQUARE_SIZE) + SQUARE_SIZE;
+		h->rx = (h->py - h->ry) * h->a_tan + h->px;
+		h->yo = SQUARE_SIZE;
+		h->xo = -h->yo * h->a_tan;
+	}
+	else
+	{
+		h->rx = INFINITY;
+		h->ry = INFINITY;
+		h->dof = h->map_max_size;
+	}
+}
+
+t_point	*get_horizontal_ray_coordinates(t_game *game)
+{
+	t_hrc	h;
+
+	h = (t_hrc){0};
+	init_hrc(game, &h);
+	calculate_horizontal_coordiantes(&h);
+	get_horizontal_intersection(&h);
+	h.hor_ray->x = h.rx;
+	h.hor_ray->y = h.ry;
+	return (h.hor_ray);
 }

@@ -3,20 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
+/*   By: orezek <orezek@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 23:36:47 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/29 17:02:37 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/06/30 14:21:27 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cube.h"
 
-int	load_map(char *map_str, game_t *game)
+int	load_map(char *map_str, t_game *game)
 {
-	int		x = 0;
-	int		y = 0;
+	int		x;
+	int		y;
 	char	**game_map;
+
+	x = 0;
+	y = 0;
 	game_map = ft_split(map_str, '\n');
 	if (!game_map)
 		return (0);
@@ -33,29 +36,28 @@ int	load_map(char *map_str, game_t *game)
 	return (1);
 }
 
-void	draw_map(mlx_image_t *image, game_t *game)
+void	draw_map(mlx_image_t *image, t_game *game)
 {
-	char	**arr = game->map->map;
-	int		s_size = game->map->square_size;
-	int		y_map_size = game->map->height;
-	int		x_map_size = game->map->width;
-	int		x;
-	int		y;
+	t_draw_map	d;
 
-	y = 0;
-	// draws y axes
-	while (y < y_map_size)
+	d = (t_draw_map){0};
+	d.arr = game->map->map;
+	d.s_size = game->map->square_size;
+	d.y_map_size = game->map->height;
+	d.x_map_size = game->map->width;
+	while (d.y < d.y_map_size)
 	{
-		x = 0;
-		// draws x axes
-		while (x < x_map_size)
+		d.x = 0;
+		while (d.x < d.x_map_size)
 		{
-			if (arr[y][x] == M_WALL)
-				put_square(image, (point_t){.x = x * s_size, .y = y * s_size}, s_size, MINI_WALL);
-			else if (arr[y][x] == M_FLOOR)
-				put_square(image, (point_t){.x = x * s_size, .y = y * s_size}, s_size, MINI_FLOOR);
-			x++;
+			if (d.arr[d.y][d.x] == M_WALL)
+				put_square(image, (t_point){.x = d.x * d.s_size,
+					.y = d.y * d.s_size}, d.s_size, MINI_WALL);
+			else if (d.arr[d.y][d.x] == M_FLOOR)
+				put_square(image, (t_point){.x = d.x * d.s_size,
+					.y = d.y * d.s_size}, d.s_size, MINI_FLOOR);
+			d.x++;
 		}
-		y++;
+		d.y++;
 	}
 }

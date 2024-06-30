@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   draw_player.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
+/*   By: orezek <orezek@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 17:20:32 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/29 16:55:15 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/06/30 14:21:27 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cube.h"
 
-void	draw_player(game_t *game)
+void	draw_player(t_game *game)
 {
-	point_t	start;
-	point_t	end;
+	t_point	start;
+	t_point	end;
 	double	pdx;
 	double	pdy;
 
@@ -27,6 +27,5 @@ void	draw_player(game_t *game)
 	end.y = game->player->coordinates.y;
 	end.x = end.x + pdx * PLAYER_LENGTH;
 	end.y = end.y - pdy * PLAYER_LENGTH;
-	draw_line(game->planes->game_plane,
-		start.x, start.y, end.x, end.y, PLAYER);
+	draw_line(game->planes->game_plane, start, end, PLAYER);
 }

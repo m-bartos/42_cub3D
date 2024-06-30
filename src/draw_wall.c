@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   draw_wall.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
+/*   By: orezek <orezek@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 17:44:30 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/29 17:02:37 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/06/30 14:33:37 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cube.h"
 
-static void	init_draw_wall(game_t *game, t_draw_wall *w)
+static void	init_draw_wall(t_game *game, t_draw_wall *w)
 {
 	*w = (t_draw_wall){0};
 	w->screen_height = game->planes->game_plane->height;
@@ -23,20 +23,25 @@ static void	init_draw_wall(game_t *game, t_draw_wall *w)
 	w->angle_increment = w->fov / w->screen_width;
 }
 
-static void	draw_vertical_lines(game_t *game, t_draw_wall *w)
+static void	draw_vertical_lines(t_game *game, t_draw_wall *w)
 {
-	draw_line(w->planes->game_plane,
-		w->ray_x_position, WINDOW_HEIGHT - 1,
-		w->ray_x_position, WINDOW_HEIGHT - 1 - round(w->line_offset),
-		game->map->floor_color);
+	if (w->line_offset > 0)
+		draw_line(w->planes->game_plane,
+			(t_point){.x = w->ray_x_position, .y = WINDOW_HEIGHT - 1},
+			(t_point){.x = w->ray_x_position, .y
+			= WINDOW_HEIGHT - floor(w->line_offset) - 1},
+			game->map->floor_color);
 	if (NO_TEXTURES)
 		draw_line(w->planes->game_plane,
-			w->ray_x_position, w->line_offset,
-			w->ray_x_position, round (w->line_offset + w->line_height), WALL);
-	draw_line(w->planes->game_plane,
-		w->ray_x_position, 0, w->ray_x_position,
-		round(w->line_offset),
-		game->map->ceiling_color);
+			(t_point){.x = w->ray_x_position,
+			.y = w->line_offset},
+			(t_point){.x = w->ray_x_position, .y
+			= round(w->line_offset + w->line_height)}, WALL);
+	if (w->line_offset > 0)
+		draw_line(w->planes->game_plane,
+			(t_point){.x = w->ray_x_position,
+			.y = 0}, (t_point){.x = w->ray_x_position,
+			.y = round(w->line_offset)}, game->map->ceiling_color);
 }
 
 static void	calculate_line_lenghts(t_draw_wall *w)
@@ -50,7 +55,7 @@ static void	calculate_line_lenghts(t_draw_wall *w)
 	w->ray_x_position = WINDOW_WIDTH - w->ray - 1;
 }
 
-static void	draw_textures(game_t *game, t_draw_wall *w)
+static void	draw_textures(t_game *game, t_draw_wall *w)
 {
 	w->wall = get_texture(game, w->h_distance, w->v_distance);
 	if (w->v_distance < w->h_distance)
@@ -76,7 +81,7 @@ static void	draw_textures(game_t *game, t_draw_wall *w)
 	}
 }
 
-void	draw_wall(game_t *game)
+void	draw_wall(t_game *game)
 {
 	t_draw_wall		w;
 
@@ -100,5 +105,7 @@ void	draw_wall(game_t *game)
 		draw_vertical_lines(game, &w);
 		w.ray++;
 	}
+	free(w.hrc);
+	free(w.vrc);
 	game->player->angle = w.pa;
 }
