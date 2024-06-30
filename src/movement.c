@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:59:53 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/30 17:36:45 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/30 18:24:26 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ bool	no_wall(t_game *game, double step_x, double step_y)
 	map_xy.y = (int)new_xy.y / SQUARE_SIZE;
 	if (map_xy.x >= 0 && map_xy.x < game->map->width
 		&& map_xy.y >= 0 && map_xy.y < game->map->height
-		&& game->map->map[(int)map_xy.y][(int)map_xy.x] != M_WALL)
+		&& game->map->map[(int)map_xy.y][(int)map_xy.x] != M_WALL
+		&& game->map->map[(int)map_xy.y][(int)map_xy.x] != M_OUT)
 	{
 		return (true);
 	}
