@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:46:56 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/29 22:13:49 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/30 11:34:28 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -282,8 +282,8 @@ void	put_square(mlx_image_t *image , point_t location, int32_t size, u_int32_t c
 void	set_img_background(mlx_image_t *image, int32_t color);
 
 // Ray Casting
-point_t *get_vertical_ray_coordinates(game_t *game);
-point_t *get_horizontal_ray_coordinates(game_t *game);
+point_t	*get_vertical_ray_coordinates(game_t *game);
+point_t	*get_horizontal_ray_coordinates(game_t *game);
 double	get_point_distance(game_t *game, point_t *coordinates);
 
 // Game

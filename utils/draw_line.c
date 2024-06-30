@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 15:03:23 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/30 11:29:49 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/30 12:16:41 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ static void	init_draw_line(t_draw_line *d, point_t start, point_t end)
 
 static void	draw_pixels(mlx_image_t *image, t_draw_line *d, uint32_t color)
 {
-
 	while (true)
 	{
 		mlx_put_pixel(image, d->sxi, d->syi, color);
