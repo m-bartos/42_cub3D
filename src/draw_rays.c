@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 15:26:00 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/30 14:21:27 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/30 14:02:42 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,21 @@
 
 // Change planes->minigame to current minigame mlx_imgae
 
-static void	put_rays_to_image(t_game *game, t_draw_ray *d_wall)
+static void	put_rays_to_image(game_t *game, t_draw_ray *d_wall)
 {
 	if (d_wall->v_distance < d_wall->h_distance)
 		draw_line(d_wall->planes->mini_plane,
-			(t_point){.x = game->player->coordinates.x, .y
+			(point_t){.x = game->player->coordinates.x, .y
 			= game->player->coordinates.y},
-			(t_point){.x = d_wall->vrc->x, .y = d_wall->vrc->y}, RAY);
+			(point_t){.x = d_wall->vrc->x, .y = d_wall->vrc->y}, RAY);
 	else
 		draw_line(d_wall->planes->mini_plane,
-			(t_point){.x = game->player->coordinates.x, .y
+			(point_t){.x = game->player->coordinates.x, .y
 			= game->player->coordinates.y},
-			(t_point){.x = d_wall->hrc->x, .y = d_wall->hrc->y}, RAY);
+			(point_t){.x = d_wall->hrc->x, .y = d_wall->hrc->y}, RAY);
 }
 
-void	draw_rays(t_game *game)
+void	draw_rays(game_t *game)
 {
 	t_draw_ray	d_wall;
 

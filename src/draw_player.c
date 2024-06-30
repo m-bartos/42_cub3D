@@ -6,16 +6,16 @@
 /*   By: orezek <orezek@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 17:20:32 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/30 14:21:27 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/30 14:02:42 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cube.h"
 
-void	draw_player(t_game *game)
+void	draw_player(game_t *game)
 {
-	t_point	start;
-	t_point	end;
+	point_t	start;
+	point_t	end;
 	double	pdx;
 	double	pdy;
 

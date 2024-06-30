@@ -6,13 +6,13 @@
 /*   By: orezek <orezek@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 23:36:47 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/30 14:21:27 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/29 17:27:43 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cube.h"
 
-int	load_map(char *map_str, t_game *game)
+int	load_map(char *map_str, game_t *game)
 {
 	int		x;
 	int		y;
@@ -36,7 +36,7 @@ int	load_map(char *map_str, t_game *game)
 	return (1);
 }
 
-void	draw_map(mlx_image_t *image, t_game *game)
+void	draw_map(mlx_image_t *image, game_t *game)
 {
 	t_draw_map	d;
 
@@ -51,10 +51,10 @@ void	draw_map(mlx_image_t *image, t_game *game)
 		while (d.x < d.x_map_size)
 		{
 			if (d.arr[d.y][d.x] == M_WALL)
-				put_square(image, (t_point){.x = d.x * d.s_size,
+				put_square(image, (point_t){.x = d.x * d.s_size,
 					.y = d.y * d.s_size}, d.s_size, MINI_WALL);
 			else if (d.arr[d.y][d.x] == M_FLOOR)
-				put_square(image, (t_point){.x = d.x * d.s_size,
+				put_square(image, (point_t){.x = d.x * d.s_size,
 					.y = d.y * d.s_size}, d.s_size, MINI_FLOOR);
 			d.x++;
 		}
