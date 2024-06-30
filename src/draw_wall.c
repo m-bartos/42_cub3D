@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 17:44:30 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/30 13:24:17 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/30 14:02:42 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,19 +26,19 @@ static void	init_draw_wall(game_t *game, t_draw_wall *w)
 static void	draw_vertical_lines(game_t *game, t_draw_wall *w)
 {
 	if (w->line_offset > 0)
-		draw_line1(w->planes->game_plane,
+		draw_line(w->planes->game_plane,
 			(point_t){.x = w->ray_x_position, .y = WINDOW_HEIGHT - 1},
 			(point_t){.x = w->ray_x_position, .y
 			= WINDOW_HEIGHT - floor(w->line_offset) - 1},
 			game->map->floor_color);
 	if (NO_TEXTURES)
-		draw_line1(w->planes->game_plane,
+		draw_line(w->planes->game_plane,
 			(point_t){.x = w->ray_x_position,
 			.y = w->line_offset},
 			(point_t){.x = w->ray_x_position, .y
 			= round(w->line_offset + w->line_height)}, WALL);
 	if (w->line_offset > 0)
-		draw_line1(w->planes->game_plane,
+		draw_line(w->planes->game_plane,
 			(point_t){.x = w->ray_x_position,
 			.y = 0}, (point_t){.x = w->ray_x_position,
 			.y = round(w->line_offset)}, game->map->ceiling_color);

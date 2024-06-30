@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:46:56 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/30 11:34:28 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/30 14:02:42 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -274,8 +274,7 @@ typedef struct s_draw_line
 // MLX42 Drawing functions
 
 //Bresenham’s line algorithm
-void	draw_line(mlx_image_t *image, double startX, double startY, double endX, double endY, unsigned int color);
-void	draw_line1(mlx_image_t *image, point_t start, point_t end, uint32_t color);
+void	draw_line(mlx_image_t *image, point_t start, point_t end, uint32_t color);
 void	draw_map(mlx_image_t *image, game_t *game);
 void	draw_square(mlx_image_t *image, int startX, int startY, unsigned int color);
 void	put_square(mlx_image_t *image , point_t location, int32_t size, u_int32_t color);
