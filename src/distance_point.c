@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   distance_point.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: orezek <orezek@student.42prague.com>       +#+  +:+       +#+        */
+/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 14:50:59 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/30 15:22:14 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/30 15:53:20 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cube.h"
 
-double	get_point_distance(game_t *game, point_t *coordinates)
+double	get_point_distance(t_game *game, t_point *coordinates)
 {
 	double		distance;
-	player_t	*pl;
+	t_player	*pl;
 
 	pl = game->player;
 	distance = sqrt((coordinates->x - pl->coordinates.x)

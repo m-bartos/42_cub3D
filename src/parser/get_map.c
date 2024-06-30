@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 10:31:44 by mbartos           #+#    #+#             */
-/*   Updated: 2024/06/30 13:15:14 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/06/30 15:53:08 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,9 +118,9 @@ char	**seperate_map(char **file_content)
 	return (map);
 }
 
-void	fill_map_struct(map_t *map, char *str)
+void	fill_map_struct(t_map *map, char *str)
 {
-	player_t	*player;
+	t_player	*player;
 
 	player = map->player;
 	check_suffix(str);

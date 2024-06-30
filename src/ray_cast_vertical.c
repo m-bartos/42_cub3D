@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ray_cast_vertical.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: orezek <orezek@student.42prague.com>       +#+  +:+       +#+        */
+/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 13:18:17 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/29 20:34:32 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/30 15:53:20 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cube.h"
 
-static void	init_vrc(game_t *game, t_vrc *v)
+static void	init_vrc(t_game *game, t_vrc *v)
 {
-	v->ver_ray = malloc(sizeof(point_t));
+	v->ver_ray = malloc(sizeof(t_point));
 	if (!v->ver_ray)
 		exit(1);
 	v->map_x = game->map->width;
@@ -73,7 +73,7 @@ static void	calculate_vertical_coordiantes(t_vrc *v)
 	}
 }
 
-point_t	*get_vertical_ray_coordinates(game_t *game)
+t_point	*get_vertical_ray_coordinates(t_game *game)
 {
 	t_vrc	v;
 
