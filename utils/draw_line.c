@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 15:03:23 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/29 22:14:24 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/30 11:29:49 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,28 @@ static void	init_draw_line(t_draw_line *d, point_t start, point_t end)
 	d->eyi = round(end.y);
 	d->dx = abs(d->exi - d->sxi);
 	d->dy = abs(d->eyi - d->syi);
+}
+
+static void	draw_pixels(mlx_image_t *image, t_draw_line *d, uint32_t color)
+{
+
+	while (true)
+	{
+		mlx_put_pixel(image, d->sxi, d->syi, color);
+		if (d->sxi == d->exi && d->syi == d->eyi)
+			break ;
+		d->e2 = 2 * d->err;
+		if (d->e2 > -d->dy)
+		{
+			d->err -= d->dy;
+			d->sxi += d->sx;
+		}
+		if (d->e2 < d->dx)
+		{
+			d->err += d->dx;
+			d->syi += d->sy;
+		}
+	}
 }
 
 void	draw_line1(mlx_image_t *image, point_t start,
@@ -38,23 +60,7 @@ void	draw_line1(mlx_image_t *image, point_t start,
 	else
 		d.sy = -1;
 	d.err = d.dx - d.dy;
-	while (true)
-	{
-		mlx_put_pixel(image, d.sxi, d.syi, color);
-		if (d.sxi == d.exi && d.syi == d.eyi)
-			break ;
-		d.e2 = 2 * d.err;
-		if (d.e2 > -d.dy)
-		{
-			d.err -= d.dy;
-			d.sxi += d.sx;
-		}
-		if (d.e2 < d.dx)
-		{
-			d.err += d.dx;
-			d.syi += d.sy;
-		}
-	}
+	draw_pixels(image, &d, color);
 }
 
 void draw_line(mlx_image_t *image, double startX, double startY, double endX, double endY, unsigned int color)
