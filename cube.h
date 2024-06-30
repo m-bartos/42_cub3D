@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:46:56 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/30 11:34:57 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/06/30 13:16:00 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,6 +177,7 @@ uint32_t	get_pixel_color(mlx_texture_t *texture, int y_height, int x_width);
 mlx_texture_t	*get_texture(game_t *game, double h_distance, double v_distance);
 
 // Parser
+int		is_valid_map_line(char *line);
 void	check_valid_map_chars(char **map);
 void	set_map_size(map_t *map);
 void	change_player_coordinates_format(player_t *player);
