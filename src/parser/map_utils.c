@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 18:08:05 by mbartos           #+#    #+#             */
-/*   Updated: 2024/06/30 12:42:07 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/06/30 13:15:21 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,23 @@ void	check_valid_map_chars(char **map)
 		}
 		i++;
 	}
+}
+
+int	is_valid_map_line(char *line)
+{
+	int	i;
+
+	i = 0;
+	if (line == NULL)
+		return (0);
+	while (line[i])
+	{
+		if (ft_isspace(line[i]) || line[i] == '0' || line[i] == '1'
+			|| line[i] == 'N' || line[i] == 'S'
+			|| line[i] == 'E' || line[i] == 'W')
+			i++;
+		else
+			return (0);
+	}
+	return (1);
 }

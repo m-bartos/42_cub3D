@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 10:31:44 by mbartos           #+#    #+#             */
-/*   Updated: 2024/06/30 12:55:27 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/06/30 13:15:14 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,8 @@ char	**seperate_map(char **file_content)
 	first_line = last_line - 1;
 	if (first_line < 0)
 		first_line = 0;
-	while (first_line >= 0 && !is_empty_line(file_content[first_line]))
+	while (first_line >= 0 && !is_empty_line(file_content[first_line])
+		&& is_valid_map_line(file_content[first_line]))
 		first_line--;
 	first_line++;
 	map = ft_init_array(last_line - first_line + 1);
