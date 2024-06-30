@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 10:31:44 by mbartos           #+#    #+#             */
-/*   Updated: 2024/06/29 18:07:44 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/06/30 12:55:27 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ void	map_flood_fill(char **map_array, size_t y, size_t x)
 	else if (map_array[y][x] == M_OUT)
 	{
 		ft_putstr_fd("Map error: Open map.\n", 2);
-		ft_free_array(map_array);
 		clean_map(NULL);
 		exit (1);
 	}
@@ -128,6 +127,7 @@ void	fill_map_struct(map_t *map, char *str)
 	map->temp_arr = get_file_array(str);
 	delete_last_empty_lines_in_arr(map->temp_arr);
 	map->map = seperate_map(map->temp_arr);
+	check_valid_map_chars(map->map);
 	get_textures(map, map->temp_arr);
 	check_textures(map);
 	get_colors(map, map->temp_arr);

@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 14:31:09 by mbartos           #+#    #+#             */
-/*   Updated: 2024/06/29 17:08:45 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/06/30 12:32:18 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	get_textures(map_t *map, char **file)
 	while (file[i])
 	{
 		temp_line = file[i];
-		file[i] = ft_strtrim_e(file[i], " ");
+		file[i] = ft_strtrim_e(file[i], " \t\n\r\v\f");
 		free(temp_line);
 		file[i] = delete_extra_spaces(file[i]);
 		if (ft_strncmp(file[i], "NO ", 3) == 0 && !map->txts->angle_0)
