@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:44:52 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/30 16:26:46 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/30 17:27:24 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,6 @@ int	main(int argc, char **argv)
 	draw_wall(&game);
 	mlx_key_hook(mlx, move_p_func, &game);
 	mlx_loop(mlx);
-	// Cleaning func
-	// mlx_delete_image(mlx, planes.game_plane); ??
 	mlx_close_window(mlx);
 	mlx_terminate(mlx);
 	clean_map(NULL);
