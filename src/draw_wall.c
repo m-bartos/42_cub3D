@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 17:44:30 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/30 14:21:27 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/30 14:33:37 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,5 +105,7 @@ void	draw_wall(t_game *game)
 		draw_vertical_lines(game, &w);
 		w.ray++;
 	}
+	free(w.hrc);
+	free(w.vrc);
 	game->player->angle = w.pa;
 }
