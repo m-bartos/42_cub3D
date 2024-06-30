@@ -6,13 +6,13 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 14:19:43 by mbartos           #+#    #+#             */
-/*   Updated: 2024/06/29 17:15:20 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/06/30 15:58:36 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../cube.h"
 
-void	init_map(map_t *map)
+void	init_map(t_map *map)
 {
 	map->ceiling_color = 0;
 	map->floor_color = 0;
@@ -20,14 +20,14 @@ void	init_map(map_t *map)
 	map->width = 0;
 	map->temp_arr = NULL;
 	map->map = NULL;
-	map->player = malloc(sizeof(player_t));
+	map->player = malloc(sizeof(t_player));
 	if (map->player == NULL)
 		exit(2);
 	map->player->fov = 60.0;
 	map->player->coordinates.x = 0;
 	map->player->coordinates.y = 0;
 	map->player->angle = 0;
-	map->txts = malloc(sizeof(textures_t));
+	map->txts = malloc(sizeof(t_textures));
 	if (map->txts == NULL)
 		exit(2);
 	map->txts->angle_0 = NULL;
@@ -38,7 +38,7 @@ void	init_map(map_t *map)
 	clean_map(map);
 }
 
-void	free_map(map_t *map)
+void	free_map(t_map *map)
 {
 	ft_free_array(map->map);
 	ft_free_array(map->temp_arr);
@@ -54,9 +54,9 @@ void	free_map(map_t *map)
 	free(map->txts);
 }
 
-void	clean_map(map_t *map)
+void	clean_map(t_map *map)
 {
-	static map_t	*static_map;
+	static t_map	*static_map;
 
 	if (map != NULL)
 	{

@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 14:31:09 by mbartos           #+#    #+#             */
-/*   Updated: 2024/06/30 12:32:18 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/06/30 15:52:23 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ mlx_texture_t	*load_png_from_path(char *path)
 	return (texture);
 }
 
-void	get_textures(map_t *map, char **file)
+void	get_textures(t_map *map, char **file)
 {
 	int		i;
 	char	*temp_line;
@@ -52,7 +52,7 @@ void	get_textures(map_t *map, char **file)
 	}
 }
 
-void	check_textures(map_t *map)
+void	check_textures(t_map *map)
 {
 	if (map->txts->angle_0 == NULL
 		|| map->txts->angle_90 == NULL

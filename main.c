@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:44:52 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/29 18:06:43 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/06/30 15:52:56 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ mlx_t	*setup_mlx(void)
 	return (mlx);
 }
 
-void	init_structs(game_t *game, map_t *map, planes_t *planes, char *path)
+void	init_structs(t_game *game, t_map *map, t_planes *planes, char *path)
 {
-	*game = (game_t){0};
+	*game = (t_game){0};
 	init_map(map);
 	game->player = map->player;
 	game->map = map;
@@ -42,11 +42,11 @@ void	init_structs(game_t *game, map_t *map, planes_t *planes, char *path)
 
 int	main(int argc, char **argv)
 {
-	map_t		map;
+	t_map		map;
 	mlx_t		*mlx;
 	mlx_keyfunc	move_p_func;
-	planes_t	planes;
-	game_t		game;
+	t_planes	planes;
+	t_game		game;
 
 	error_argc(argc);
 	init_structs(&game, &map, &planes, argv[1]);

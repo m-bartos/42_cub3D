@@ -6,13 +6,13 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 15:15:57 by mbartos           #+#    #+#             */
-/*   Updated: 2024/06/29 18:07:33 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/06/30 15:53:08 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../cube.h"
 
-void	set_player_coordinates_and_angle(map_t *map, size_t x, size_t y)
+void	set_player_coordinates_and_angle(t_map *map, size_t x, size_t y)
 {
 	char	**map_array;
 
@@ -29,7 +29,7 @@ void	set_player_coordinates_and_angle(map_t *map, size_t x, size_t y)
 		map->player->angle = WEST_D;
 }
 
-void	get_player_pos(map_t *map)
+void	get_player_pos(t_map *map)
 {
 	char	**map_array;
 	size_t	y;
@@ -80,7 +80,7 @@ void	replace_start_pos_in_map(char **map)
 	ft_putstr_fd("Map found and OK!\n", 1);
 }
 
-void	change_player_coordinates_format(player_t *player)
+void	change_player_coordinates_format(t_player *player)
 {
 	player->coordinates.x = SQUARE_SIZE * (player->coordinates.x + 0.5);
 	player->coordinates.y = SQUARE_SIZE * (player->coordinates.y + 0.5);

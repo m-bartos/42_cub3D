@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_square.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: orezek <orezek@student.42prague.com>       +#+  +:+       +#+        */
+/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 19:49:44 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/30 14:12:37 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/30 15:53:20 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	draw_square(mlx_image_t *image, int x, int y, unsigned int color)
 	}
 }
 
-void	put_square(mlx_image_t *image, point_t location,
+void	put_square(mlx_image_t *image, t_point location,
 	int32_t size, u_int32_t color)
 {
 	int	i;
