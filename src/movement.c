@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movement.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
+/*   By: orezek <orezek@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:59:53 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/30 15:53:20 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/06/30 16:21:48 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ void	move_player(mlx_key_data_t key, void *param)
 	else if ((key.action == MLX_PRESS || key.action == MLX_REPEAT)
 		&& key.key == MLX_KEY_RIGHT)
 		turn_right(&p);
+	else if (key.action == MLX_PRESS && key.key == MLX_KEY_ESCAPE)
+		pres_esc(&p);
 	printf("Player Angle: %f\n", p.player->angle);
 	draw_wall(p.game);
 }
