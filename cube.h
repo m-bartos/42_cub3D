@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
+/*   By: orezek <orezek@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:46:56 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/30 16:12:18 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/06/30 16:30:33 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,7 @@ typedef struct s_game
 	t_player	*player;
 	t_planes	*planes;
 	t_map		*map;
+	mlx_t		*mlx;
 }	t_game;
 
 // Draw ray
@@ -266,6 +267,7 @@ void			move_backward(t_move_player *p);
 void			turn_left(t_move_player *p);
 void			turn_right(t_move_player *p);
 bool			no_wall(t_game *game, double step_x, double step_y);
+void			pres_esc(t_move_player *p);
 
 // Utils
 double			deg_to_rad(double a);
