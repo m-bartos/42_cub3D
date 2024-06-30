@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:46:56 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/30 16:11:11 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/06/30 16:12:18 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,14 @@
 // Size of the map - not used now
 # define WINDOW_WIDTH 1200
 # define WINDOW_HEIGHT 800
+
 // Will be determined at load time (based on map size)
 # define SQUARE_SIZE 64
 # define NO_TEXTURES false
 
 // Define the pixel change when key is pressed
 # define KEY_PRESS 5
+
 // Length of the so called player on minimap
 # define PLAYER_LENGTH 100
 
