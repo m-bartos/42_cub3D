@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:46:56 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/30 15:57:53 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/06/30 15:58:36 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ typedef struct s_textures
 	mlx_texture_t	*angle_90;
 	mlx_texture_t	*angle_180;
 	mlx_texture_t	*angle_270;
-}	textures_t;
+}	t_textures;
 
 typedef struct s_map
 {
@@ -116,9 +116,9 @@ typedef struct s_map
 	// colors for the floor and ceiling
 	uint32_t	floor_color;
 	uint32_t	ceiling_color;
-	textures_t	*txts;
+	t_textures	*txts;
 	// png_paths_t	png_paths;
-	//textures_t	game_textures;
+	//t_textures	game_textures;
 
 
 }	t_map;

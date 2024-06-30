@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 14:19:43 by mbartos           #+#    #+#             */
-/*   Updated: 2024/06/30 15:53:08 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/06/30 15:58:36 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	init_map(t_map *map)
 	map->player->coordinates.x = 0;
 	map->player->coordinates.y = 0;
 	map->player->angle = 0;
-	map->txts = malloc(sizeof(textures_t));
+	map->txts = malloc(sizeof(t_textures));
 	if (map->txts == NULL)
 		exit(2);
 	map->txts->angle_0 = NULL;
