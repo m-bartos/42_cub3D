@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 14:33:34 by mbartos           #+#    #+#             */
-/*   Updated: 2024/06/29 15:55:08 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/06/30 12:48:46 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	is_empty_line(char *line)
 	i = 0;
 	while (line[i])
 	{
-		if (line[i] == ' ')
+		if (ft_isspace(line[i]))
 			i++;
 		else
 		{
@@ -59,7 +59,7 @@ char	*delete_extra_spaces(char *str)
 	i = 1;
 	while (str[i])
 	{
-		if (str[i] == ' ' && str[i - 1] == ' ')
+		if ((ft_isspace(str[i])) && (ft_isspace(str[i - 1])))
 		{
 			old_str = str;
 			first_part = ft_substr_e(str, 0, i);

@@ -121,7 +121,7 @@ typedef struct map_s
 	// All spaces (empty or any other char) outside of the walls (1) be filled with (9)
 	// Empty spaces inside the map fill with space (0)
 	// For door (4)
-	char		**temp_file_arr;
+	char		**temp_arr;
 	char		**map;
 	// In elements (sqaures)
 	int			width;
@@ -310,6 +310,10 @@ uint32_t	get_pixel_color(mlx_texture_t *texture, int y_height, int x_width);
 mlx_texture_t	*get_texture(game_t *game, double h_distance, double v_distance);
 
 // Parser
+int		is_valid_map_line(char *line);
+void	check_valid_map_chars(char **map);
+void	set_map_size(map_t *map);
+void	change_player_coordinates_format(player_t *player);
 void	clean_map(map_t *map);
 void	init_map(map_t *map);
 int		max_line_width(char **map_array);

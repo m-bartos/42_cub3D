@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 14:25:47 by mbartos           #+#    #+#             */
-/*   Updated: 2024/06/29 14:28:28 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/06/30 12:47:16 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void	fill_spaces(char **map_array)
 		j = 0;
 		while (map_array[i][j])
 		{
-			if (map_array[i][j] == ' ')
+			if (ft_isspace(map_array[i][j]))
 				map_array[i][j] = '9';
 			j++;
 		}

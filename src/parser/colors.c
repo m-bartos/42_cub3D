@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 14:31:45 by mbartos           #+#    #+#             */
-/*   Updated: 2024/06/29 15:13:56 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/06/30 12:49:05 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	check_valid_color_line(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (ft_isdigit(str[i]) || str[i] == ' ' || str[i] == ',')
+		if (ft_isdigit(str[i]) || ft_isspace(str[i]) || str[i] == ',')
 			i++;
 		else
 		{
