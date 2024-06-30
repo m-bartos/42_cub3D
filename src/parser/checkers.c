@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 14:34:44 by mbartos           #+#    #+#             */
-/*   Updated: 2024/06/30 13:09:28 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/06/30 17:34:42 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ void	check_start_possitions(char **map_array)
 	}
 	if (num_of_nsew != 1)
 	{
-		ft_putstr_fd("Map error: None or more starts (NSEW).\n", 2);
+		ft_putstr_fd("Map error: None or more starts (NSEW) OR ", 2);
+		ft_putstr_fd("invalid chars in map.\n", 2);
 		clean_map(NULL);
 		exit(1);
 	}
