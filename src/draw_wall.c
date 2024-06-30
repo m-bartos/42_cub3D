@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 17:44:30 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/30 12:50:40 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/30 13:24:17 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,33 +23,25 @@ static void	init_draw_wall(game_t *game, t_draw_wall *w)
 	w->angle_increment = w->fov / w->screen_width;
 }
 
-// static void	draw_vertical_lines(game_t *game, t_draw_wall *w)
-// {
-// 	draw_line(w->planes->game_plane,
-// 		w->ray_x_position, WINDOW_HEIGHT - 1,
-// 		w->ray_x_position, WINDOW_HEIGHT - 1 - round(w->line_offset),
-// 		game->map->floor_color);
-// 	if (NO_TEXTURES)
-// 		draw_line(w->planes->game_plane,
-// 			w->ray_x_position, w->line_offset,
-// 			w->ray_x_position, round (w->line_offset + w->line_height), WALL);
-// 	draw_line(w->planes->game_plane,
-// 		w->ray_x_position, 0, w->ray_x_position,
-// 		round(w->line_offset),
-// 		game->map->ceiling_color);
-// }
-
 static void	draw_vertical_lines(game_t *game, t_draw_wall *w)
 {
-	//draw_line(w->planes->game_plane, w->ray_x_position, WINDOW_HEIGHT - 1, w->ray_x_position, WINDOW_HEIGHT - 1 - round(w->line_offset), game->map->floor_color);
 	if (w->line_offset > 0)
-		draw_line1(w->planes->game_plane, (point_t){.x = w->ray_x_position, .y = WINDOW_HEIGHT - 1}, (point_t){.x = w->ray_x_position, .y = WINDOW_HEIGHT - floor(w->line_offset) - 1}, game->map->floor_color);
+		draw_line1(w->planes->game_plane,
+			(point_t){.x = w->ray_x_position, .y = WINDOW_HEIGHT - 1},
+			(point_t){.x = w->ray_x_position, .y
+			= WINDOW_HEIGHT - floor(w->line_offset) - 1},
+			game->map->floor_color);
 	if (NO_TEXTURES)
-		//draw_line(w->planes->game_plane, w->ray_x_position, w->line_offset, w->ray_x_position, round (w->line_offset + w->line_height), WALL);
-		draw_line1(w->planes->game_plane,(point_t){.x = w->ray_x_position, .y = w->line_offset}, (point_t){.x = w->ray_x_position, .y = round(w->line_offset + w->line_height)}, WALL);
-	//draw_line(w->planes->game_plane, w->ray_x_position, 0, w->ray_x_position, round(w->line_offset), game->map->ceiling_color);
+		draw_line1(w->planes->game_plane,
+			(point_t){.x = w->ray_x_position,
+			.y = w->line_offset},
+			(point_t){.x = w->ray_x_position, .y
+			= round(w->line_offset + w->line_height)}, WALL);
 	if (w->line_offset > 0)
-		draw_line1(w->planes->game_plane, (point_t){.x = w->ray_x_position, .y = 0}, (point_t){.x = w->ray_x_position, .y = round(w->line_offset)}, game->map->ceiling_color);
+		draw_line1(w->planes->game_plane,
+			(point_t){.x = w->ray_x_position,
+			.y = 0}, (point_t){.x = w->ray_x_position,
+			.y = round(w->line_offset)}, game->map->ceiling_color);
 }
 
 static void	calculate_line_lenghts(t_draw_wall *w)
