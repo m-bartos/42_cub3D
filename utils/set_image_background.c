@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_image_background.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
+/*   By: orezek <orezek@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 21:06:37 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/22 21:35:01 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/30 14:12:58 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	set_img_background(mlx_image_t *image, int32_t color)
 	int	y;
 
 	x = 0;
-	while(x < (int) image->width)
+	while (x < (int) image->width)
 	{
 		y = 0;
 		while (y < (int) image->height)
