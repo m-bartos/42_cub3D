@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: orezek <orezek@student.42prague.com>       +#+  +:+       +#+        */
+/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:46:56 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/30 17:37:18 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/30 17:49:42 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,10 @@
 # define M_DOOR '4'
 
 // Cardinal directions within Unit circle
-# define EAST_D 270.0
-# define WEST_D 90.0
-# define NORTH_D 0.0
-# define SOUTH_D 180.0
+# define EAST_D 0.0
+# define WEST_D 180.0
+# define NORTH_D 90.0
+# define SOUTH_D 270.0
 
 // Paths to PNG files for textures
 # define WEST "./textures/west.png"
