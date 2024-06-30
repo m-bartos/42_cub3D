@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_rays.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
+/*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 15:26:00 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/30 15:53:20 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/06/30 23:45:43 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,17 @@
 
 static void	put_rays_to_image(t_game *game, t_draw_ray *d_wall)
 {
+	uint32_t ray = get_rgba(0, 0, 0, 255);
 	if (d_wall->v_distance < d_wall->h_distance)
 		draw_line(d_wall->planes->mini_plane,
 			(t_point){.x = game->player->coordinates.x, .y
 			= game->player->coordinates.y},
-			(t_point){.x = d_wall->vrc->x, .y = d_wall->vrc->y}, RAY);
+			(t_point){.x = d_wall->vrc->x, .y = d_wall->vrc->y}, ray);
 	else
 		draw_line(d_wall->planes->mini_plane,
 			(t_point){.x = game->player->coordinates.x, .y
 			= game->player->coordinates.y},
-			(t_point){.x = d_wall->hrc->x, .y = d_wall->hrc->y}, RAY);
+			(t_point){.x = d_wall->hrc->x, .y = d_wall->hrc->y}, ray);
 }
 
 void	draw_rays(t_game *game)
@@ -44,8 +45,7 @@ void	draw_rays(t_game *game)
 		d_wall.vrc = get_vertical_ray_coordinates(game);
 		d_wall.h_distance = get_point_distance(game, d_wall.hrc);
 		d_wall.v_distance = get_point_distance(game, d_wall.vrc);
-		if (d_wall.v_distance < d_wall.h_distance)
-			put_rays_to_image(game, &d_wall);
+		put_rays_to_image(game, &d_wall);
 		d_wall.r++;
 	}
 	game->player->angle = d_wall.pa;

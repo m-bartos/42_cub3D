@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
+/*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:46:56 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/30 17:49:42 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/07/01 00:07:19 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@
 # define KEY_PRESS 5
 
 // Length of the so called player on minimap
-# define PLAYER_LENGTH 100
+# define PLAYER_LENGTH 10
 
 // Color constants
 # define FLOOR 0x654321
@@ -43,7 +43,7 @@
 # define WALL 0x00ff00
 # define RAY 0x000000
 # define PLAYER 0x00ff00
-# define L_BACKGROUND 0x000000
+# define L_BACKGROUND 0xFF0000
 # define R_BACKGROUND 0x000000
 # define MINI_WALL 0xff0000
 # define MINI_FLOOR 0xffffff

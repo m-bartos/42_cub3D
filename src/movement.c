@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movement.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: orezek <orezek@student.42prague.com>       +#+  +:+       +#+        */
+/*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:59:53 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/30 18:24:26 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/30 23:50:47 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,11 @@ static void	init_move_player(t_move_player *p, void *param)
 static void	clean_init_or_prev_screen(t_move_player *p)
 {
 	set_img_background(p->game->planes->game_plane, R_BACKGROUND);
+	uint32_t color = get_rgba(122, 0, 0, 255);
+	set_img_background(p->game->planes->mini_plane, color);
+	draw_map(p->game->planes->mini_plane, p->game);
+	draw_player(p->game);
+	draw_rays(p->game);
 }
 
 bool	no_wall(t_game *game, double step_x, double step_y)
@@ -79,4 +84,7 @@ void	move_player(mlx_key_data_t key, void *param)
 	else if (key.action == MLX_PRESS && key.key == MLX_KEY_ESCAPE)
 		pres_esc(&p);
 	draw_wall(p.game);
+	draw_map(p.game->planes->mini_plane, p.game);
+	draw_player(p.game);
+	draw_rays(p.game);
 }

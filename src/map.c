@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
+/*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 23:36:47 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/30 15:53:20 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/07/01 00:05:21 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,10 @@ int	load_map(char *map_str, t_game *game)
 
 void	draw_map(mlx_image_t *image, t_game *game)
 {
+	uint32_t wall = get_rgba(255, 0, 0, 255);
+	uint32_t floor = get_rgba(255, 255, 255, 255);
+	uint32_t out = get_rgba(255, 255, 0, 255);
+
 	t_draw_map	d;
 
 	d = (t_draw_map){0};
@@ -52,10 +56,13 @@ void	draw_map(mlx_image_t *image, t_game *game)
 		{
 			if (d.arr[d.y][d.x] == M_WALL)
 				put_square(image, (t_point){.x = d.x * d.s_size,
-					.y = d.y * d.s_size}, d.s_size, MINI_WALL);
+					.y = d.y * d.s_size}, d.s_size, wall);
 			else if (d.arr[d.y][d.x] == M_FLOOR)
 				put_square(image, (t_point){.x = d.x * d.s_size,
-					.y = d.y * d.s_size}, d.s_size, MINI_FLOOR);
+					.y = d.y * d.s_size}, d.s_size, floor);
+			else if (d.arr[d.y][d.x] == M_OUT)
+				put_square(image, (t_point){.x = d.x * d.s_size,
+					.y = d.y * d.s_size}, d.s_size, out);
 			d.x++;
 		}
 		d.y++;
