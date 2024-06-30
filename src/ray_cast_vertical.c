@@ -3,83 +3,85 @@
 /*                                                        :::      ::::::::   */
 /*   ray_cast_vertical.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
+/*   By: orezek <orezek@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 13:18:17 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/29 17:02:37 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/06/29 20:34:32 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../cube.h"
+#include "../cube.h"
 
-point_t *get_vertical_ray_coordinates(game_t *game)
+static void	init_vrc(game_t *game, t_vrc *v)
 {
-	point_t *ver_ray;
-	ver_ray = malloc(sizeof(point_t));
-	if (!ver_ray)
-		return (NULL);
-	int map_x = game->map->width;
-	int map_y = game->map->height;
-	int map_max_size;
-	if (map_x < map_y)
-		map_max_size = map_y;
+	v->ver_ray = malloc(sizeof(point_t));
+	if (!v->ver_ray)
+		exit(1);
+	v->map_x = game->map->width;
+	v->map_y = game->map->height;
+	if (v->map_x < v->map_y)
+		v->map_max_size = v->map_y;
 	else
-		map_max_size = map_x;
-	char **map = game->map->map;
-	double pa = game->player->angle; // 90
-	double px = game->player->coordinates.x; // 600
-	double py = game->player->coordinates.y; // 600
+		v->map_max_size = v->map_x;
+	v->pa = game->player->angle;
+	v->px = game->player->coordinates.x;
+	v->py = game->player->coordinates.y;
+	v->map = game->map->map;
+	v->ra = deg_to_rad(v->pa);
+	v->n_tan = tan(v->ra);
+}
 
-	int r, mx, my, dof;
-	double rx, ry, ra, xo, yo;
-
-	mx = 0; my = 0; dof = 0;
-	rx = 0; ry = 0; ra = 0; xo = 0; yo = 0;
-	// ray angle = player angle
-	ra = deg_to_rad(pa);
-	for (r = 0; r < 1; r++)
+static void	get_vertical_intersection(t_vrc *v)
+{
+	while (v->dof < v->map_max_size)
 	{
-		dof = 0;
-		double nTan = tan(ra);
-
-		// Look left (90 - 270 degrees)
-		if (cos(ra) < -0.001)
-		{
-			rx = (floor(px / SQUARE_SIZE) * SQUARE_SIZE) - 0.0001;
-			ry = (px - rx) * nTan + py;
-			xo = -SQUARE_SIZE;
-			yo = -xo * nTan;
-		}
-		// Look right (270 - 90 degrees)
-		else if (cos(ra) > 0.001)
-		{
-			rx = (floor(px / SQUARE_SIZE) * SQUARE_SIZE) + 64;
-			ry = (px - rx) * nTan + py;
-			xo = SQUARE_SIZE;
-			yo = -xo * nTan;
-		}
-		// Looking up or down (exactly vertical)
+		v->mx = (int)(v->rx) / SQUARE_SIZE;
+		v->my = (int)(v->ry) / SQUARE_SIZE;
+		if (v->mx >= 0 && v->mx < v->map_x && v->my >= 0
+			&& v->my < v->map_y && v->map[v->my][v->mx] == M_WALL)
+			v->dof = v->map_max_size;
 		else
 		{
-			rx = INFINITY;
-			ry = INFINITY;
-			dof = map_max_size;
+			v->rx += v->xo;
+			v->ry += v->yo;
+			v->dof += 1;
 		}
-		while (dof < map_max_size)
-		{
-			mx = (int) (rx) / SQUARE_SIZE;
-			my = (int) (ry) / SQUARE_SIZE;
-			if (mx >= 0 && mx < map_x && my >= 0 && my < map_y && map[my][mx] == M_WALL)
-				dof = map_max_size;
-			else
-			{
-				rx += xo;
-				ry += yo;
-				dof += 1;
-			}
-		}
-		ver_ray->x = rx;
-		ver_ray->y = ry;
 	}
-	return (ver_ray);
+}
+
+static void	calculate_vertical_coordiantes(t_vrc *v)
+{
+	if (cos(v->ra) < -0.001)
+	{
+		v->rx = (floor(v->px / SQUARE_SIZE) * SQUARE_SIZE) - 0.0001;
+		v->ry = (v->px - v->rx) * v->n_tan + v->py;
+		v->xo = -SQUARE_SIZE;
+		v->yo = -v->xo * v->n_tan;
+	}
+	else if (cos(v->ra) > 0.001)
+	{
+		v->rx = (floor(v->px / SQUARE_SIZE) * SQUARE_SIZE) + 64;
+		v->ry = (v->px - v->rx) * v->n_tan + v->py;
+		v->xo = SQUARE_SIZE;
+		v->yo = -v->xo * v->n_tan;
+	}
+	else
+	{
+		v->rx = INFINITY;
+		v->ry = INFINITY;
+		v->dof = v->map_max_size;
+	}
+}
+
+point_t	*get_vertical_ray_coordinates(game_t *game)
+{
+	t_vrc	v;
+
+	v = (t_vrc){0};
+	init_vrc(game, &v);
+	calculate_vertical_coordiantes(&v);
+	get_vertical_intersection(&v);
+	v.ver_ray->x = v.rx;
+	v.ver_ray->y = v.ry;
+	return (v.ver_ray);
 }

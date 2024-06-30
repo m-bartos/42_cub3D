@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_player.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
+/*   By: orezek <orezek@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/23 17:20:32 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/29 16:55:15 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/06/30 14:02:42 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,5 @@ void	draw_player(game_t *game)
 	end.y = game->player->coordinates.y;
 	end.x = end.x + pdx * PLAYER_LENGTH;
 	end.y = end.y - pdy * PLAYER_LENGTH;
-	draw_line(game->planes->game_plane,
-		start.x, start.y, end.x, end.y, PLAYER);
+	draw_line(game->planes->game_plane, start, end, PLAYER);
 }

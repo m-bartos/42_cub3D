@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_square.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: orezek <orezek@student.42.fr>              +#+  +:+       +#+        */
+/*   By: orezek <orezek@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 19:49:44 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/22 21:02:36 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/30 14:12:37 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,37 @@
 
 void	draw_square(mlx_image_t *image, int x, int y, unsigned int color)
 {
-	for (int i = 0; i < SQUARE_SIZE - 1; i++)
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < SQUARE_SIZE - 1)
 	{
-		for (int j = 0; j < SQUARE_SIZE - 1; j++)
+		j = 0;
+		while (j < SQUARE_SIZE - 1)
 		{
 			mlx_put_pixel(image, x + i, y + j, color);
+			j++;
 		}
+		i++;
 	}
 }
 
-void	put_square(mlx_image_t *image , point_t location, int32_t size, u_int32_t color)
+void	put_square(mlx_image_t *image, point_t location,
+	int32_t size, u_int32_t color)
 {
-	for (int i = 0; i < size - 1; i++)
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < (size - 1))
 	{
-		for (int j = 0; j < size - 1; j++)
+		j = 0;
+		while (j < size - 1)
+		{
 			mlx_put_pixel(image, location.x + i, location.y + j, color);
+			j++;
+		}
+		i++;
 	}
 }
