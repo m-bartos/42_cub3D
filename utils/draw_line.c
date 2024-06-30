@@ -6,13 +6,13 @@
 /*   By: orezek <orezek@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 15:03:23 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/30 14:03:56 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/30 14:15:45 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cube.h"
 
-static void	init_draw_line(t_draw_line *d, point_t start, point_t end)
+static void	init_draw_line(t_draw_line *d, t_point start, t_point end)
 {
 	d->sxi = round(start.x);
 	d->syi = round(start.y);
@@ -43,8 +43,8 @@ static void	draw_pixels(mlx_image_t *image, t_draw_line *d, uint32_t color)
 	}
 }
 
-void	draw_line(mlx_image_t *image, point_t start,
-	point_t end, uint32_t color)
+void	draw_line(mlx_image_t *image, t_point start,
+	t_point end, uint32_t color)
 {
 	t_draw_line	d;
 

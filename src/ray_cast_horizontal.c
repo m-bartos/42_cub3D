@@ -6,15 +6,15 @@
 /*   By: orezek <orezek@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 12:14:09 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/29 19:40:36 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/30 14:21:27 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cube.h"
 
-static void	init_hrc(game_t *game, t_hrc *h)
+static void	init_hrc(t_game *game, t_hrc *h)
 {
-	h->hor_ray = malloc(sizeof(point_t));
+	h->hor_ray = malloc(sizeof(t_point));
 	if (!h->hor_ray)
 		exit(1);
 	h->map_x = game->map->width;
@@ -73,7 +73,7 @@ static void	calculate_horizontal_coordiantes(t_hrc *h)
 	}
 }
 
-point_t	*get_horizontal_ray_coordinates(game_t *game)
+t_point	*get_horizontal_ray_coordinates(t_game *game)
 {
 	t_hrc	h;
 

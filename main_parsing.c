@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main_parsing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
+/*   By: orezek <orezek@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 10:02:00 by mbartos           #+#    #+#             */
-/*   Updated: 2024/06/29 16:59:25 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/06/30 14:21:06 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
 
-// void	init_map(map_t *map)
+// void	init_map(t_map *map)
 // {
 // 	map->ceiling_color = 0;
 // 	map->floor_color = 0;
@@ -20,10 +20,10 @@
 // 	map->width = 0;
 // 	map->temp_file_arr = NULL;
 // 	map->map = NULL;
-// 	map->player = malloc(sizeof(player_t));
+// 	map->player = malloc(sizeof(t_player));
 // 	if (map->player == NULL)
 // 		exit(2);
-// 	map->textures = malloc(sizeof(textures_t));
+// 	map->textures = malloc(sizeof(t_textures));
 // 	if (map->textures == NULL)
 // 		exit(2);
 // 	map->textures->angle_0 = NULL;
@@ -34,7 +34,7 @@
 // 	clean_map(map);
 // }
 
-// void	free_map(map_t *map)
+// void	free_map(t_map *map)
 // {
 // 	ft_free_array(map->map);
 // 	ft_free_array(map->temp_file_arr);
@@ -51,9 +51,9 @@
 // 	// free(map);
 // }
 
-// void	clean_map(map_t *map)
+// void	clean_map(t_map *map)
 // {
-// 	static map_t	*static_map;
+// 	static t_map	*static_map;
 
 // 	if (map != NULL)
 // 	{
@@ -65,7 +65,7 @@
 
 // int main (int argc, char **argv)
 // {
-// 	map_t 		map;
+// 	t_map 		map;
 
 // 	error_argc(argc);
 // 	init_map(&map);

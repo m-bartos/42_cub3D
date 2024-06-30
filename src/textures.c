@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 12:39:12 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/29 17:32:40 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/30 14:21:27 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ uint32_t	get_pixel_color(mlx_texture_t *texture, int y_height, int x_width)
 	return (color);
 }
 
-mlx_texture_t	*get_texture(game_t *game, double h_distance, double v_distance)
+mlx_texture_t	*get_texture(t_game *game, double h_distance, double v_distance)
 {
 	double	ra;
 
