@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:59:53 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/30 17:18:55 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/30 17:36:45 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ static void	init_move_player(t_move_player *p, void *param)
 	p->player = p->game->player;
 	p->pdx = cos(deg_to_rad(p->player->angle));
 	p->pdy = sin(deg_to_rad(p->player->angle));
-	printf("Player Angle: %f\n", p->game->player->angle);
+	if (PRT_CONSOLE)
+		printf("Player Angle: %f\n", p->game->player->angle);
 }
 
 static void	clean_init_or_prev_screen(t_move_player *p)

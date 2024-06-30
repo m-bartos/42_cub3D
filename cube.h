@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 21:46:56 by orezek            #+#    #+#             */
-/*   Updated: 2024/06/30 16:30:33 by orezek           ###   ########.fr       */
+/*   Updated: 2024/06/30 17:37:18 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,9 @@
 # define NORTH "./textures/north.png"
 # define SOUTH "./textures/south.png"
 # define B_WALL "./textures/brick_wall.png"
+
+// Print player angle to Console
+# define PRT_CONSOLE false
 
 typedef struct s_point
 {
